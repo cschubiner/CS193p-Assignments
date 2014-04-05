@@ -12,8 +12,8 @@
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *suitAndRankLabel;
 @property (nonatomic) int flipCount;
-@property (weak, nonatomic) IBOutlet UILabel *suitsLabel;
 @property (strong, nonatomic) Deck * deck;
 @property (strong, nonatomic) PlayingCard * card1;
 @property (strong, nonatomic) PlayingCard * card2;
@@ -33,14 +33,14 @@
 }
 
 /*
- * This method 
+ * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
  */
 - (IBAction)touchCardButton:(UIButton *)sender {
     if ([sender.currentTitle length]) {
         [sender setBackgroundImage:[UIImage imageNamed:@"cardback"]
                           forState:UIControlStateNormal];
         [sender setTitle:@"" forState:UIControlStateNormal];
-        [self.suitsLabel setText:@""];
+        [self.suitAndRankLabel setText:@""];
         if ([sender isEqual:self.button1])
             self.card1 = nil;
         else
@@ -51,7 +51,7 @@
             [sender setBackgroundImage:[UIImage imageNamed:@"cardfront"]
                               forState:UIControlStateNormal];
             [sender setTitle:randomCard.contents forState:UIControlStateNormal];
-          
+            
             if ([sender isEqual:self.button1])
                 self.card1 = (PlayingCard*)randomCard;
             else
@@ -59,11 +59,11 @@
             self.flipCount++;
         }
         if ([self.card1 isSameRank:self.card2])
-            [self.suitsLabel setText:@"Ranks match!"];
+            [self.suitAndRankLabel setText:@"Ranks match!"];
         else if ([self.card1 isSameSuit:self.card2])
-            [self.suitsLabel setText:@"Suits match!"];
+            [self.suitAndRankLabel setText:@"Suits match!"];
         else
-            [self.suitsLabel setText:@""];
+            [self.suitAndRankLabel setText:@""];
     }
 }
 

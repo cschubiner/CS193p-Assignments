@@ -61,7 +61,7 @@
                         <outlet property="button1" destination="0fk-tx-C0N" id="yCa-nz-d6c"/>
                         <outlet property="button2" destination="S4B-PX-fed" id="d8t-HF-378"/>
                         <outlet property="flipsLabel" destination="9aF-Or-DsV" id="Lbp-x0-Mcq"/>
-                        <outlet property="suitsLabel" destination="QCZ-OR-xdX" id="cbV-gN-MUe"/>
+                        <outlet property="suitAndRankLabel" destination="QCZ-OR-xdX" id="X6A-wv-bMz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
