@@ -13,6 +13,7 @@
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *suitAndRankLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) Deck * deck;
 @property (strong, nonatomic) PlayingCard * card1;
@@ -58,6 +59,9 @@
                 self.card2 = (PlayingCard*)randomCard;
             self.flipCount++;
         }
+        else
+            [self.statusLabel setText:@"Out of cards!"];
+        
         if ([self.card1 isSameRank:self.card2])
             [self.suitAndRankLabel setText:@"Ranks match!"];
         else if ([self.card1 isSameSuit:self.card2])

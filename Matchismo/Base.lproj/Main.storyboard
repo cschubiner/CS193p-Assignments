@@ -54,6 +54,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfE-Up-qhv">
+                                <rect key="frame" x="20" y="381" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -61,6 +68,7 @@
                         <outlet property="button1" destination="0fk-tx-C0N" id="yCa-nz-d6c"/>
                         <outlet property="button2" destination="S4B-PX-fed" id="d8t-HF-378"/>
                         <outlet property="flipsLabel" destination="9aF-Or-DsV" id="Lbp-x0-Mcq"/>
+                        <outlet property="statusLabel" destination="cfE-Up-qhv" id="63s-ru-dtr"/>
                         <outlet property="suitAndRankLabel" destination="QCZ-OR-xdX" id="X6A-wv-bMz"/>
                     </connections>
                 </viewController>
