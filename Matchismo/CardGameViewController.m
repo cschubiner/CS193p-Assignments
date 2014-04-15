@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) CardMatchingGame * game;
+@property (weak, nonatomic) IBOutlet UISlider *historySliderOutlet;
+@property (strong, nonatomic) NSMutableArray * statusHistory;
 @end
 
 @implementation CardGameViewController
@@ -27,6 +29,19 @@
 -(CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     return _game;
+}
+
+- (IBAction)historySlider:(UISlider *)sender {
+    if (self.statusHistory.count == 0) return;
+    int requestedIndex = ((int)sender.value/sender.maximumValue)*self.statusHistory.count;
+    
+    [self.statusLabel setTextColor:[UIColor grayColor]];
+    if (requestedIndex >= self.statusHistory.count) {
+        requestedIndex = self.statusHistory.count - 1;
+        [self.statusLabel setTextColor:[UIColor blackColor]];
+    }
+    
+    [self.statusLabel setText:[self.statusHistory objectAtIndex:requestedIndex]];
 }
 
 -(void)setGameMode {
@@ -43,6 +58,11 @@
 
 - (IBAction)gameModeSegmentedControlValueChanged:(id)sender {
     [self setGameMode];
+}
+
+-(NSMutableArray *)statusHistory {
+    if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
+    return _statusHistory;
 }
 
 -(Deck *) deck {
@@ -62,7 +82,10 @@
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
     [self.statusLabel setText:self.game.statusMessage];
+    [self.statusHistory addObject:[self.game.statusMessage copy]];
+    [self.statusLabel setTextColor:[UIColor blackColor]];
     [self updateUI];
+    [self.historySliderOutlet setValue:self.historySliderOutlet.maximumValue];
 }
 
 - (IBAction)touchRedealButton:(id)sender {
@@ -70,7 +93,10 @@
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self.gameModeSegmentedControl setEnabled:TRUE];
+    [self.statusHistory removeAllObjects];
+    [self.statusLabel setTextColor:[UIColor blackColor]];
     [self setGameMode];
+    [self.historySliderOutlet setValue:self.historySliderOutlet.maximumValue];
     [self updateUI];
 }
 
