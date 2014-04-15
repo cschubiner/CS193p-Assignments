@@ -58,20 +58,29 @@ static const int COST_TO_CHOOSE = 1;
 -(void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
     int maxMatchedCards = self.enableThreeMatchMode ? 3 : 2;
-    
+    NSMutableString * status = [[NSMutableString alloc]init];
+
     if (card.isMatched == false) {
         if (card.isChosen) {
             card.chosen = NO;
+                self.statusMessage = @"";
+            for (Card * otherCard in self.matchedCards)
+                 [otherCard setChosen:false];
+            [self.matchedCards removeAllObjects];
         } else {
+            if ([self.matchedCards count] == 0)
+                self.statusMessage = @"";
             [self.matchedCards addObject:card];
             card.chosen = YES;
             self.score-= COST_TO_CHOOSE;
             if ([self.matchedCards count] != maxMatchedCards) {
+                [status appendString:self.statusMessage];
+                [status appendString:card.contents];
+                [self setStatusMessage:status];
                 return;
             }
             
             int scoreChange = 0;
-            NSMutableString * status = [[NSMutableString alloc]init];
             int matchingCards = 0;
             for (int i = 0; i < self.matchedCards.count; i++) {
                 for (int j = i; j < self.matchedCards.count; j++) {
@@ -107,11 +116,13 @@ static const int COST_TO_CHOOSE = 1;
                 [status appendString:[NSString stringWithFormat:@"for %d point%@", scoreChange, scoreChange == 1 ? @"" : @"s"]];
             else
                 [status appendString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]];
-            [self setStatusMessage:status];
             
             [self.matchedCards removeAllObjects];
+            [self setStatusMessage:status];
+
         }
     }
+
 }
 
 @end
