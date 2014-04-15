@@ -47,6 +47,12 @@
     [self updateUI];
 }
 
+- (IBAction)touchRedealButton:(id)sender {
+    self.suitAndRankLabel.text = @"";
+    [self.game resetGame];
+    _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    [self updateUI];
+}
 
 - (void)updateUI {
     for (UIButton *cardButton in self.cardButtons) {

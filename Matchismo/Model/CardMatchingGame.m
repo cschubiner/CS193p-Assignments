@@ -23,6 +23,9 @@ static const int MATCH_BONUS = 4;
     return _cards;
 }
 
+-(void)resetGame {
+    self.score = 0;
+}
 
 -(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck {
     self = [super init];
