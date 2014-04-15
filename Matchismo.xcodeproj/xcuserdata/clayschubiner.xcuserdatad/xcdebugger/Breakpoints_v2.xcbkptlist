@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/CardGameViewController.m"
-            timestampString = "419218093.612915"
+            timestampString = "419291463.802808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "-touchCardButton:"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,12 +90,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/Model/CardMatchingGame.m"
-            timestampString = "419287281.081132"
+            timestampString = "419291352.085773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "-cardAtIndex:"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "@implementation CardMatchingGame"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Matchismo/CardGameViewController.m"
+            timestampString = "419288320.53157"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-game"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/Model/CardMatchingGame.m"
-            timestampString = "419287281.081132"
+            timestampString = "419291352.085773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "-initWithCardCount:usingDeck:"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-chooseCardAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -121,13 +137,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Matchismo/CardGameViewController.m"
-            timestampString = "419218298.967185"
+            filePath = "Matchismo/Model/CardMatchingGame.m"
+            timestampString = "419291352.085773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "-game"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "-chooseCardAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

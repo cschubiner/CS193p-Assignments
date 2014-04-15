@@ -20,4 +20,9 @@
     return score;
 }
 
+-(int)matchSingleCard:(Card *)otherCard {
+    if ([otherCard.contents isEqualToString:self.contents])
+        return 1;
+    return 0;
+}
 @end

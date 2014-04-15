@@ -18,6 +18,7 @@
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) Deck * deck;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) CardMatchingGame * game;
 @end
@@ -27,6 +28,22 @@
 -(CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     return _game;
+}
+
+-(void)setGameMode {
+    if ([self.gameModeSegmentedControl selectedSegmentIndex] == 0) {
+        //user selected 2 card game
+        [self.game setEnableThreeMatchMode:NO];
+    }
+    else {
+        //user selected 3 card game
+        [self.game setEnableThreeMatchMode:YES];
+        
+    }
+}
+
+- (IBAction)gameModeSegmentedControlValueChanged:(id)sender {
+    [self setGameMode];
 }
 
 -(Deck *) deck {
@@ -51,6 +68,7 @@
     self.suitAndRankLabel.text = @"";
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    [self setGameMode];
     [self updateUI];
 }
 
@@ -61,7 +79,7 @@
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score:%d", self.game.score];
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
 }
 
