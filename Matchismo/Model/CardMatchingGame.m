@@ -16,7 +16,7 @@
 
 @implementation CardMatchingGame
 
-static const int MISMATCH_PENALTY = 2;
+static const int MISMATCH_PENALTY = 1;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
 
@@ -43,6 +43,7 @@ static const int COST_TO_CHOOSE = 1;
                 break;
             }
         }
+        [self setStatusMessage:@""];
         self.matchedCards = [[NSMutableArray alloc]init];
     }
     
@@ -69,6 +70,8 @@ static const int COST_TO_CHOOSE = 1;
                 return;
             }
             
+            int scoreChange = 0;
+            NSMutableString * status = [[NSMutableString alloc]init];
             int matchingCards = 0;
             for (int i = 0; i < self.matchedCards.count; i++) {
                 for (int j = i; j < self.matchedCards.count; j++) {
@@ -78,25 +81,37 @@ static const int COST_TO_CHOOSE = 1;
                     
                     int matchValue = [card1 matchSingleCard:card2];
                     if (matchValue) {
-                        self.score += matchValue * MATCH_BONUS;
                         matchingCards++;
-                    } else
-                        self.score -= MISMATCH_PENALTY;
+                        scoreChange += matchValue * MATCH_BONUS;
+                    } else {
+                        scoreChange -= MISMATCH_PENALTY;
+                    }
                 }
             }
+            if (matchingCards)
+                [status appendString:@"Matched "];
+            
             for (Card * otherCard in self.matchedCards) {
-                if (matchingCards)
+                [status appendString:otherCard.contents];
+                [status appendString:@" "];
+                if (matchingCards) 
                     [otherCard setMatched:true];
                 else {
                     [otherCard setChosen:false];
                     [otherCard setMatched:false];
                 }
             }
+            
+            self.score += scoreChange;
+            if (matchingCards)
+                [status appendString:[NSString stringWithFormat:@"for %d point%@", scoreChange, scoreChange == 1 ? @"" : @"s"]];
+            else
+                [status appendString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]];
+            [self setStatusMessage:status];
+            
             [self.matchedCards removeAllObjects];
         }
     }
-
-    
 }
 
 @end

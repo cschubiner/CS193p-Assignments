@@ -13,7 +13,6 @@
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *suitAndRankLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) Deck * deck;
@@ -62,11 +61,12 @@
     [self.gameModeSegmentedControl setEnabled:FALSE];
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
+    [self.statusLabel setText:self.game.statusMessage];
     [self updateUI];
 }
 
 - (IBAction)touchRedealButton:(id)sender {
-    self.suitAndRankLabel.text = @"";
+    self.statusLabel.text = @"";
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self.gameModeSegmentedControl setEnabled:TRUE];

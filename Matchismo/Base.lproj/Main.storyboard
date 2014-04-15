@@ -160,15 +160,8 @@
                                     <action selector="touchCardButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xFo-ns-ccC"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCZ-OR-xdX">
-                                <rect key="frame" x="20" y="372" width="280" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfE-Up-qhv">
-                                <rect key="frame" x="20" y="372" width="280" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfE-Up-qhv">
+                                <rect key="frame" x="20" y="343" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -217,7 +210,6 @@
                         <outlet property="gameModeSegmentedControl" destination="0HI-31-fnh" id="Htp-Gq-5zB"/>
                         <outlet property="scoreLabel" destination="REl-92-V0d" id="CbL-8h-dU5"/>
                         <outlet property="statusLabel" destination="cfE-Up-qhv" id="63s-ru-dtr"/>
-                        <outlet property="suitAndRankLabel" destination="QCZ-OR-xdX" id="X6A-wv-bMz"/>
                         <outletCollection property="cardButtons" destination="BEV-HV-S2r" id="VgM-N6-xua"/>
                         <outletCollection property="cardButtons" destination="sX4-q9-8oC" id="ABj-SE-qYp"/>
                         <outletCollection property="cardButtons" destination="ioK-74-lFC" id="Z6V-Hj-YEZ"/>
