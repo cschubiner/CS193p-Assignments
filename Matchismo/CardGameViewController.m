@@ -59,6 +59,7 @@
  * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
  */
 - (IBAction)touchCardButton:(UIButton *)sender {
+    [self.gameModeSegmentedControl setEnabled:FALSE];
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
     [self updateUI];
@@ -68,6 +69,7 @@
     self.suitAndRankLabel.text = @"";
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    [self.gameModeSegmentedControl setEnabled:TRUE];
     [self setGameMode];
     [self updateUI];
 }
