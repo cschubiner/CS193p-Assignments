@@ -63,13 +63,10 @@ static const int COST_TO_CHOOSE = 1;
     if (card.isMatched == false) {
         if (card.isChosen) {
             card.chosen = NO;
-                self.statusMessage = @"";
             for (Card * otherCard in self.matchedCards)
                  [otherCard setChosen:false];
             [self.matchedCards removeAllObjects];
         } else {
-            if ([self.matchedCards count] == 0)
-                self.statusMessage = @"";
             [self.matchedCards addObject:card];
             card.chosen = YES;
             self.score-= COST_TO_CHOOSE;
@@ -97,13 +94,9 @@ static const int COST_TO_CHOOSE = 1;
                     }
                 }
             }
-            if (matchingCards)
-                [status appendString:@"Matched "];
             
             for (Card * otherCard in self.matchedCards) {
-                [status appendString:otherCard.contents];
-                [status appendString:@" "];
-                if (matchingCards) 
+                if (matchingCards)
                     [otherCard setMatched:true];
                 else {
                     [otherCard setChosen:false];
@@ -112,14 +105,7 @@ static const int COST_TO_CHOOSE = 1;
             }
             
             self.score += scoreChange;
-            if (matchingCards)
-                [status appendString:[NSString stringWithFormat:@"for %d point%@", scoreChange, scoreChange == 1 ? @"" : @"s"]];
-            else
-                [status appendString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]];
-            
             [self.matchedCards removeAllObjects];
-            [self setStatusMessage:status];
-
         }
     }
 

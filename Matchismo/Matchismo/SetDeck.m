@@ -16,15 +16,15 @@
 {
     self = [super init];
     if (self) {
-        for (NSString *color in [SetCard validColors]) {
-            for (NSString *shading in [SetCard validShading]) {
-                for (NSString *number in [SetCard validNumbers]) {
-                    for (NSString *shape in [SetCard validShapes]) {
+        for (NSNumber* color in [SetCard validColors]) {
+            for (NSNumber* shading in [SetCard validShading]) {
+                for (NSNumber *number in [SetCard validNumbers]) {
+                    for (NSNumber *shape in [SetCard validShapes]) {
                         SetCard *card = [[SetCard alloc] init];
-                        card.color = color;
-                        card.shading = shading;
-                        card.shape = shape;
-                        card.number = number;
+                        card.color = color.integerValue;
+                        card.shading = shading.integerValue;
+                        card.shape = shape.integerValue;
+                        card.number = number.integerValue;
                         [self addCard:card];
                     }
                 }
