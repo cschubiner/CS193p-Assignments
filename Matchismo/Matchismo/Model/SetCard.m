@@ -51,7 +51,7 @@
         strokeWidth = @-5;
     if (self.shading == 4) {
         strokeWidth = @-5;
-        insideColor = [symbolColor colorWithAlphaComponent:.115];
+        insideColor = [symbolColor colorWithAlphaComponent:.125];
     }
     if (self.shading == 1)
         insideColor = symbolColor;
