@@ -34,9 +34,10 @@
 
 -(NSMutableAttributedString *)symbolString {
     if (!_symbolString) _symbolString = [[NSMutableAttributedString alloc]init];
-    [self.symbolString deleteCharactersInRange:NSMakeRange(0, self.symbolString.length-1)];
-    [self.symbolString.mutableString appendString:[self shapeString]];
-    return self.symbolString;
+    if (_symbolString.length > 0)
+        [_symbolString deleteCharactersInRange:NSMakeRange(0, _symbolString.length-1)];
+    [_symbolString.mutableString appendString:[self shapeString]];
+    return _symbolString;
 }
 
 

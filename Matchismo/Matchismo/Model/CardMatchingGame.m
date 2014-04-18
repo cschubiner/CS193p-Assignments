@@ -58,7 +58,6 @@ static const int COST_TO_CHOOSE = 1;
 -(void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
     int maxMatchedCards = self.enableThreeMatchMode ? 3 : 2;
-    NSMutableString * status = [[NSMutableString alloc]init];
 
     if (card.isMatched == false) {
         if (card.isChosen) {
@@ -71,9 +70,6 @@ static const int COST_TO_CHOOSE = 1;
             card.chosen = YES;
             self.score-= COST_TO_CHOOSE;
             if ([self.matchedCards count] != maxMatchedCards) {
-                [status appendString:self.statusMessage];
-                [status appendString:card.contents];
-                [self setStatusMessage:status];
                 return;
             }
             

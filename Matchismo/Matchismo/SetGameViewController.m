@@ -31,6 +31,10 @@
     return _game;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self updateUI];
+}
+
 
 -(void)setGameMode {
     if ([self.gameModeSegmentedControl selectedSegmentIndex] == 0) {
@@ -98,12 +102,11 @@
 }
 
 - (NSString *)titleForCard:(Card *)card {
-    return ((SetCard*)card).symbolString;
+    return ((SetCard*)card).symbolString.string;
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
-    return [UIImage imageNamed:@"cardfront"];
-//    return [UIImage imageNamed:card.isChosen? @"cardfront" : @"cardback"];
+    return [UIImage imageNamed:card.isChosen? @"cardglowing" : @"cardfront"];
 }
 
 @end
