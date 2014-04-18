@@ -10,4 +10,14 @@
 
 @interface SetCard : Card
 
++(NSArray*)validShapes;
++(NSArray*)validColors;
++(NSArray*)validNumbers;
++(NSArray*)validShading;
+
+@property (nonatomic) NSString* shape;
+@property (nonatomic) NSString* color;
+@property (nonatomic) NSString* number;
+@property (nonatomic) NSString* shading;
+
 @end

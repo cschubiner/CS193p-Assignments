@@ -10,4 +10,19 @@
 
 @implementation SetCard
 
++(NSArray *)validColors {
+    return @[@"red", @"green", @"purple"];
+}
+
++(NSArray *)validNumbers {
+    return @[@"one", @"two", @"three"];
+}
+
++(NSArray *)validShapes {
+    return @[@"diamond", @"squiggle", @"oval"];
+}
+
++(NSArray *)validShading {
+    return @[@"open", @"striped", @"solid"];
+}
 @end

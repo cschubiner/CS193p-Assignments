@@ -31,18 +31,6 @@
     return _game;
 }
 
-- (IBAction)historySlider:(UISlider *)sender {
-    if (self.statusHistory.count == 0) return;
-    int requestedIndex = ((int)sender.value/sender.maximumValue)*self.statusHistory.count;
-    
-    [self.statusLabel setTextColor:[UIColor grayColor]];
-    if (requestedIndex >= self.statusHistory.count) {
-        requestedIndex = self.statusHistory.count - 1;
-        [self.statusLabel setTextColor:[UIColor blackColor]];
-    }
-    
-    [self.statusLabel setText:[self.statusHistory objectAtIndex:requestedIndex]];
-}
 
 -(void)setGameMode {
     if ([self.gameModeSegmentedControl selectedSegmentIndex] == 0) {
