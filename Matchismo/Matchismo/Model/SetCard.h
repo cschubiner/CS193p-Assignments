@@ -15,9 +15,11 @@
 +(NSArray*)validNumbers;
 +(NSArray*)validShading;
 
-@property (nonatomic) NSString* shape;
-@property (nonatomic) NSString* color;
-@property (nonatomic) NSString* number;
-@property (nonatomic) NSString* shading;
+@property (nonatomic) NSUInteger shape;
+@property (nonatomic) NSUInteger color;
+@property (nonatomic) NSUInteger number;
+@property (nonatomic) NSUInteger shading;
+
+@property (nonatomic) NSMutableAttributedString* symbolString;
 
 @end

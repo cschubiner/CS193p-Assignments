@@ -11,18 +11,51 @@
 @implementation SetCard
 
 +(NSArray *)validColors {
-    return @[@"red", @"green", @"purple"];
+    return @[@1, @4, @16];
 }
 
 +(NSArray *)validNumbers {
-    return @[@"one", @"two", @"three"];
+    return @[@1, @4, @16];
 }
 
 +(NSArray *)validShapes {
-    return @[@"diamond", @"squiggle", @"oval"];
+    return @[@1, @4, @16];
 }
 
 +(NSArray *)validShading {
-    return @[@"open", @"striped", @"solid"];
+    return @[@1, @4, @16];
 }
+
+-(NSString*)shapeString {
+    if (self.shape == 1) return @"▲";
+    if (self.shape == 4) return @"●";
+    return @"■";
+}
+
+-(NSMutableAttributedString *)symbolString {
+    if (!_symbolString) _symbolString = [[NSMutableAttributedString alloc]init];
+    [self.symbolString deleteCharactersInRange:NSMakeRange(0, self.symbolString.length-1)];
+    [self.symbolString.mutableString appendString:[self shapeString]];
+    return self.symbolString;
+}
+
+
+-(int)match:(NSArray *)otherCards {
+    if (otherCards.count != 2) return false;
+    bool validNum, validShading, validColor, validShape;
+    
+    int numSum = self.number, shadeSum = self.shading, colorSum = self.color, shapeSum = self.shape;
+    for (SetCard* card in otherCards) {
+        numSum += card.number;
+        shadeSum += card.shading;
+        shapeSum += card.shape;
+        colorSum += card.color;
+    }
+    validNum = numSum == 3 || numSum == 12 || numSum == 48 || numSum == 21;
+    validShading = shadeSum == 3 || shadeSum == 12 || shadeSum == 48 || shadeSum == 21;
+    validColor = colorSum == 3 || colorSum == 12 || colorSum == 48 || colorSum == 21;
+    validShape = shapeSum == 3 || shapeSum == 12 || shapeSum == 48 || shapeSum == 21;
+    return validColor && validColor && validShape && validShading;
+}
+
 @end

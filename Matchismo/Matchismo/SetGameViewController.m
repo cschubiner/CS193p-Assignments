@@ -7,8 +7,8 @@
 //
 
 #import "SetGameViewController.h"
-#import "PlayingCardDeck.h"
-#import "PlayingCard.h"
+#import "SetDeck.h"
+#import "SetCard.h"
 #import "CardMatchingGame.h"
 
 @interface SetGameViewController ()
@@ -59,7 +59,7 @@
 }
 
 -(Deck *) createDeck {
-    return [[PlayingCardDeck alloc]init];
+    return [[SetDeck alloc]init];
 }
 
 /*
@@ -73,7 +73,6 @@
     [self.statusHistory addObject:[self.game.statusMessage copy]];
     [self.statusLabel setTextColor:[UIColor blackColor]];
     [self updateUI];
-    [self.historySliderOutlet setValue:self.historySliderOutlet.maximumValue];
 }
 
 - (IBAction)touchRedealButton:(id)sender {
@@ -84,7 +83,6 @@
     [self.statusHistory removeAllObjects];
     [self.statusLabel setTextColor:[UIColor blackColor]];
     [self setGameMode];
-    [self.historySliderOutlet setValue:self.historySliderOutlet.maximumValue];
     [self updateUI];
 }
 
@@ -100,11 +98,12 @@
 }
 
 - (NSString *)titleForCard:(Card *)card {
-    return card.isChosen? card.contents : @"";
+    return ((SetCard*)card).symbolString;
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
-    return [UIImage imageNamed:card.isChosen? @"cardfront" : @"cardback"];
+    return [UIImage imageNamed:@"cardfront"];
+//    return [UIImage imageNamed:card.isChosen? @"cardfront" : @"cardback"];
 }
 
 @end
