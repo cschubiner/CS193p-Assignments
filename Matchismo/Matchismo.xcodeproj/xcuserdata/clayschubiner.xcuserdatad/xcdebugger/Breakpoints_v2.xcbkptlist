@@ -175,7 +175,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
             endingLineNumber = "47"
-            landmarkName = "-match:"
+            landmarkName = "-symbolString"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
