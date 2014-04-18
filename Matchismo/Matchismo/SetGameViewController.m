@@ -90,20 +90,23 @@
     [self updateUI];
 }
 
+-(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card {
+    return ((SetCard*)card).symbolString;
+}
+
 - (void)updateUI {
     for (UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        SetCard *card = (SetCard*)[self.game cardAtIndex:cardButtonIndex];
+        [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
 }
 
-- (NSString *)titleForCard:(Card *)card {
-    return ((SetCard*)card).symbolString.string;
-}
+
+
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
     return [UIImage imageNamed:card.isChosen? @"cardglowing" : @"cardfront"];

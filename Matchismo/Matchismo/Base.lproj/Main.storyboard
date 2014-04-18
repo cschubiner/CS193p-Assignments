@@ -429,8 +429,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="PSR-rQ-B04"/>
-                        <segue destination="oGe-GJ-5DI" kind="relationship" relationship="viewControllers" id="O1R-wj-EgZ"/>
+                        <segue destination="oGe-GJ-5DI" kind="relationship" relationship="viewControllers" id="Vif-8q-MX5"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="zch-kN-XN7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hWv-h6-azW" userLabel="First Responder" sceneMemberID="firstResponder"/>
