@@ -66,33 +66,20 @@ static const int COST_TO_CHOOSE = 1;
                  [otherCard setChosen:false];
             [self.matchedCards removeAllObjects];
         } else {
-            [self.matchedCards addObject:card];
             card.chosen = YES;
             self.score-= COST_TO_CHOOSE;
-            if ([self.matchedCards count] != maxMatchedCards) {
+            if ([self.matchedCards count] != maxMatchedCards - 1) {
+                [self.matchedCards addObject:card];
                 return;
             }
             
-            int scoreChange = 0;
-            int matchingCards = 0;
-            for (int i = 0; i < self.matchedCards.count; i++) {
-                for (int j = i; j < self.matchedCards.count; j++) {
-                    if (i == j) continue;
-                    Card * card1 = [self.matchedCards objectAtIndex:i];
-                    Card * card2 = [self.matchedCards objectAtIndex:j];
-                    
-                    int matchValue = [card1 matchSingleCard:card2];
-                    if (matchValue) {
-                        matchingCards++;
-                        scoreChange += matchValue * MATCH_BONUS;
-                    } else {
-                        scoreChange -= MISMATCH_PENALTY;
-                    }
-                }
-            }
+            int scoreChange = MATCH_BONUS * [card match:self.matchedCards];
+            if (scoreChange == 0)
+                scoreChange = -MISMATCH_PENALTY;
             
+            [self.matchedCards addObject:card];
             for (Card * otherCard in self.matchedCards) {
-                if (matchingCards)
+                if (scoreChange > 0)
                     [otherCard setMatched:true];
                 else {
                     [otherCard setChosen:false];

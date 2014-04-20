@@ -33,24 +33,9 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [self updateUI];
+    [self.game setEnableThreeMatchMode:YES];
 }
 
-
--(void)setGameMode {
-    if ([self.gameModeSegmentedControl selectedSegmentIndex] == 0) {
-        //user selected 2 card game
-        [self.game setEnableThreeMatchMode:NO];
-    }
-    else {
-        //user selected 3 card game
-        [self.game setEnableThreeMatchMode:YES];
-        
-    }
-}
-
-- (IBAction)gameModeSegmentedControlValueChanged:(id)sender {
-    [self setGameMode];
-}
 
 -(NSMutableArray *)statusHistory {
     if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
@@ -70,6 +55,7 @@
  * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
  */
 - (IBAction)touchCardButton:(UIButton *)sender {
+    [self.game setEnableThreeMatchMode:YES];
     [self.gameModeSegmentedControl setEnabled:FALSE];
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
@@ -83,37 +69,43 @@
     self.statusLabel.text = @"";
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    [self.gameModeSegmentedControl setEnabled:TRUE];
     [self.statusHistory removeAllObjects];
     [self.statusLabel setTextColor:[UIColor blackColor]];
-    [self setGameMode];
     [self updateUI];
 }
 
 -(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card {
-       NSMutableAttributedString* _symbolString = [[NSMutableAttributedString alloc]init];
-        if (_symbolString.length > 0)
-            [_symbolString deleteCharactersInRange:NSMakeRange(0, _symbolString.length)];
-    [_symbolString.mutableString appendString:[self shapeStringForCard:card]];
+    NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
+    if (symbolString.length > 0)
+        [symbolString deleteCharactersInRange:NSMakeRange(0, symbolString.length)];
+    
+    int numShapes = 1;
+    if (card.number == 4) numShapes = 2;
+    else if (card.number == 16) numShapes = 3;
+    for (int i = 0; i < numShapes; i++) {
+        [symbolString.mutableString appendString:[self shapeStringForCard:card]];
+        [symbolString.mutableString appendString:@"\n"];
+    }
     
     UIColor * symbolColor = [self colorForCard:card];
-        UIColor * insideColor = symbolColor;
-        NSNumber* strokeWidth = @5;
-        if (card.shading == 16)
-            strokeWidth = @-5;
-        if (card.shading == 4) {
-            strokeWidth = @-5;
-            insideColor = [symbolColor colorWithAlphaComponent:.155];
-        }
-        if (card.shading == 1)
-            insideColor = symbolColor;
-        [_symbolString addAttributes:@{
-                                       NSForegroundColorAttributeName: insideColor,
-                                       NSStrokeColorAttributeName: symbolColor,
-                                       NSStrokeWidthAttributeName: strokeWidth,
-                                       } range:NSMakeRange(0, _symbolString.length)];
-        
-        return _symbolString;
+    UIColor * insideColor = symbolColor;
+    NSNumber* strokeWidth = @5;
+    if (card.shading == 16)
+        strokeWidth = @-5;
+    if (card.shading == 4) {
+        strokeWidth = @-5;
+        insideColor = [symbolColor colorWithAlphaComponent:.155];
+    }
+    if (card.shading == 1)
+        insideColor = symbolColor;
+    
+    [symbolString addAttributes:@{
+                                   NSForegroundColorAttributeName: insideColor,
+                                   NSStrokeColorAttributeName: symbolColor,
+                                   NSStrokeWidthAttributeName: strokeWidth,
+                                   } range:NSMakeRange(0, symbolString.length)];
+    
+    return symbolString;
 }
 
 -(NSString*)shapeStringForCard:(SetCard*)card {
@@ -130,6 +122,9 @@
 
 - (void)updateUI {
     for (UIButton *cardButton in self.cardButtons) {
+        cardButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cardButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         SetCard *card = (SetCard*)[self.game cardAtIndex:cardButtonIndex];
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
