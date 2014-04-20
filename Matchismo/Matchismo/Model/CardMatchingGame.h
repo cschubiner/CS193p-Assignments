@@ -20,7 +20,6 @@
 
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic) Boolean enableThreeMatchMode;
-@property (nonatomic, strong) NSString * statusMessage;
 -(void)resetGame;
 
 @end

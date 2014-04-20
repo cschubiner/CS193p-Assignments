@@ -22,9 +22,16 @@
 @property (strong, nonatomic) CardMatchingGame * game;
 @property (weak, nonatomic) IBOutlet UISlider *historySliderOutlet;
 @property (strong, nonatomic) NSMutableArray * statusHistory;
+@property (strong, nonatomic) NSMutableArray * chosenCards;
+@property (nonatomic) NSUInteger oldScore;
 @end
 
 @implementation CardGameViewController
+
+-(NSMutableArray *)chosenCards {
+    if (!_chosenCards) _chosenCards = [[NSMutableArray alloc] init];
+    return _chosenCards;
+}
 
 -(CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
@@ -74,25 +81,66 @@
     return [[PlayingCardDeck alloc]init];
 }
 
+-(NSMutableAttributedString*)getStatusMessage:(PlayingCard*)card {
+    NSMutableAttributedString * status = [[NSMutableAttributedString alloc]init];
+    int scoreChange = self.game.score - self.oldScore;
+    self.oldScore = self.game.score;
+    [self.chosenCards addObject:card];
+    
+    if (card.isMatched) {
+        [status.mutableString appendString:@"Matched "];
+    }
+
+    for (PlayingCard * card in self.chosenCards) {
+        [status appendAttributedString:[self attributedTitleForCard:card]];
+        [status.mutableString appendString:@" "];
+    }
+    
+    if (!card.isChosen && !card.isMatched) {
+        
+        [status.mutableString appendString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]];
+        [self.chosenCards removeAllObjects];
+        return status;
+    }
+    
+    if (card.isMatched) {
+        [status.mutableString appendString:[NSString stringWithFormat:@"for %d point%@", scoreChange, scoreChange == 1 ? @"" : @"s"]];
+        [self.chosenCards removeAllObjects];
+        return status;
+    }
+    
+    return status;
+}
+
+-(NSMutableAttributedString* )attributedTitleForCard:(PlayingCard *)card {
+    NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
+    if (symbolString.length > 0)
+        [symbolString deleteCharactersInRange:NSMakeRange(0, symbolString.length)];
+    
+    [symbolString.mutableString appendString:card.contents];
+    return symbolString;
+}
+
 /*
  * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
  */
 - (IBAction)touchCardButton:(UIButton *)sender {
-    [self.gameModeSegmentedControl setEnabled:FALSE];
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
+    PlayingCard *card = (PlayingCard*)[self.game cardAtIndex:chosenButtonIndex];
+    if (card.isMatched) return;
+    
     [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self.statusLabel setText:self.game.statusMessage];
-    [self.statusHistory addObject:[self.game.statusMessage copy]];
-    [self.statusLabel setTextColor:[UIColor blackColor]];
     [self updateUI];
-    [self.historySliderOutlet setValue:self.historySliderOutlet.maximumValue];
+    
+    NSMutableAttributedString * statusMessage = [self getStatusMessage:card];
+    [self.statusLabel setAttributedText:statusMessage];
 }
 
 - (IBAction)touchRedealButton:(id)sender {
+    self.oldScore = 0;
     self.statusLabel.text = @"";
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    [self.gameModeSegmentedControl setEnabled:TRUE];
     [self.statusHistory removeAllObjects];
     [self.statusLabel setTextColor:[UIColor blackColor]];
     [self setGameMode];

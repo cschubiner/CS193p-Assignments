@@ -22,6 +22,7 @@
 @property (strong, nonatomic) CardMatchingGame * game;
 @property (weak, nonatomic) IBOutlet UISlider *historySliderOutlet;
 @property (strong, nonatomic) NSMutableArray * statusHistory;
+@property (strong, nonatomic) NSMutableArray * chosenCards;
 @end
 
 @implementation SetGameViewController
@@ -51,18 +52,46 @@
     return [[SetDeck alloc]init];
 }
 
+-(NSMutableArray *)chosenCards {
+    if (!_chosenCards) _chosenCards = [[NSMutableArray alloc] init];
+    return _chosenCards;
+}
+
+-(NSMutableAttributedString*)getStatusMessage:(SetCard*)card {
+    NSMutableAttributedString * status = [[NSMutableAttributedString alloc]init];
+    if (card.isChosen || card.isMatched)
+        [self.chosenCards addObject:card];
+    else {
+        [self.chosenCards removeAllObjects];
+        return status;
+    }
+    
+    if (card.isMatched) {
+        [status.mutableString appendString:@"Matched "];
+    }
+    
+    for (SetCard * otherCard in self.chosenCards) {
+        [status appendAttributedString:[self attributedTitleForCard:otherCard]];
+        [status.mutableString appendString:@" "];
+    }
+
+    return status;
+}
+
 /*
  * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
  */
 - (IBAction)touchCardButton:(UIButton *)sender {
     [self.game setEnableThreeMatchMode:YES];
-    [self.gameModeSegmentedControl setEnabled:FALSE];
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
+    SetCard *card = (SetCard*)[self.game cardAtIndex:chosenButtonIndex];
+    if (card.isMatched) return;
+    
     [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self.statusLabel setText:self.game.statusMessage];
-    [self.statusHistory addObject:[self.game.statusMessage copy]];
-    [self.statusLabel setTextColor:[UIColor blackColor]];
     [self updateUI];
+    
+    NSMutableAttributedString * statusMessage = [self getStatusMessage:card];
+    [self.statusLabel setAttributedText:statusMessage];
 }
 
 - (IBAction)touchRedealButton:(id)sender {

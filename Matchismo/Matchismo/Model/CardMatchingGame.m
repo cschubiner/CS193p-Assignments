@@ -43,7 +43,6 @@ static const int COST_TO_CHOOSE = 1;
                 break;
             }
         }
-        [self setStatusMessage:@""];
         self.matchedCards = [[NSMutableArray alloc]init];
     }
     
