@@ -20,9 +20,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) CardMatchingGame * game;
-@property (weak, nonatomic) IBOutlet UISlider *historySliderOutlet;
-@property (strong, nonatomic) NSMutableArray * statusHistory;
 @property (strong, nonatomic) NSMutableArray * chosenCards;
+@property (nonatomic) NSUInteger oldScore;
 @end
 
 @implementation SetGameViewController
@@ -35,12 +34,6 @@
 -(void)viewDidAppear:(BOOL)animated {
     [self updateUI];
     [self.game setEnableThreeMatchMode:YES];
-}
-
-
--(NSMutableArray *)statusHistory {
-    if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
-    return _statusHistory;
 }
 
 -(Deck *) deck {
@@ -59,22 +52,36 @@
 
 -(NSMutableAttributedString*)getStatusMessage:(SetCard*)card {
     NSMutableAttributedString * status = [[NSMutableAttributedString alloc]init];
-    if (card.isChosen || card.isMatched)
-        [self.chosenCards addObject:card];
-    else {
+    int scoreChange = self.game.score - self.oldScore;
+    self.oldScore = self.game.score;
+    [self.chosenCards addObject:card];
+    
+    if (!card.isChosen && self.chosenCards.count < 3) {
         [self.chosenCards removeAllObjects];
         return status;
     }
-    
+        
     if (card.isMatched) {
-        [status.mutableString appendString:@"Matched "];
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:@"Matched "]];
     }
     
-    for (SetCard * otherCard in self.chosenCards) {
-        [status appendAttributedString:[self attributedTitleForCard:otherCard]];
+    for (SetCard * card in self.chosenCards) {
+        [status appendAttributedString:[self attributedTitleForCard:card]];
         [status.mutableString appendString:@" "];
     }
-
+    
+    if (!card.isChosen && !card.isMatched) {
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]]];
+    }
+    
+    
+    if (card.isMatched) {
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"for %d point%@!", scoreChange, scoreChange == 1 ? @"" : @"s"]]];
+    }
+    
+    if (!card.isChosen || card.isMatched)
+        [self.chosenCards removeAllObjects];
+    
     return status;
 }
 
@@ -86,6 +93,10 @@
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     SetCard *card = (SetCard*)[self.game cardAtIndex:chosenButtonIndex];
     if (card.isMatched) return;
+    if (card.isChosen) {
+        [self.chosenCards removeAllObjects];
+        [self.statusLabel setText:@""];
+    }
     
     [self.game chooseCardAtIndex:chosenButtonIndex];
     [self updateUI];
@@ -95,25 +106,24 @@
 }
 
 - (IBAction)touchRedealButton:(id)sender {
-    self.statusLabel.text = @"";
+    self.oldScore = 0;
+    [self.statusLabel setText:@""];
+    [self.chosenCards removeAllObjects];
+
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    [self.statusHistory removeAllObjects];
-    [self.statusLabel setTextColor:[UIColor blackColor]];
     [self updateUI];
 }
 
 -(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card {
     NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
-    if (symbolString.length > 0)
-        [symbolString deleteCharactersInRange:NSMakeRange(0, symbolString.length)];
     
     int numShapes = 1;
     if (card.number == 4) numShapes = 2;
     else if (card.number == 16) numShapes = 3;
     for (int i = 0; i < numShapes; i++) {
         [symbolString.mutableString appendString:[self shapeStringForCard:card]];
-        [symbolString.mutableString appendString:@"\n"];
+        [symbolString.mutableString appendString:@" "];
     }
     
     UIColor * symbolColor = [self colorForCard:card];
@@ -129,10 +139,10 @@
         insideColor = symbolColor;
     
     [symbolString addAttributes:@{
-                                   NSForegroundColorAttributeName: insideColor,
-                                   NSStrokeColorAttributeName: symbolColor,
-                                   NSStrokeWidthAttributeName: strokeWidth,
-                                   } range:NSMakeRange(0, symbolString.length)];
+                                  NSForegroundColorAttributeName: insideColor,
+                                  NSStrokeColorAttributeName: symbolColor,
+                                  NSStrokeWidthAttributeName: strokeWidth,
+                                  } range:NSMakeRange(0, symbolString.length)];
     
     return symbolString;
 }
@@ -153,7 +163,7 @@
     for (UIButton *cardButton in self.cardButtons) {
         cardButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cardButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-
+        
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         SetCard *card = (SetCard*)[self.game cardAtIndex:cardButtonIndex];
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];

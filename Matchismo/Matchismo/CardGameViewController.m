@@ -20,8 +20,6 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) CardMatchingGame * game;
-@property (weak, nonatomic) IBOutlet UISlider *historySliderOutlet;
-@property (strong, nonatomic) NSMutableArray * statusHistory;
 @property (strong, nonatomic) NSMutableArray * chosenCards;
 @property (nonatomic) NSUInteger oldScore;
 @end
@@ -38,39 +36,6 @@
     return _game;
 }
 
-- (IBAction)historySlider:(UISlider *)sender {
-    if (self.statusHistory.count == 0) return;
-    int requestedIndex = ((int)sender.value/sender.maximumValue)*self.statusHistory.count;
-    
-    [self.statusLabel setTextColor:[UIColor grayColor]];
-    if (requestedIndex >= self.statusHistory.count) {
-        requestedIndex = self.statusHistory.count - 1;
-        [self.statusLabel setTextColor:[UIColor blackColor]];
-    }
-    
-    [self.statusLabel setText:[self.statusHistory objectAtIndex:requestedIndex]];
-}
-
--(void)setGameMode {
-    if ([self.gameModeSegmentedControl selectedSegmentIndex] == 0) {
-        //user selected 2 card game
-        [self.game setEnableThreeMatchMode:NO];
-    }
-    else {
-        //user selected 3 card game
-        [self.game setEnableThreeMatchMode:YES];
-        
-    }
-}
-
-- (IBAction)gameModeSegmentedControlValueChanged:(id)sender {
-    [self setGameMode];
-}
-
--(NSMutableArray *)statusHistory {
-    if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
-    return _statusHistory;
-}
 
 -(Deck *) deck {
     if (!_deck) _deck  = [self createDeck];
@@ -87,36 +52,37 @@
     self.oldScore = self.game.score;
     [self.chosenCards addObject:card];
     
-    if (card.isMatched) {
-        [status.mutableString appendString:@"Matched "];
+    if (!card.isChosen && self.chosenCards.count < 2) {
+        [self.chosenCards removeAllObjects];
+        return status;
     }
-
+    
+    if (card.isMatched) {
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:@"Matched "]];
+    }
+    
     for (PlayingCard * card in self.chosenCards) {
         [status appendAttributedString:[self attributedTitleForCard:card]];
         [status.mutableString appendString:@" "];
     }
     
     if (!card.isChosen && !card.isMatched) {
-        
-        [status.mutableString appendString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]];
-        [self.chosenCards removeAllObjects];
-        return status;
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]]];
     }
     
+    
     if (card.isMatched) {
-        [status.mutableString appendString:[NSString stringWithFormat:@"for %d point%@", scoreChange, scoreChange == 1 ? @"" : @"s"]];
-        [self.chosenCards removeAllObjects];
-        return status;
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"for %d point%@!", scoreChange, scoreChange == 1 ? @"" : @"s"]]];
     }
+    
+    if (!card.isChosen || card.isMatched)
+        [self.chosenCards removeAllObjects];
     
     return status;
 }
 
 -(NSMutableAttributedString* )attributedTitleForCard:(PlayingCard *)card {
     NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
-    if (symbolString.length > 0)
-        [symbolString deleteCharactersInRange:NSMakeRange(0, symbolString.length)];
-    
     [symbolString.mutableString appendString:card.contents];
     return symbolString;
 }
@@ -128,6 +94,10 @@
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     PlayingCard *card = (PlayingCard*)[self.game cardAtIndex:chosenButtonIndex];
     if (card.isMatched) return;
+    if (card.isChosen) {
+        [self.chosenCards removeAllObjects];
+        [self.statusLabel setText:@""];
+    }
     
     [self.game chooseCardAtIndex:chosenButtonIndex];
     [self updateUI];
@@ -138,13 +108,11 @@
 
 - (IBAction)touchRedealButton:(id)sender {
     self.oldScore = 0;
-    self.statusLabel.text = @"";
+    [self.statusLabel setText:@""];
+    [self.chosenCards removeAllObjects];
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    [self.statusHistory removeAllObjects];
     [self.statusLabel setTextColor:[UIColor blackColor]];
-    [self setGameMode];
-    [self.historySliderOutlet setValue:self.historySliderOutlet.maximumValue];
     [self updateUI];
 }
 
