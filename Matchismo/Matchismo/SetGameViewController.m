@@ -91,7 +91,41 @@
 }
 
 -(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card {
-    return ((SetCard*)card).symbolString;
+       NSMutableAttributedString* _symbolString = [[NSMutableAttributedString alloc]init];
+        if (_symbolString.length > 0)
+            [_symbolString deleteCharactersInRange:NSMakeRange(0, _symbolString.length)];
+    [_symbolString.mutableString appendString:[self shapeString:card]];
+    
+    UIColor * symbolColor = [self colorUIColor:card];
+        UIColor * insideColor = symbolColor;
+        NSNumber* strokeWidth = @5;
+        if (card.shading == 16)
+            strokeWidth = @-5;
+        if (card.shading == 4) {
+            strokeWidth = @-5;
+            insideColor = [symbolColor colorWithAlphaComponent:.125];
+        }
+        if (card.shading == 1)
+            insideColor = symbolColor;
+        [_symbolString addAttributes:@{
+                                       NSForegroundColorAttributeName: insideColor,
+                                       NSStrokeColorAttributeName: symbolColor,
+                                       NSStrokeWidthAttributeName: strokeWidth,
+                                       } range:NSMakeRange(0, _symbolString.length)];
+        
+        return _symbolString;
+}
+
+-(NSString*)shapeString:(SetCard*)card {
+    if (card.shape == 1) return @"▲";
+    if (card.shape == 4) return @"●";
+    return @"■";
+}
+
+-(UIColor*)colorUIColor:(SetCard*)card {
+    if (card.color == 1) return [UIColor redColor];
+    if (card.color == 4) return [UIColor purpleColor];
+    return [UIColor greenColor];
 }
 
 - (void)updateUI {

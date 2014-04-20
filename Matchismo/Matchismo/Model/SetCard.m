@@ -26,45 +26,6 @@
     return @[@1, @4, @16];
 }
 
--(NSString*)shapeString {
-    if (self.shape == 1) return @"▲";
-    if (self.shape == 4) return @"●";
-    return @"■";
-}
-
--(UIColor*)colorUIColor {
-    if (self.color == 1) return [UIColor redColor];
-    if (self.color == 4) return [UIColor purpleColor];
-    return [UIColor greenColor];
-}
-
--(NSMutableAttributedString *)symbolString {
-    if (!_symbolString) _symbolString = [[NSMutableAttributedString alloc]init];
-    if (_symbolString.length > 0)
-        [_symbolString deleteCharactersInRange:NSMakeRange(0, _symbolString.length)];
-    [_symbolString.mutableString appendString:[self shapeString]];
-    
-    UIColor * symbolColor = [self colorUIColor];
-    UIColor * insideColor = symbolColor;
-    NSNumber* strokeWidth = @5;
-    if (self.shading == 16)
-        strokeWidth = @-5;
-    if (self.shading == 4) {
-        strokeWidth = @-5;
-        insideColor = [symbolColor colorWithAlphaComponent:.125];
-    }
-    if (self.shading == 1)
-        insideColor = symbolColor;
-    [_symbolString addAttributes:@{
-                                   NSForegroundColorAttributeName: insideColor,
-                                   NSStrokeColorAttributeName: symbolColor,
-                                   NSStrokeWidthAttributeName: strokeWidth,
-                                   } range:NSMakeRange(0, _symbolString.length)];
-    
-    return _symbolString;
-}
-
-
 -(int)match:(NSArray *)otherCards {
     if (otherCards.count != 2) return false;
     bool validNum, validShading, validColor, validShape;

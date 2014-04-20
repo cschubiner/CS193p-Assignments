@@ -20,6 +20,4 @@
 @property (nonatomic) NSUInteger number;
 @property (nonatomic) NSUInteger shading;
 
-@property (nonatomic) NSMutableAttributedString* symbolString;
-
 @end
