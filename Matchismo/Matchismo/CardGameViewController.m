@@ -10,6 +10,7 @@
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
 #import "CardMatchingGame.h"
+#import "HistoryViewController.h"
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) CardMatchingGame * game;
 @property (strong, nonatomic) NSMutableArray * chosenCards;
+@property (strong, nonatomic) NSMutableArray * statusHistory;
 @property (nonatomic) NSUInteger oldScore;
 @end
 
@@ -36,6 +38,23 @@
     return _game;
 }
 
+-(NSMutableArray *)statusHistory {
+    if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
+    return _statusHistory;
+}
+
+-(void)viewDidLoad {
+    UIBarButtonItem *btnSave = [[UIBarButtonItem alloc]
+                                initWithTitle:@"History"
+                                style:UIBarButtonItemStyleBordered
+                                target:self
+                                action:@selector(transitionToHistory)];
+    self.navigationItem.rightBarButtonItem = btnSave;
+}
+
+-(void)transitionToHistory {
+    [self performSegueWithIdentifier:@"2CardHistorySegue" sender:self];
+}
 
 -(Deck *) deck {
     if (!_deck) _deck  = [self createDeck];
@@ -78,7 +97,13 @@
     if (!card.isChosen || card.isMatched)
         [self.chosenCards removeAllObjects];
     
+    [self.statusHistory addObject:status];
     return status;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    HistoryViewController *hController = (HistoryViewController *)segue.destinationViewController;
+    [hController setHistoryArray:self.statusHistory];
 }
 
 -(NSMutableAttributedString* )attributedTitleForCard:(PlayingCard *)card {
@@ -110,9 +135,9 @@
     self.oldScore = 0;
     [self.statusLabel setText:@""];
     [self.chosenCards removeAllObjects];
+    [self.statusHistory removeAllObjects];
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    [self.statusLabel setTextColor:[UIColor blackColor]];
     [self updateUI];
 }
 

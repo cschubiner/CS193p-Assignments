@@ -73,6 +73,7 @@ static const int COST_TO_CHOOSE = 1;
             }
             
             int scoreChange = MATCH_BONUS * [card match:self.matchedCards];
+            if (maxMatchedCards == 3) scoreChange *= maxMatchedCards;
             if (scoreChange == 0)
                 scoreChange = -MISMATCH_PENALTY;
             

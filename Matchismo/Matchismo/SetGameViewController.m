@@ -10,6 +10,7 @@
 #import "SetDeck.h"
 #import "SetCard.h"
 #import "CardMatchingGame.h"
+#import "HistoryViewController.h"
 
 @interface SetGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) CardMatchingGame * game;
 @property (strong, nonatomic) NSMutableArray * chosenCards;
+@property (strong, nonatomic) NSMutableArray * statusHistory;
 @property (nonatomic) NSUInteger oldScore;
 @end
 
@@ -29,6 +31,29 @@
 -(CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     return _game;
+}
+
+-(NSMutableArray *)statusHistory {
+    if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
+    return _statusHistory;
+}
+
+-(void)viewDidLoad {
+    UIBarButtonItem *btnSave = [[UIBarButtonItem alloc]
+                                initWithTitle:@"History"
+                                style:UIBarButtonItemStyleBordered
+                                target:self
+                                action:@selector(transitionToHistory)];
+    self.navigationItem.rightBarButtonItem = btnSave;
+}
+
+-(void)transitionToHistory {
+    [self performSegueWithIdentifier:@"setHistorySegue" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    HistoryViewController *hController = (HistoryViewController *)segue.destinationViewController;
+    [hController setHistoryArray:self.statusHistory];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -74,14 +99,13 @@
         [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]]];
     }
     
-    
     if (card.isMatched) {
         [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"for %d point%@!", scoreChange, scoreChange == 1 ? @"" : @"s"]]];
     }
     
     if (!card.isChosen || card.isMatched)
         [self.chosenCards removeAllObjects];
-    
+    [self.statusHistory addObject:status];
     return status;
 }
 
@@ -109,7 +133,8 @@
     self.oldScore = 0;
     [self.statusLabel setText:@""];
     [self.chosenCards removeAllObjects];
-
+    [self.statusHistory removeAllObjects];
+    
     [self.game resetGame];
     _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
@@ -139,6 +164,7 @@
         insideColor = symbolColor;
     
     [symbolString addAttributes:@{
+                                  NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
                                   NSForegroundColorAttributeName: insideColor,
                                   NSStrokeColorAttributeName: symbolColor,
                                   NSStrokeWidthAttributeName: strokeWidth,
