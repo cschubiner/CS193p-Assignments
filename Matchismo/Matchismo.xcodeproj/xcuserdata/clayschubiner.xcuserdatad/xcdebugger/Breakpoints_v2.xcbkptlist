@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/SetGameViewController.m"
-            timestampString = "419770452.229905"
+            timestampString = "419770880.986393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "@implementation SetGameViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matchismo/CardGameViewController.m"
-            timestampString = "419770452.229905"
+            timestampString = "419770612.761389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "-touchCardButton:"
             landmarkType = "5">
          </BreakpointContent>

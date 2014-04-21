@@ -49,41 +49,6 @@
     return [[SetDeck alloc]init];
 }
 
-
--(NSMutableAttributedString*)getStatusMessage:(SetCard*)card {
-    NSMutableAttributedString * status = [[NSMutableAttributedString alloc]init];
-    int scoreChange = self.game.score - self.oldScore;
-    self.oldScore = self.game.score;
-    [self.chosenCards addObject:card];
-    
-    if (!card.isChosen && self.chosenCards.count < 3) {
-        [self.chosenCards removeAllObjects];
-        return status;
-    }
-        
-    if (card.isMatched) {
-        [status appendAttributedString:[[NSAttributedString alloc]initWithString:@"Matched "]];
-    }
-    
-    for (SetCard * card in self.chosenCards) {
-        [status appendAttributedString:[self attributedTitleForCard:card]];
-        [status.mutableString appendString:@" "];
-    }
-    
-    if (!card.isChosen && !card.isMatched) {
-        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]]];
-    }
-    
-    if (card.isMatched) {
-        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"for %d point%@!", scoreChange, scoreChange == 1 ? @"" : @"s"]]];
-    }
-    
-    if (!card.isChosen || card.isMatched)
-        [self.chosenCards removeAllObjects];
-    [self.statusHistory addObject:status];
-    return status;
-}
-
 /*
  * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
  */
@@ -115,7 +80,7 @@
     [self updateUI];
 }
 
--(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card {
+-(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card withBypass:(BOOL)bypassChosenCheck{
     NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
     
     int numShapes = 1;
@@ -146,6 +111,10 @@
                                   } range:NSMakeRange(0, symbolString.length)];
     
     return symbolString;
+}
+
+-(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card {
+    return [self attributedTitleForCard:card withBypass:true];
 }
 
 -(NSString*)shapeStringForCard:(SetCard*)card {

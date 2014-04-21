@@ -74,6 +74,44 @@
     return nil;
 }
 
+-(NSMutableAttributedString*)getStatusMessage:(Card*)card {
+    NSMutableAttributedString * status = [[NSMutableAttributedString alloc]init];
+    int scoreChange = self.game.score - self.oldScore;
+    self.oldScore = self.game.score;
+    [self.chosenCards addObject:card];
+    
+    if (!card.isChosen && self.chosenCards.count < 2) {
+        [self.chosenCards removeAllObjects];
+        return status;
+    }
+    
+    if (card.isMatched) {
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:@"Matched "]];
+    }
+    
+    for (Card * card in self.chosenCards) {
+        [status appendAttributedString:[self attributedTitleForCard:card withBypass:true]];
+        [status.mutableString appendString:@" "];
+    }
+    
+    if (!card.isChosen && !card.isMatched) {
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]]];
+    }
+    
+    
+    if (card.isMatched) {
+        [status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"for %d point%@!", scoreChange, scoreChange == 1 ? @"" : @"s"]]];
+    }
+    
+    if (!card.isChosen || card.isMatched)
+        [self.chosenCards removeAllObjects];
+    
+    [self.statusHistory addObject:status];
+    return status;
+}
 
+-(NSMutableAttributedString *)attributedTitleForCard:(Card *)card withBypass:(BOOL)bypassChosenCheck {
+    return nil;
+}
 
 @end

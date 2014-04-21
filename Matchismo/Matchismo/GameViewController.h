@@ -27,6 +27,7 @@
 -(NSMutableArray *)statusHistory ;
 -(Deck *) createDeck ;
 - (void)updateUI ;
-
-
+-(NSMutableAttributedString*)getStatusMessage:(Card*)card;
+-(NSMutableAttributedString* )attributedTitleForCard:(Card *)card withBypass:(BOOL)bypassChosenCheck;
+-(NSMutableAttributedString* )attributedTitleForCard:(Card *)card;
 @end
