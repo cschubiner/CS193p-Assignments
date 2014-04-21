@@ -108,7 +108,23 @@
 
 -(NSMutableAttributedString* )attributedTitleForCard:(PlayingCard *)card {
     NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
-    [symbolString.mutableString appendString:card.contents];
+    UIColor * color = [UIColor blackColor];
+    if ([card.suit isEqualToString:[NSString stringWithUTF8String:"︎♥"]]||[card.suit isEqualToString:[NSString stringWithUTF8String:"︎♦"]]) {
+        color = [UIColor blueColor];
+    }
+    
+    [symbolString.mutableString appendString:[NSString stringWithFormat:@"%d",card.rank]];
+    [symbolString addAttributes:@{
+                                  NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
+                                  NSForegroundColorAttributeName: [UIColor blackColor],
+                                  } range:NSMakeRange(0, 1)];
+    
+    [symbolString.mutableString appendString:card.suit];
+    [symbolString addAttributes:@{
+                                  NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
+                                  NSForegroundColorAttributeName: color,
+                                  } range:NSMakeRange(1, 1)];
+    
     return symbolString;
 }
 
