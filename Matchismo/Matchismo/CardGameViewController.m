@@ -13,52 +13,55 @@
 #import "HistoryViewController.h"
 
 @interface CardGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-@property (nonatomic) int flipCount;
-@property (strong, nonatomic) Deck * deck;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (strong, nonatomic) CardMatchingGame * game;
-@property (strong, nonatomic) NSMutableArray * chosenCards;
-@property (strong, nonatomic) NSMutableArray * statusHistory;
-@property (nonatomic) NSUInteger oldScore;
 @end
 
 @implementation CardGameViewController
 
--(NSMutableArray *)chosenCards {
-    if (!_chosenCards) _chosenCards = [[NSMutableArray alloc] init];
-    return _chosenCards;
-}
-
--(CardMatchingGame *)game {
-    if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    return _game;
-}
-
--(NSMutableArray *)statusHistory {
-    if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
-    return _statusHistory;
-}
 
 -(void)viewDidLoad {
-    UIBarButtonItem *btnSave = [[UIBarButtonItem alloc]
+    [super viewDidLoad];
+    UIBarButtonItem *historyButton = [[UIBarButtonItem alloc]
                                 initWithTitle:@"History"
                                 style:UIBarButtonItemStyleBordered
                                 target:self
                                 action:@selector(transitionToHistory)];
-    self.navigationItem.rightBarButtonItem = btnSave;
+    self.navigationItem.rightBarButtonItem = historyButton;
+    [self touchRedealButton:nil];
 }
 
 -(void)transitionToHistory {
     [self performSegueWithIdentifier:@"2CardHistorySegue" sender:self];
 }
 
--(Deck *) deck {
-    if (!_deck) _deck  = [self createDeck];
-    return _deck;
+-(NSMutableAttributedString* )attributedTitleForCard:(PlayingCard *)card withBypass:(BOOL)bypassChosenCheck{
+    NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
+    if (card.isChosen == false && bypassChosenCheck == false)
+        return symbolString;
+    UIColor * color = [UIColor blackColor];
+    if ([card.suit isEqualToString:[NSString stringWithUTF8String:"︎♥"]]||[card.suit isEqualToString:[NSString stringWithUTF8String:"︎♦"]]) {
+        color = [UIColor redColor];
+    }
+    
+    [symbolString.mutableString appendString:[NSString stringWithFormat:@"%d",card.rank]];
+    [symbolString addAttributes:@{
+                                  NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
+                                  NSForegroundColorAttributeName: [UIColor blackColor],
+                                  } range:NSMakeRange(0, 1)];
+    
+    [symbolString.mutableString appendString:card.suit];
+    [symbolString addAttributes:@{
+                                  NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
+                                  NSForegroundColorAttributeName: color,
+                                  } range:NSMakeRange(1, 1)];
+    
+    return symbolString;
+}
+
+-(NSMutableAttributedString* )attributedTitleForCard:(PlayingCard *)card {
+    return [self attributedTitleForCard:card withBypass:false];
 }
 
 -(Deck *) createDeck {
@@ -81,7 +84,7 @@
     }
     
     for (PlayingCard * card in self.chosenCards) {
-        [status appendAttributedString:[self attributedTitleForCard:card]];
+        [status appendAttributedString:[self attributedTitleForCard:card withBypass:true]];
         [status.mutableString appendString:@" "];
     }
     
@@ -106,27 +109,6 @@
     [hController setHistoryArray:self.statusHistory];
 }
 
--(NSMutableAttributedString* )attributedTitleForCard:(PlayingCard *)card {
-    NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
-    UIColor * color = [UIColor blackColor];
-    if ([card.suit isEqualToString:[NSString stringWithUTF8String:"︎♥"]]||[card.suit isEqualToString:[NSString stringWithUTF8String:"︎♦"]]) {
-        color = [UIColor blueColor];
-    }
-    
-    [symbolString.mutableString appendString:[NSString stringWithFormat:@"%d",card.rank]];
-    [symbolString addAttributes:@{
-                                  NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
-                                  NSForegroundColorAttributeName: [UIColor blackColor],
-                                  } range:NSMakeRange(0, 1)];
-    
-    [symbolString.mutableString appendString:card.suit];
-    [symbolString addAttributes:@{
-                                  NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
-                                  NSForegroundColorAttributeName: color,
-                                  } range:NSMakeRange(1, 1)];
-    
-    return symbolString;
-}
 
 /*
  * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
@@ -147,30 +129,17 @@
     [self.statusLabel setAttributedText:statusMessage];
 }
 
+
 - (IBAction)touchRedealButton:(id)sender {
     self.oldScore = 0;
     [self.statusLabel setText:@""];
     [self.chosenCards removeAllObjects];
     [self.statusHistory removeAllObjects];
     [self.game resetGame];
-    _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
 }
 
-- (void)updateUI {
-    for (UIButton *cardButton in self.cardButtons) {
-        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-        cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-    }
-}
-
-- (NSString *)titleForCard:(Card *)card {
-    return card.isChosen? card.contents : @"";
-}
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
     return [UIImage imageNamed:card.isChosen? @"cardfront" : @"cardback"];

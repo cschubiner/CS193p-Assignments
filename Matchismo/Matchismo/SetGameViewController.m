@@ -13,38 +13,22 @@
 #import "HistoryViewController.h"
 
 @interface SetGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-@property (nonatomic) int flipCount;
-@property (strong, nonatomic) Deck * deck;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (strong, nonatomic) CardMatchingGame * game;
-@property (strong, nonatomic) NSMutableArray * chosenCards;
-@property (strong, nonatomic) NSMutableArray * statusHistory;
-@property (nonatomic) NSUInteger oldScore;
 @end
 
 @implementation SetGameViewController
 
--(CardMatchingGame *)game {
-    if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    return _game;
-}
-
--(NSMutableArray *)statusHistory {
-    if (!_statusHistory) _statusHistory = [[NSMutableArray alloc]init];
-    return _statusHistory;
-}
-
 -(void)viewDidLoad {
-    UIBarButtonItem *btnSave = [[UIBarButtonItem alloc]
-                                initWithTitle:@"History"
-                                style:UIBarButtonItemStyleBordered
-                                target:self
-                                action:@selector(transitionToHistory)];
-    self.navigationItem.rightBarButtonItem = btnSave;
+    [super viewDidLoad];
+    UIBarButtonItem *historyButton = [[UIBarButtonItem alloc]
+                                      initWithTitle:@"History"
+                                      style:UIBarButtonItemStyleBordered
+                                      target:self
+                                      action:@selector(transitionToHistory)];
+    self.navigationItem.rightBarButtonItem = historyButton;
+    [self touchRedealButton:nil];
 }
 
 -(void)transitionToHistory {
@@ -61,19 +45,10 @@
     [self.game setEnableThreeMatchMode:YES];
 }
 
--(Deck *) deck {
-    if (!_deck) _deck  = [self createDeck];
-    return _deck;
-}
-
 -(Deck *) createDeck {
     return [[SetDeck alloc]init];
 }
 
--(NSMutableArray *)chosenCards {
-    if (!_chosenCards) _chosenCards = [[NSMutableArray alloc] init];
-    return _chosenCards;
-}
 
 -(NSMutableAttributedString*)getStatusMessage:(SetCard*)card {
     NSMutableAttributedString * status = [[NSMutableAttributedString alloc]init];
@@ -136,7 +111,7 @@
     [self.statusHistory removeAllObjects];
     
     [self.game resetGame];
-    _game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
 }
 
@@ -183,20 +158,6 @@
     if (card.color == 1) return [UIColor redColor];
     if (card.color == 4) return [UIColor purpleColor];
     return [UIColor greenColor];
-}
-
-- (void)updateUI {
-    for (UIButton *cardButton in self.cardButtons) {
-        cardButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cardButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        
-        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        SetCard *card = (SetCard*)[self.game cardAtIndex:cardButtonIndex];
-        [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-        cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-    }
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
