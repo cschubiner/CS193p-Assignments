@@ -64,3 +64,7 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+CodeFormatter/*
+CodeFormatter/
+CodeFormatter
+Matchismo/Matchismo.xcodeproj/xcuserdata/clayschubiner.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist

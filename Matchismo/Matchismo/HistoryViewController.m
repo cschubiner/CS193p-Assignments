@@ -17,31 +17,35 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		// Custom initialization
+	}
+    
+	return self;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    NSMutableAttributedString * fullStr = [[NSMutableAttributedString alloc]init];
-    for (NSAttributedString * str in self.historyArray) {
-        [fullStr appendAttributedString:str];
-        [fullStr.mutableString appendString:@"\n"];
-    }
-    [self.textView setAttributedText:fullStr];
+- (void)viewWillAppear:(BOOL)animated
+{
+	NSMutableAttributedString *fullStr = [[NSMutableAttributedString alloc]init];
+    
+	for (NSAttributedString *str in self.historyArray) {
+		[fullStr appendAttributedString:str];
+		[fullStr.mutableString appendString:@"\n"];
+	}
+    
+	[self.textView setAttributedText:fullStr];
 }
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 @end

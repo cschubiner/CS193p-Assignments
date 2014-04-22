@@ -14,7 +14,8 @@
 
 + (NSArray *)validSuits;
 + (NSUInteger)maxRank;
++ (NSArray *)rankStrings;
 
--(bool)isSameSuit:(PlayingCard*)otherCard;
--(bool)isSameRank:(PlayingCard*)otherCard;
+- (bool)isSameSuit:(PlayingCard *)otherCard;
+- (bool)isSameRank:(PlayingCard *)otherCard;
 @end

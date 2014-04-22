@@ -12,7 +12,7 @@
 
 @interface CardMatchingGame : NSObject
 
-//designated initializer
+// designated initializer
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
@@ -20,6 +20,6 @@
 
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic) Boolean enableThreeMatchMode;
--(void)resetGame;
+- (void)resetGame;
 
 @end
