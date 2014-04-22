@@ -151,7 +151,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Card Game" id="Thq-18-BQb"/>
+                    <tabBarItem key="tabBarItem" title="Card Game" image="2icon" id="Thq-18-BQb"/>
                     <navigationItem key="navigationItem" title="2 Card Game" id="NCL-ah-sPg"/>
                     <connections>
                         <outlet property="scoreLabel" destination="REl-92-V0d" id="CbL-8h-dU5"/>
@@ -386,7 +386,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Set Game" id="DC2-cm-h2D"/>
+                    <tabBarItem key="tabBarItem" title="Set Game" image="seticon" id="DC2-cm-h2D"/>
                     <navigationItem key="navigationItem" title="Set Game" id="6hr-e9-BOq">
                         <barButtonItem key="rightBarButtonItem" title="History" id="zer-cY-KCY"/>
                     </navigationItem>
@@ -468,8 +468,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="2icon" width="30" height="30"/>
         <image name="cardback" width="64" height="96"/>
         <image name="cardfront" width="64" height="96"/>
+        <image name="seticon" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -477,6 +479,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dcs-Jd-5JU"/>
+        <segue reference="gRV-VL-zR2"/>
     </inferredMetricsTieBreakers>
 </document>

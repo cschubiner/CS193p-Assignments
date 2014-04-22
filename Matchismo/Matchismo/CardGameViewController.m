@@ -70,27 +70,6 @@
     [hController setHistoryArray:self.statusHistory];
 }
 
-
-/*
- * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
- */
-- (IBAction)touchCardButton:(UIButton *)sender {
-    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    PlayingCard *card = (PlayingCard*)[self.game cardAtIndex:chosenButtonIndex];
-    if (card.isMatched) return;
-    if (card.isChosen) {
-        [self.chosenCards removeAllObjects];
-        [self.statusLabel setText:@""];
-    }
-    
-    [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self updateUI];
-    
-    NSMutableAttributedString * statusMessage = [self getStatusMessage:card];
-    [self.statusLabel setAttributedText:statusMessage];
-}
-
-
 - (IBAction)touchRedealButton:(id)sender {
     self.oldScore = 0;
     [self.statusLabel setText:@""];

@@ -46,7 +46,7 @@
 }
 
 -(Deck *) createDeck {
-    return [[Deck alloc]init];
+    return nil;
 }
 
 - (void)updateUI {
@@ -69,6 +69,22 @@
 
 -(NSMutableAttributedString* )attributedTitleForCard:(Card *)card {
     return nil;
+}
+
+- (IBAction)touchCardButton:(UIButton *)sender {
+    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
+    Card *card = (Card*)[self.game cardAtIndex:chosenButtonIndex];
+    if (card.isMatched) return;
+    if (card.isChosen) {
+        [self.chosenCards removeAllObjects];
+        [self.statusLabel setText:@""];
+    }
+    
+    [self.game chooseCardAtIndex:chosenButtonIndex];
+    [self updateUI];
+    
+    NSMutableAttributedString * statusMessage = [self getStatusMessage:card];
+    [self.statusLabel setAttributedText:statusMessage];
 }
 
 -(NSMutableAttributedString*)getStatusMessage:(Card*)card {

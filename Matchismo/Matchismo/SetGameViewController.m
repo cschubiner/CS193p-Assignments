@@ -46,25 +46,6 @@
     return [[SetDeck alloc]init];
 }
 
-/*
- * This method flips a card over. It will also increment the flipCount and check whether both of the cards in the interface are the same suit or rank.
- */
-- (IBAction)touchCardButton:(UIButton *)sender {
-    [self.game setEnableThreeMatchMode:YES];
-    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    SetCard *card = (SetCard*)[self.game cardAtIndex:chosenButtonIndex];
-    if (card.isMatched) return;
-    if (card.isChosen) {
-        [self.chosenCards removeAllObjects];
-        [self.statusLabel setText:@""];
-    }
-    
-    [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self updateUI];
-    
-    NSMutableAttributedString * statusMessage = [self getStatusMessage:card];
-    [self.statusLabel setAttributedText:statusMessage];
-}
 
 - (IBAction)touchRedealButton:(id)sender {
     self.oldScore = 0;
@@ -75,6 +56,12 @@
     [self.game resetGame];
     self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
+}
+
+
+- (IBAction)touchCardButton:(UIButton *)sender {
+    [self.game setEnableThreeMatchMode:YES];
+    [super touchCardButton:sender];
 }
 
 -(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card withBypass:(BOOL)bypassChosenCheck{

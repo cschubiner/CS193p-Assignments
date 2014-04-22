@@ -34,4 +34,5 @@
 -(NSMutableAttributedString*)getStatusMessage:(Card*)card;
 -(NSMutableAttributedString* )attributedTitleForCard:(Card *)card withBypass:(BOOL)bypassChosenCheck;
 -(NSMutableAttributedString* )attributedTitleForCard:(Card *)card;
+- (IBAction)touchCardButton:(UIButton *)sender;
 @end
