@@ -87,15 +87,11 @@ static const int COST_TO_CHOOSE = 1;
                 }
             }
             
-            [self.matchedCards removeAllObjects];
-            if (scoreChange <= 0 && self.enableThreeMatchMode == false) {
-                [card setChosen:true];
-                [self.matchedCards addObject:card];
-            }
-            
             self.score += scoreChange;
+            [self.matchedCards removeAllObjects];
         }
     }
+
 }
 
 @end

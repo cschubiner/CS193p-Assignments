@@ -13,9 +13,6 @@
 #import "HistoryViewController.h"
 
 @interface SetGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @end
 
 @implementation SetGameViewController
@@ -82,7 +79,6 @@
 
 -(NSMutableAttributedString* )attributedTitleForCard:(SetCard *)card withBypass:(BOOL)bypassChosenCheck{
     NSMutableAttributedString* symbolString = [[NSMutableAttributedString alloc]init];
-    
     int numShapes = 1;
     if (card.number == 4) numShapes = 2;
     else if (card.number == 16) numShapes = 3;

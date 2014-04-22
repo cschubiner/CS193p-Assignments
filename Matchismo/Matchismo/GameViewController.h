@@ -5,6 +5,7 @@
 //  Created by Clay Schubiner on 4/21/14.
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
+//This is an abstract class implemented by SetGameViewControler and CardGameViewController
 
 #import <UIKit/UIKit.h>
 #import "Deck.h"
@@ -16,6 +17,9 @@
 @property (strong, nonatomic) NSMutableArray * chosenCards;
 @property (strong, nonatomic) NSMutableArray * statusHistory;
 @property (nonatomic) NSUInteger oldScore;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;

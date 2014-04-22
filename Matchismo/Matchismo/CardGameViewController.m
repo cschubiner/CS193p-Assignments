@@ -13,9 +13,6 @@
 #import "HistoryViewController.h"
 
 @interface CardGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @end
 
 @implementation CardGameViewController
