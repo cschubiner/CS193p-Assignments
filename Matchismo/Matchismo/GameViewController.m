@@ -7,6 +7,7 @@
 //
 
 #import "GameViewController.h"
+#import "CardView.h"
 
 @interface GameViewController ()
 @end
@@ -16,6 +17,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+	[self touchRedealButton:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,14 +57,6 @@
 	return _game;
 }
 
-- (NSMutableArray *)statusHistory
-{
-	if (!_statusHistory) {
-		_statusHistory = [[NSMutableArray alloc]init];
-	}
-    
-	return _statusHistory;
-}
 
 - (Deck *)createDeck
 {
@@ -71,32 +65,18 @@
 
 - (void)updateUI
 {
-	for (UIButton *cardButton in self.cardButtons) {
-		cardButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-		cardButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        
-		int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+	for (CardView *cardView in self.cardViews) {
+		int cardButtonIndex = [self.cardViews indexOfObject:cardView];
 		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
-		[cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
-		[cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-		cardButton.enabled = !card.isMatched;
+		cardView.enabled = !card.isMatched;
 		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 	}
 }
 
-- (UIImage *)backgroundImageForCard:(Card *)card
-{
-	return nil;
-}
-
-- (NSMutableAttributedString * )attributedTitleForCard:(Card *)card
-{
-	return nil;
-}
 
 - (IBAction)touchCardButton:(UIButton *)sender
 {
-	int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
+	int chosenButtonIndex = [self.cardViews indexOfObject:sender];
 	Card *card = (Card *)[self.game cardAtIndex:chosenButtonIndex];
     
 	if (card.isMatched) {
@@ -105,58 +85,21 @@
     
 	if (card.isChosen) {
 		[self.chosenCards removeAllObjects];
-		[self.statusLabel setText:@""];
 	}
     
 	[self.game chooseCardAtIndex:chosenButtonIndex];
 	[self updateUI];
-    
-	NSMutableAttributedString *statusMessage = [self getStatusMessage:card];
-	[self.statusLabel setAttributedText:statusMessage];
 }
 
-- (NSMutableAttributedString *)getStatusMessage:(Card *)card
-{
-	NSMutableAttributedString *status = [[NSMutableAttributedString alloc]init];
-	int scoreChange = self.game.score - self.oldScore;
-    
-	self.oldScore = self.game.score;
-	[self.chosenCards addObject:card];
-    
-	if (!card.isChosen && self.chosenCards.count < 2) {
-		[self.chosenCards removeAllObjects];
-		return status;
-	}
-    
-	if (card.isMatched) {
-		[status appendAttributedString:[[NSAttributedString alloc]initWithString:@"Matched "]];
-	}
-    
-	for (Card *card in self.chosenCards) {
-		[status appendAttributedString:[self attributedTitleForCard:card withBypass:true]];
-		[status.mutableString appendString:@" "];
-	}
-    
-	if (!card.isChosen && !card.isMatched) {
-		[status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"don't match! %d point penalty!", -scoreChange]]];
-	}
-    
-    
-	if (card.isMatched) {
-		[status appendAttributedString:[[NSAttributedString alloc]initWithString:[NSString stringWithFormat:@"for %d point%@!", scoreChange, scoreChange == 1 ? @"":@"s"]]];
-	}
-    
-	if (!card.isChosen || card.isMatched) {
-		[self.chosenCards removeAllObjects];
-	}
-    
-	[self.statusHistory addObject:status];
-	return status;
-}
 
-- (NSMutableAttributedString *)attributedTitleForCard:(Card *)card withBypass:(BOOL)bypassChosenCheck
+- (IBAction)touchRedealButton:(id)sender
 {
-	return nil;
+	self.oldScore = 0;
+	[self.chosenCards removeAllObjects];
+    
+	[self.game resetGame];
+	self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardViews count] usingDeck:[self createDeck]];
+	[self updateUI];
 }
 
 @end
