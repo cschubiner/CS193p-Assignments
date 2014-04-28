@@ -16,27 +16,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J77-M0-Zcz">
-                                <rect key="frame" x="0.0" y="73" width="320" height="320"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mkj-Zb-Xhh">
+                                <rect key="frame" x="20" y="397" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8C-dj-YbQ">
-                                <rect key="frame" x="20" y="399" width="136" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="136" id="C16-1j-lXC"/>
-                                </constraints>
                                 <state key="normal" title="Redeal all cards" backgroundImage="cardfront">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="touchRedealButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Nk6-uj-Hwb"/>
+                                    <action selector="touchRedealButton:" destination="oGe-GJ-5DI" eventType="touchUpInside" id="dzh-FG-ey5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REl-92-V0d">
-                                <rect key="frame" x="233" y="401" width="280" height="21"/>
+                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Yz-B2-tw4">
+                                <rect key="frame" x="0.0" y="72" width="320" height="317"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS3-wl-C57">
+                                <rect key="frame" x="236" y="401" width="64" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="t1B-Vh-gv1"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,22 +44,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="REl-92-V0d" firstAttribute="leading" secondItem="z8C-dj-YbQ" secondAttribute="trailing" constant="77" id="8mU-vo-tsO"/>
-                            <constraint firstItem="J77-M0-Zcz" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="9" id="9wT-JW-IGS"/>
-                            <constraint firstItem="z8C-dj-YbQ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="UJH-Fe-0Tf"/>
-                            <constraint firstAttribute="trailing" secondItem="J77-M0-Zcz" secondAttribute="trailing" id="bBa-0X-3wj"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="z8C-dj-YbQ" secondAttribute="bottom" constant="6" id="ewy-0F-8X6"/>
-                            <constraint firstItem="z8C-dj-YbQ" firstAttribute="top" secondItem="J77-M0-Zcz" secondAttribute="bottom" constant="6" id="iNr-pH-IOj"/>
-                            <constraint firstItem="REl-92-V0d" firstAttribute="top" secondItem="J77-M0-Zcz" secondAttribute="bottom" constant="8" symbolic="YES" id="nXZ-0M-uGB"/>
-                            <constraint firstItem="J77-M0-Zcz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="osU-m4-eI7"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="REl-92-V0d" secondAttribute="bottom" constant="9" id="yGi-6d-AnF"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Mkj-Zb-Xhh" secondAttribute="bottom" constant="4" id="1Nw-Np-Lme"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="aS3-wl-C57" secondAttribute="bottom" constant="9" id="3lN-Gh-XA8"/>
+                            <constraint firstAttribute="trailing" secondItem="aS3-wl-C57" secondAttribute="trailing" constant="20" symbolic="YES" id="Dgs-US-Bby"/>
+                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="SOr-kH-e5o"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="aJb-pm-1OH"/>
+                            <constraint firstAttribute="trailing" secondItem="5Yz-B2-tw4" secondAttribute="trailing" id="equ-MO-TpZ"/>
+                            <constraint firstItem="aS3-wl-C57" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="12" id="o6t-gZ-wD4"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="vXb-Ne-jeQ"/>
+                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="8" symbolic="YES" id="y6r-fA-AZs"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Card Game" image="2icon" id="Thq-18-BQb"/>
                     <navigationItem key="navigationItem" title="2 Card Game" id="NCL-ah-sPg"/>
                     <connections>
-                        <outlet property="cardBackgroundView" destination="J77-M0-Zcz" id="96w-Cb-h31"/>
-                        <outlet property="scoreLabel" destination="REl-92-V0d" id="CbL-8h-dU5"/>
+                        <outlet property="cardBackgroundView" destination="5Yz-B2-tw4" id="RGj-tG-9bT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

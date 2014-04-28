@@ -14,9 +14,12 @@
 
 @implementation GameViewController
 
-- (void)viewDidLoad
-{
-	[super viewDidLoad];
+-(void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 	[self touchRedealButton:nil];
 }
 
