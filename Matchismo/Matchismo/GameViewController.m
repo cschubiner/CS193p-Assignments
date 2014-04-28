@@ -112,8 +112,7 @@
 	self.oldScore = 0;
 	[self.game resetGame];
     
-    for (UIView* cardView in self.cardViews)
-         [cardView removeFromSuperview];
+    [self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
 	[self initializeCardViews:[self class]];
 	self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardViews count] usingDeck:[self createDeck]];
