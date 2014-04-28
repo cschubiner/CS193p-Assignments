@@ -19,7 +19,8 @@
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) NSInteger score;
-@property (nonatomic) Boolean enableThreeMatchMode;
+@property (nonatomic) Boolean isSetMode;
+-(NSUInteger)cardCount;
 - (void)resetGame;
 
 @end

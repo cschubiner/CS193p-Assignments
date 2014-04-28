@@ -6,6 +6,7 @@ Matchismo.xcodeproj/project.xcworkspace/xcuserdata/clayschubiner.xcuserdatad/Use
 *.xccheckout
 
 *.xcbkptlist
+Matchismo/Matchismo.xcodeproj/xcuserdata/clayschubiner.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 
 Matchismo/Matchismo.xcodeproj/xcuserdata/clayschubiner.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 
@@ -68,3 +69,5 @@ CodeFormatter/*
 CodeFormatter/
 CodeFormatter
 Matchismo/Matchismo.xcodeproj/xcuserdata/clayschubiner.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+
+*.xcbkptlist

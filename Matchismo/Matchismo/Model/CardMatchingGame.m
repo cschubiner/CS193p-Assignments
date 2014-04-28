@@ -50,11 +50,15 @@ static const int COST_TO_CHOOSE = 1;
 				break;
 			}
 		}
-        
-		self.matchedCards = [[NSMutableArray alloc]init];
 	}
     
 	return self;
+}
+
+-(NSMutableArray *)matchedCards {
+	if (!_matchedCards) _matchedCards = [[NSMutableArray alloc]init];
+    
+	return _matchedCards;
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index
@@ -62,10 +66,14 @@ static const int COST_TO_CHOOSE = 1;
 	return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
+-(NSUInteger)cardCount {
+	return self.cards.count;
+}
+
 - (void)chooseCardAtIndex:(NSUInteger)index
 {
 	Card *card = [self cardAtIndex:index];
-	int maxMatchedCards = self.enableThreeMatchMode ? 3 : 2;
+	int maxMatchedCards = self.isSetMode ? 3 : 2;
     
 	if (card.isMatched == false) {
 		if (card.isChosen) {

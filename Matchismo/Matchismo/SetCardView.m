@@ -7,25 +7,29 @@
 //
 
 #import "SetCardView.h"
+#import "SetCard.h"
+@interface SetCardView ()
+
+@property (nonatomic) NSUInteger shape;
+@property (nonatomic) NSUInteger color;
+@property (nonatomic) NSUInteger number;
+@property (nonatomic) NSUInteger shading;
+@end
 
 @implementation SetCardView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+	// Drawing code
 }
-*/
+
+-(void)updateWithCard:(Card *)card {
+    self.shape = ((SetCard*)card).shape;
+    self.shading = ((SetCard*)card).shading;
+    self.color = ((SetCard*)card).color;
+    self.number = ((SetCard*)card).number;
+    [self setNeedsDisplay];
+}
 
 @end

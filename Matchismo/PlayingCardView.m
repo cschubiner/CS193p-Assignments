@@ -7,6 +7,7 @@
 //
 
 #import "PlayingCardView.h"
+#import "PlayingCard.h"
 
 @interface PlayingCardView ()
 @property (nonatomic) CGFloat faceCardScaleFactor;
@@ -229,34 +230,10 @@
 	[self setNeedsDisplay];
 }
 
-- (void)setFaceUp:(BOOL)faceUp
-{
-	_faceUp = faceUp;
-	[self setNeedsDisplay];
-}
-
-#pragma mark Initialization
-
-- (void)setup
-{
-	self.backgroundColor = nil;
-	self.opaque = NO;
-	self.contentMode = UIViewContentModeRedraw;
-}
-
-- (void)awakeFromNib
-{
-	[self setup];
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	if (self) {
-		[self setup];
-	}
-    
-	return self;
+-(void)updateWithCard:(Card *)card {
+    [self setSuit:((PlayingCard*)card).suit];
+    [self setRank:((PlayingCard*)card).rank];
+    [self setNeedsDisplay];
 }
 
 @end

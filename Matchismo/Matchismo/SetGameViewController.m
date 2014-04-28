@@ -10,21 +10,16 @@
 #import "SetDeck.h"
 #import "SetCard.h"
 #import "CardMatchingGame.h"
+#import "SetCardView.h"
 
 @interface SetGameViewController ()
 @end
 
 @implementation SetGameViewController
 
-- (void)viewDidLoad
-{
-	[super viewDidLoad];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
-	[self updateUI];
-	[self.game setEnableThreeMatchMode:YES];
+	[self.game setIsSetMode:YES];
 }
 
 - (Deck *)createDeck
@@ -32,11 +27,27 @@
 	return [[SetDeck alloc]init];
 }
 
+-(void)initializeCardViews:(Class)viewClass {
+    [super initializeCardViews:[SetCardView class]];
+}
 
-- (IBAction)touchCardButton:(UIButton *)sender
+- (void)handleTap:(UITapGestureRecognizer *)sender
 {
-	[self.game setEnableThreeMatchMode:YES];
-	[super touchCardButton:sender];
+	if (sender.state == UIGestureRecognizerStateEnded) {
+		int chosenButtonIndex = [self.cardViews indexOfObject:sender.view];
+		Card *card = (Card *)[self.game cardAtIndex:chosenButtonIndex];
+        
+		if (card.isMatched) {
+			return;
+		}
+        
+		if (card.isChosen) {
+			[self.chosenCards removeAllObjects];
+		}
+        
+		[self.game chooseCardAtIndex:chosenButtonIndex];
+		[self updateUI];
+	}
 }
 
 @end
