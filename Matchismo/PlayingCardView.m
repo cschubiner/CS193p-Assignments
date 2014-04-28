@@ -231,9 +231,9 @@
 }
 
 -(void)updateWithCard:(Card *)card {
-    [self setSuit:((PlayingCard*)card).suit];
-    [self setRank:((PlayingCard*)card).rank];
-    [self setNeedsDisplay];
+	[self setSuit:((PlayingCard*)card).suit];
+	[self setRank:((PlayingCard*)card).rank];
+	[self setNeedsDisplay];
 }
 
 @end

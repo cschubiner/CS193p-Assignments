@@ -28,7 +28,7 @@
 }
 
 -(void)initializeCardViews:(Class)viewClass {
-    [super initializeCardViews:[SetCardView class]];
+	[super initializeCardViews:[SetCardView class]];
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)sender

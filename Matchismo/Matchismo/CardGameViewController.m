@@ -19,7 +19,7 @@
 @implementation CardGameViewController
 
 -(void)initializeCardViews:(Class)viewClass {
-    [super initializeCardViews:[PlayingCardView class]];
+	[super initializeCardViews:[PlayingCardView class]];
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)sender

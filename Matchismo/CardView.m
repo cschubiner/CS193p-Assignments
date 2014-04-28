@@ -17,7 +17,8 @@
 	[self setNeedsDisplay];
 }
 
--(void)updateWithCard:(Card *)card {}
+-(void)updateWithCard:(Card *)card {
+}
 
 /*
  // Only override drawRect: if you perform custom drawing.

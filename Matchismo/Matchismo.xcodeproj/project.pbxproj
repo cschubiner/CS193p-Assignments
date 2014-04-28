@@ -164,6 +164,7 @@
 		0CE6526118EE60A700EC6403 = {
 			isa = PBXGroup;
 			children = (
+				0CE6527F18EE60A700EC6403 /* Main.storyboard */,
 				0CD8973A190D054A0054D338 /* View */,
 				0CD89736190D04CA0054D338 /* Grid */,
 				0CE6527318EE60A700EC6403 /* Matchismo */,
@@ -196,7 +197,6 @@
 		0CE6527318EE60A700EC6403 /* Matchismo */ = {
 			isa = PBXGroup;
 			children = (
-				0CE6527F18EE60A700EC6403 /* Main.storyboard */,
 				0CFCD7DA1905292D003E9CC7 /* GameViewController.h */,
 				0CFCD7DB1905292D003E9CC7 /* GameViewController.m */,
 				0CE6528218EE60A700EC6403 /* CardGameViewController.h */,
@@ -391,6 +391,7 @@
 				0CE6528018EE60A700EC6403 /* Base */,
 			);
 			name = Main.storyboard;
+			path = Matchismo;
 			sourceTree = "<group>";
 		};
 		0CE6529518EE60A700EC6403 /* InfoPlist.strings */ = {

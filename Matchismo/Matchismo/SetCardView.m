@@ -25,11 +25,11 @@
 }
 
 -(void)updateWithCard:(Card *)card {
-    self.shape = ((SetCard*)card).shape;
-    self.shading = ((SetCard*)card).shading;
-    self.color = ((SetCard*)card).color;
-    self.number = ((SetCard*)card).number;
-    [self setNeedsDisplay];
+	self.shape = ((SetCard*)card).shape;
+	self.shading = ((SetCard*)card).shading;
+	self.color = ((SetCard*)card).color;
+	self.number = ((SetCard*)card).number;
+	[self setNeedsDisplay];
 }
 
 @end
