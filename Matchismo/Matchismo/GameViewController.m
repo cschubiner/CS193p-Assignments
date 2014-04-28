@@ -110,7 +110,6 @@
 
 -(Grid *)grid {
 	if (!_grid) _grid = [[Grid alloc]init];
-    
 	return _grid;
 }
 
