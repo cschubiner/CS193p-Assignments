@@ -45,10 +45,7 @@
 			return;
 		}
         
-		if (card.isChosen) {
-			[self.chosenCards removeAllObjects];
-		}
-        
+		
 		[self.game chooseCardAtIndex:chosenButtonIndex];
 		[self updateUI];
 	}

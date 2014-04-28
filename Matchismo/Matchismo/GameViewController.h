@@ -15,7 +15,6 @@
 @interface GameViewController : UIViewController
 @property (strong, nonatomic) Deck *deck;
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) NSMutableArray *chosenCards;
 @property (nonatomic) NSUInteger oldScore;
 @property (strong, nonatomic) NSMutableArray * cardViews;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
@@ -27,7 +26,6 @@
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 - (Deck *)deck;
-- (NSMutableArray *)chosenCards;
 - (CardMatchingGame *)game;
 - (Deck *)createDeck;
 - (void)updateUI;

@@ -35,7 +35,6 @@
 	[self.grid setCellAspectRatio:63.0/90.0];
 	[self.grid setMinimumNumberOfCells:[self initialNumberOfCards]];
 	[self.grid setSize:self.cardBackgroundView.bounds.size];
-	int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
 		for (int j = 0; j < self.grid.columnCount; j++) {
 			id v = [[viewClass alloc]init];
@@ -43,7 +42,6 @@
 			[v addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
 			[self.cardBackgroundView addSubview:v];
 			[cards addObject:v];
-			count++;
 		}
 	}
     
@@ -70,15 +68,6 @@
 	}
     
 	return _deck;
-}
-
-- (NSMutableArray *)chosenCards
-{
-	if (!_chosenCards) {
-		_chosenCards = [[NSMutableArray alloc] init];
-	}
-    
-	return _chosenCards;
 }
 
 - (CardMatchingGame *)game
@@ -121,8 +110,11 @@
 - (IBAction)touchRedealButton:(id)sender
 {
 	self.oldScore = 0;
-	[self.chosenCards removeAllObjects];
 	[self.game resetGame];
+    
+    for (UIView* cardView in self.cardViews)
+         [cardView removeFromSuperview];
+    
 	[self initializeCardViews:[self class]];
 	self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardViews count] usingDeck:[self createDeck]];
 	[self updateUI];
