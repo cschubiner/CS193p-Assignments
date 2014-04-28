@@ -33,7 +33,7 @@
 -(void)initializeCardViews:(Class)viewClass {
 	NSMutableArray* cards = [[NSMutableArray alloc]init];
 	[self.grid setCellAspectRatio:63.0/90.0];
-	[self.grid setMinimumNumberOfCells:9];
+	[self.grid setMinimumNumberOfCells:[self initialNumberOfCards]];
 	[self.grid setSize:self.cardBackgroundView.bounds.size];
 	int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
@@ -112,6 +112,8 @@
 	if (!_grid) _grid = [[Grid alloc]init];
 	return _grid;
 }
+
+-(int)initialNumberOfCards {return 0;}
 
 - (IBAction)touchRedealButton:(id)sender
 {

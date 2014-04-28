@@ -31,6 +31,10 @@
 	[super initializeCardViews:[SetCardView class]];
 }
 
+-(int)initialNumberOfCards {
+    return 12;
+}
+
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
 	if (sender.state == UIGestureRecognizerStateEnded) {

@@ -22,7 +22,7 @@
 @property (strong, nonatomic) Grid * grid;
 @property (weak, nonatomic) IBOutlet UIView *cardBackgroundView;
 
-
+-(int)initialNumberOfCards;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
