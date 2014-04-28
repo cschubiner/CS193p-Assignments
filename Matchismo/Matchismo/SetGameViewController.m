@@ -32,7 +32,7 @@
 }
 
 -(int)initialNumberOfCards {
-    return 12;
+	return 12;
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)sender

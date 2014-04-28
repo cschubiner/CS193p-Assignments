@@ -110,10 +110,13 @@
 
 -(Grid *)grid {
 	if (!_grid) _grid = [[Grid alloc]init];
+    
 	return _grid;
 }
 
--(int)initialNumberOfCards {return 0;}
+-(int)initialNumberOfCards {
+	return 0;
+}
 
 - (IBAction)touchRedealButton:(id)sender
 {

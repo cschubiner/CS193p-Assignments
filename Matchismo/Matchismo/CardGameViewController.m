@@ -23,7 +23,7 @@
 }
 
 -(int)initialNumberOfCards {
-    return 9;
+	return 9;
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)sender
@@ -32,13 +32,11 @@
 		int chosenButtonIndex = [self.cardViews indexOfObject:sender.view];
 		Card *card = (Card *)[self.game cardAtIndex:chosenButtonIndex];
         
-		if (card.isMatched) {
+		if (card.isMatched)
 			return;
-		}
         
-		if (card.isChosen) {
+		if (card.isChosen)
 			[self.chosenCards removeAllObjects];
-		}
         
 		[self.game chooseCardAtIndex:chosenButtonIndex];
 		[self updateUI];

@@ -204,7 +204,6 @@
 				0C3364C91900BE5600F865B5 /* SetGameViewController.h */,
 				0C3364CA1900BE5600F865B5 /* SetGameViewController.m */,
 				0C219FF918EE997400024E93 /* Model */,
-				0CE6528518EE60A700EC6403 /* Images.xcassets */,
 				0CE6527418EE60A700EC6403 /* Supporting Files */,
 			);
 			path = Matchismo;
@@ -219,6 +218,7 @@
 				0CE6527618EE60A700EC6403 /* InfoPlist.strings */,
 				0CE6527918EE60A700EC6403 /* main.m */,
 				0CE6527B18EE60A700EC6403 /* Matchismo-Prefix.pch */,
+				0CE6528518EE60A700EC6403 /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
