@@ -95,7 +95,7 @@
 		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
 		[cardView updateWithCard:card];
 		cardView.enabled = !card.isMatched;
-		[cardView setFaceUp:card.isChosen];
+		//[cardView setFaceUp:card.isChosen];
 		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 	}
 }

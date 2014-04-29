@@ -10,9 +10,8 @@
 #import "Card.h"
 
 @interface CardView : UIView
-@property (nonatomic) BOOL enabled;
-@property (nonatomic) BOOL faceUp;
 
 -(void)updateWithCard:(Card*)card;
+@property (nonatomic) BOOL enabled;
 
 @end
