@@ -22,6 +22,9 @@
 	[self.game setIsSetMode:YES];
 }
 
+- (IBAction)pressedGetMoreCards:(id)sender {
+}
+
 - (Deck *)createDeck
 {
 	return [[SetDeck alloc]init];
@@ -45,7 +48,7 @@
 			return;
 		}
         
-		
+        
 		[self.game chooseCardAtIndex:chosenButtonIndex];
 		[self updateUI];
 	}

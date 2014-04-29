@@ -78,9 +78,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5L-f9-hoy">
-                                <rect key="frame" x="20" y="396" width="110" height="30"/>
+                                <rect key="frame" x="20" y="396" width="64" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Redeal all cards" backgroundImage="cardfront">
+                                <state key="normal" title="Redeal" backgroundImage="cardfront">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -102,14 +102,27 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-ig-gb9">
+                                <rect key="frame" x="107" y="396" width="107" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Get more cards" backgroundImage="cardfront">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedGetMoreCards:" destination="oGe-GJ-5DI" eventType="touchUpInside" id="X87-Aa-ZXK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="fYV-Pg-hzn" firstAttribute="leading" secondItem="ezL-q0-QBD" secondAttribute="leading" id="DLp-mD-TPp"/>
                             <constraint firstAttribute="trailing" secondItem="ieD-jW-EZo" secondAttribute="trailing" constant="20" symbolic="YES" id="GxW-ST-mQx"/>
+                            <constraint firstItem="C1B-ig-gb9" firstAttribute="bottom" secondItem="c5L-f9-hoy" secondAttribute="bottom" id="RiS-tr-qoT"/>
+                            <constraint firstItem="C1B-ig-gb9" firstAttribute="centerX" secondItem="fYV-Pg-hzn" secondAttribute="centerX" id="Zt5-nS-waa"/>
                             <constraint firstItem="2oc-BS-CZm" firstAttribute="top" secondItem="ieD-jW-EZo" secondAttribute="bottom" constant="10" id="fqg-iO-Dbl"/>
                             <constraint firstItem="ieD-jW-EZo" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="12" id="iVQ-fO-LkW"/>
                             <constraint firstItem="c5L-f9-hoy" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="juQ-pB-gfF"/>
+                            <constraint firstItem="C1B-ig-gb9" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="kCr-s0-wPk"/>
                             <constraint firstItem="2oc-BS-CZm" firstAttribute="top" secondItem="c5L-f9-hoy" secondAttribute="bottom" constant="5" id="leK-jd-wN4"/>
                             <constraint firstItem="c5L-f9-hoy" firstAttribute="leading" secondItem="ezL-q0-QBD" secondAttribute="leading" constant="20" symbolic="YES" id="o9R-Ls-hXl"/>
                             <constraint firstAttribute="trailing" secondItem="fYV-Pg-hzn" secondAttribute="trailing" id="uJI-sI-egT"/>
