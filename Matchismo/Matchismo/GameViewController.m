@@ -219,4 +219,8 @@
 	}
 }
 
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self updateUI];
+}
+
 @end
