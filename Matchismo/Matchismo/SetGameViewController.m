@@ -17,14 +17,25 @@
 
 @implementation SetGameViewController
 
--(void)viewDidLoad {
+- (void)resetSetGame {
 	self.numCards = 12;
 	self.totalCardsShown = self.numCards;
+	[self.grid setMinimumNumberOfCells:self.numCards];
+	[self.game setIsSetMode:true];
+}
+
+-(void)viewDidLoad {
+	[self resetSetGame];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[self.game setIsSetMode:YES];
+}
+
+-(void)touchRedealButton:(id)sender {
+	[self resetSetGame];
+	[super touchRedealButton:sender];
 }
 
 - (Deck *)createDeck
@@ -71,12 +82,12 @@
 			[cardsToRemove addObject:card];
 		}
         
-		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 	}
     
 	for (Card * card in cardsToRemove) {
 		[self.game removeCard:card];
 	}
+    
 	for (CardView * cardView in viewsToRemove) {
 		[cardView removeFromSuperview];
 		[self.cardViews removeObject:cardView];
@@ -96,10 +107,12 @@
 			count++;
 		}
 	}
-    if(self.dynamicDeck != nil)
-    {
-        self.dynamicDeck = nil;
-    }
+    
+	if(self.dynamicDeck != nil) {
+		self.dynamicDeck = nil;
+	}
+    
+	[super updateUI];
 }
 
 @end

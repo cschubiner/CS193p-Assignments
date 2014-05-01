@@ -14,16 +14,13 @@
 
 @implementation GameViewController
 
--(void)viewDidLoad
-{
-    [super viewDidLoad];
+-(void)viewDidLoad {
+	[super viewDidLoad];
 }
 
--(void)updateUI
-{
-	//no implementation. will be handled by subclasses
+-(void)updateUI {
+	self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -33,72 +30,59 @@
 
 - (IBAction)getPinch:(UIPinchGestureRecognizer *)pinch
 {
-    CGPoint pinchPoint = [pinch locationInView:self.cardBackgroundView];
+	CGPoint pinchPoint = [pinch locationInView:self.cardBackgroundView];
     
-    if(!self.dynamicDeck)
-    {
-        if(pinch.state == UIGestureRecognizerStateBegan)
-        {
-            self.dynamicDeck = [[UIDynamicAnimator alloc] initWithReferenceView:self.cardBackgroundView];
-            UIDynamicItemBehavior *cardsBehavior = [[UIDynamicItemBehavior alloc] initWithItems:self.cardViews];
-            [self.dynamicDeck addBehavior:cardsBehavior];
+	if(!self.dynamicDeck) {
+		if(pinch.state == UIGestureRecognizerStateBegan) {
+			self.dynamicDeck = [[UIDynamicAnimator alloc] initWithReferenceView:self.cardBackgroundView];
+			UIDynamicItemBehavior *cardsBehavior = [[UIDynamicItemBehavior alloc] initWithItems:self.cardViews];
+			[self.dynamicDeck addBehavior:cardsBehavior];
             
-            for (int i = 0; i < [self.cardViews count]; i++)
-            {
-                UISnapBehavior *stickyBehavior = [[UISnapBehavior alloc] initWithItem:[self.cardViews objectAtIndex:i] snapToPoint:pinchPoint];
-                [self.dynamicDeck addBehavior:stickyBehavior];
-            }
-        }
-    }
+			for (int i = 0; i < [self.cardViews count]; i++) {
+				UISnapBehavior *stickyBehavior = [[UISnapBehavior alloc] initWithItem:[self.cardViews objectAtIndex:i] snapToPoint:pinchPoint];
+				[self.dynamicDeck addBehavior:stickyBehavior];
+			}
+		}
+	}
 }
 
 - (IBAction)getPan:(UIPanGestureRecognizer *)pan
 {
-    CGPoint panPoint = [pan locationInView:self.cardBackgroundView];
-    if (self.dynamicDeck)
-    {
-        if (pan.state == UIGestureRecognizerStateBegan)
-        {
-            for (UIDynamicBehavior* behavior in self.dynamicDeck.behaviors)
-            {
-                if ([behavior isKindOfClass:[UISnapBehavior class]])
-                {
-                    [self.dynamicDeck removeBehavior:behavior];
-                }
-            }
-            for (int i = 0; i < [self.cardViews count]; i++)
-            {
-                UIAttachmentBehavior *attach = [[UIAttachmentBehavior alloc] initWithItem:[self.cardViews objectAtIndex:i] attachedToAnchor:panPoint];
-                [self.dynamicDeck addBehavior:attach];
-            }
-        }
-        else if (pan.state == UIGestureRecognizerStateChanged)
-        {
-            for (UIDynamicBehavior* behavior in self.dynamicDeck.behaviors)
-            {
-                if ([behavior isKindOfClass:[UIAttachmentBehavior class]])
-                {
-                    UIAttachmentBehavior* attach = (UIAttachmentBehavior*)behavior;
-                    attach.anchorPoint = panPoint;
-                }
-            }
-        }
-        else if (pan.state == UIGestureRecognizerStateEnded)
-        {
-            for (UIDynamicBehavior* behavior in self.dynamicDeck.behaviors)
-            {
-                if ([behavior isKindOfClass:[UIAttachmentBehavior class]])
-                {
-                    [self.dynamicDeck removeBehavior:behavior];
-                }
-            }
-            for (int i = 0; i < [self.cardViews count]; i++)
-            {
-                UISnapBehavior *stickyBehavior = [[UISnapBehavior alloc] initWithItem:[self.cardViews objectAtIndex:i] snapToPoint:panPoint];
-                [self.dynamicDeck addBehavior:stickyBehavior];
-            }
-        }
-    }
+	CGPoint panPoint = [pan locationInView:self.cardBackgroundView];
+	if (self.dynamicDeck) {
+		if (pan.state == UIGestureRecognizerStateBegan) {
+			for (UIDynamicBehavior* behavior in self.dynamicDeck.behaviors) {
+				if ([behavior isKindOfClass:[UISnapBehavior class]]) {
+					[self.dynamicDeck removeBehavior:behavior];
+				}
+			}
+            
+			for (int i = 0; i < [self.cardViews count]; i++) {
+				UIAttachmentBehavior *attach = [[UIAttachmentBehavior alloc] initWithItem:[self.cardViews objectAtIndex:i] attachedToAnchor:panPoint];
+				[self.dynamicDeck addBehavior:attach];
+			}
+		}
+		else if (pan.state == UIGestureRecognizerStateChanged) {
+			for (UIDynamicBehavior* behavior in self.dynamicDeck.behaviors) {
+				if ([behavior isKindOfClass:[UIAttachmentBehavior class]]) {
+					UIAttachmentBehavior* attach = (UIAttachmentBehavior*)behavior;
+					attach.anchorPoint = panPoint;
+				}
+			}
+		}
+		else if (pan.state == UIGestureRecognizerStateEnded) {
+			for (UIDynamicBehavior* behavior in self.dynamicDeck.behaviors) {
+				if ([behavior isKindOfClass:[UIAttachmentBehavior class]]) {
+					[self.dynamicDeck removeBehavior:behavior];
+				}
+			}
+            
+			for (int i = 0; i < [self.cardViews count]; i++) {
+				UISnapBehavior *stickyBehavior = [[UISnapBehavior alloc] initWithItem:[self.cardViews objectAtIndex:i] snapToPoint:panPoint];
+				[self.dynamicDeck addBehavior:stickyBehavior];
+			}
+		}
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -179,11 +163,11 @@
 - (IBAction)touchRedealButton:(id)sender
 {
 	self.oldScore = 0;
-    self.dynamicDeck = nil;
+	self.dynamicDeck = nil;
 	[self.game resetGame];
     
 	[self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self.cardViews removeAllObjects];
+	[self.cardViews removeAllObjects];
     
 	[self initializeCardViews:[self class]];
 	self.game = [[CardMatchingGame alloc]initWithCardCount:CARDS_IN_DECK

@@ -32,6 +32,7 @@
 - (void)updateUI;
 -(void) initializeCardViews:(Class)viewClass;
 - (void)handleTap:(UITapGestureRecognizer *)sender;
+- (IBAction)touchRedealButton:(id)sender;
 @end
 
 static const int CARDS_IN_DECK = 25;

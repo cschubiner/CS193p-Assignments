@@ -38,14 +38,13 @@
 		[cardView updateWithCard:card];
 		cardView.enabled = !card.isMatched;
 		[(PlayingCardView*)cardView setFaceUp : card.isChosen];
-        
-		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 	}
     
-    if (self.dynamicDeck != nil)
-    {
-        self.dynamicDeck = nil;
-    }
+	if (self.dynamicDeck != nil) {
+		self.dynamicDeck = nil;
+	}
+    
+	[super updateUI];
 }
 
 @end
