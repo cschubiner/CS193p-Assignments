@@ -8,6 +8,7 @@
 
 #import "GameViewController.h"
 #import "CardView.h"
+#import "PlayingCardView.h"
 
 @interface GameViewController ()
 @end
@@ -38,17 +39,18 @@
 	[self.grid setCellAspectRatio:69.0/90.0];
 	[self.grid setMinimumNumberOfCells:self.numCards];
 	[self.grid setSize:self.cardBackgroundView.bounds.size];
-    int count = 0;
+	int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
 		for (int j = 0; j < self.grid.columnCount; j++) {
-            if (count >= self.numCards)
-                break;
+			if (count >= self.numCards)
+				break;
+            
 			id v = [[viewClass alloc]init];
 			[v setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
 			[v addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
 			[self.cardBackgroundView addSubview:v];
 			[cards addObject:v];
-            count++;
+			count++;
 		}
 	}
     
@@ -99,7 +101,9 @@
 		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
 		[cardView updateWithCard:card];
 		cardView.enabled = !card.isMatched;
-		//[cardView setFaceUp:card.isChosen];
+		if ([cardView isKindOfClass:[PlayingCardView class]])
+			[(PlayingCardView*)cardView setFaceUp : card.isChosen];
+        
 		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 	}
 }
