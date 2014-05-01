@@ -13,15 +13,14 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mkj-Zb-Xhh">
-                                <rect key="frame" x="254" y="393" width="46" height="29"/>
+                                <rect key="frame" x="414" y="229" width="46" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="Zpy-aR-oi6"/>
-                                    <constraint firstAttribute="width" constant="46" id="bN2-Bl-npc"/>
+                                    <constraint firstAttribute="width" constant="46" id="WwW-HN-kHp"/>
                                 </constraints>
                                 <state key="normal" title="Deal" backgroundImage="cardfront">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,7 +30,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Yz-B2-tw4">
-                                <rect key="frame" x="0.0" y="72" width="320" height="313"/>
+                                <rect key="frame" x="0.0" y="77" width="480" height="144"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -40,8 +39,11 @@
                                 </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS3-wl-C57">
-                                <rect key="frame" x="20" y="364" width="64" height="86"/>
+                                <rect key="frame" x="20" y="235" width="64" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="mKG-NC-nkX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -49,19 +51,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Mkj-Zb-Xhh" secondAttribute="trailing" constant="20" symbolic="YES" id="24Z-lD-NDT"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Mkj-Zb-Xhh" secondAttribute="bottom" constant="9" id="E24-Pp-4LJ"/>
-                            <constraint firstAttribute="trailing" secondItem="5Yz-B2-tw4" secondAttribute="trailing" id="JKj-h3-VH4"/>
-                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="KQe-JL-0Vg"/>
-                            <constraint firstItem="aS3-wl-C57" firstAttribute="centerY" secondItem="Mkj-Zb-Xhh" secondAttribute="centerY" id="Ka5-7O-Loh"/>
-                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="LAs-9f-XFv"/>
-                            <constraint firstItem="aS3-wl-C57" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="300" id="QDR-t4-Pfd"/>
-                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="8" symbolic="YES" id="jl6-UG-Q3D"/>
-                            <constraint firstItem="aS3-wl-C57" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="lzq-0a-Thg"/>
+                            <constraint firstAttribute="trailing" secondItem="Mkj-Zb-Xhh" secondAttribute="trailing" constant="20" symbolic="YES" id="CvL-QZ-laa"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="13" id="FRM-3w-dar"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Mkj-Zb-Xhh" secondAttribute="bottom" constant="8" id="LQv-IZ-m5o"/>
+                            <constraint firstItem="aS3-wl-C57" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="14" id="ZeT-Cr-TJ1"/>
+                            <constraint firstItem="aS3-wl-C57" firstAttribute="centerY" secondItem="Mkj-Zb-Xhh" secondAttribute="centerY" id="a0q-lD-rEF"/>
+                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="8" symbolic="YES" id="blj-IR-y8r"/>
+                            <constraint firstAttribute="trailing" secondItem="5Yz-B2-tw4" secondAttribute="trailing" id="poR-UH-VfW"/>
+                            <constraint firstItem="aS3-wl-C57" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="vrZ-Wh-vRU"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="ypk-8M-cjx"/>
                         </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Card Game" image="2icon" id="Thq-18-BQb"/>
                     <navigationItem key="navigationItem" title="Match 2" id="NCL-ah-sPg"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="cardBackgroundView" destination="5Yz-B2-tw4" id="RGj-tG-9bT"/>
                         <outlet property="scoreLabel" destination="aS3-wl-C57" id="aga-UL-d3R"/>
@@ -156,6 +160,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Set Game" image="seticon" id="DC2-cm-h2D"/>
                     <navigationItem key="navigationItem" title="Set" id="6hr-e9-BOq"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="cardBackgroundView" destination="fYV-Pg-hzn" id="pS8-lm-hxL"/>
                         <outlet property="scoreLabel" destination="ieD-jW-EZo" id="ZuN-Ot-agJ"/>
