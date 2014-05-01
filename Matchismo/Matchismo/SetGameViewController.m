@@ -49,7 +49,7 @@
 
 - (IBAction)pressedGetMoreCards:(id)sender {
 	if (self.totalCardsShown + 3 > CARDS_IN_DECK) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Out of cards" message: @"Sorry, you're out of cards." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Out of cards!" message: @"Maybe hit that Deal button that I've heard so much about..." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 		return;
 	}

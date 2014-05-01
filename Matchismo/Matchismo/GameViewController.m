@@ -26,7 +26,13 @@
 				break;
             
 			CardView* view = [self.cardViews objectAtIndex: count];
-			[view setFrame: [self.grid frameOfCellAtRow: i inColumn: j]];
+            [UIView animateWithDuration:.75
+                                  delay:.02
+                                options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 view.frame = [self.grid frameOfCellAtRow: i inColumn: j];
+                             }
+                             completion:NULL];
 			count++;
 		}
 	}
@@ -182,9 +188,17 @@
 	self.dynamicDeck = nil;
 	[self.game resetGame];
     
-	[self.cardViews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-	[self.cardViews removeAllObjects];
-    
+    for (UIView *card in self.cardViews)
+    {
+        [UIView animateWithDuration:0.75
+                         animations:^{
+                             card.frame = CGRectMake(self.cardBackgroundView.bounds.size.width / 2, -self.cardBackgroundView.bounds.size.height, self.grid.cellSize.width, self.grid.cellSize.height);
+                         } completion:^(BOOL finished)
+                        {
+                            [self.cardViews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+                         }];
+    }
+    //[self.cardViews removeAllObjects];
 	[self initializeCardViews: [self class]];
 	self.game = [[CardMatchingGame alloc]initWithCardCount: CARDS_IN_DECK
                                                  usingDeck: [self createDeck]];
