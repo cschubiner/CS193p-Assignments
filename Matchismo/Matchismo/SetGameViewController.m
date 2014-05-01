@@ -96,18 +96,6 @@
 	self.numCards -= viewsToRemove.count;
 	[self.grid setMinimumNumberOfCells:self.numCards];
     
-	int count = 0;
-	for (int i = 0; i < self.grid.rowCount; i++) {
-		for (int j = 0; j < self.grid.columnCount; j++) {
-			if (count >= self.numCards)
-				break;
-            
-			SetCardView* view = [self.cardViews objectAtIndex:count];
-			[view setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
-			count++;
-		}
-	}
-    
 	[super updateUI];
 }
 

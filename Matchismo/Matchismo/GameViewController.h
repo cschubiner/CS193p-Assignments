@@ -7,20 +7,20 @@
 //
 // This is an abstract class implemented by SetGameViewControler and CardGameViewController
 
-#import <UIKit/UIKit.h>
+#import "CardMatchingGame.h"
 #import "Deck.h"
 #import "Grid.h"
-#import "CardMatchingGame.h"
+#import <UIKit/UIKit.h>
 
 @interface GameViewController : UIViewController
-@property (strong, nonatomic) Deck *deck;
-@property (strong, nonatomic) CardMatchingGame *game;
+@property (strong, nonatomic) Deck * deck;
+@property (strong, nonatomic) CardMatchingGame * game;
 @property (nonatomic) NSUInteger oldScore;
 @property (strong, nonatomic) NSMutableArray * cardViews;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel * scoreLabel;
 @property (strong, nonatomic) Grid * grid;
-@property (weak, nonatomic) IBOutlet UIView *cardBackgroundView;
-@property (strong, nonatomic) UIDynamicAnimator *dynamicDeck;
+@property (weak, nonatomic) IBOutlet UIView * cardBackgroundView;
+@property (strong, nonatomic) UIDynamicAnimator * dynamicDeck;
 @property (nonatomic) int numCards;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
@@ -30,7 +30,7 @@
 - (CardMatchingGame *)game;
 - (Deck *)createDeck;
 - (void)updateUI;
--(void) initializeCardViews:(Class)viewClass;
+- (void) initializeCardViews:(Class)viewClass;
 - (void)handleTap:(UITapGestureRecognizer *)sender;
 - (IBAction)touchRedealButton:(id)sender;
 @end
