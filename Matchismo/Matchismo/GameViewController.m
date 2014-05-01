@@ -129,7 +129,7 @@
 				break;
             
 			id view = [[viewClass alloc]init];
-			[view setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
+			[view setFrame:CGRectMake(-100, -200, self.grid.cellSize.width, self.grid.cellSize.height)];
 			[view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
 			[self.cardBackgroundView addSubview:view];
 			[cards addObject:view];
@@ -200,16 +200,19 @@
 {
 	int cardIndex = 0;
 	for (UIView * card in self.cardViews) {
-		[UIView animateWithDuration:0.75
+        [UIView animateWithDuration:.75
+                              delay:.002
+                            options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-                             card.frame = CGRectMake(self.cardBackgroundView.bounds.size.width / 2, -self.cardBackgroundView.bounds.size.height, self.grid.cellSize.width, self.grid.cellSize.height);
-                         } completion:^(BOOL finished) {
+                              card.frame = CGRectMake(-100, -200, self.grid.cellSize.width, self.grid.cellSize.height);
+                         }
+                         completion:^(BOOL finished) {
                              if (cardIndex == self.cardViews.count - 1) {
                                  [self handleRedeal];
                                  return;
                              }
                          }
-         ];
+                        ];
 		cardIndex++;
 	}
     
