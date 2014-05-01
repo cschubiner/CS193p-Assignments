@@ -20,6 +20,7 @@
 
 -(void)viewDidLoad {
 	self.numCards = 12;
+    [self touchRedealButton:nil];
 }
 
 -(void)initializeCardViews:(Class)viewClass {

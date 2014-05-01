@@ -24,6 +24,7 @@
 }
 
 -(void)viewDidLoad {
+    [self touchRedealButton:nil];
 	[self resetSetGame];
 }
 

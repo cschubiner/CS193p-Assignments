@@ -47,7 +47,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[self touchRedealButton:nil];
 }
 
 - (IBAction)getPinch:(UIPinchGestureRecognizer *)pinch
