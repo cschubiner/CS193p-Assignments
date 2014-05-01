@@ -31,7 +31,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Yz-B2-tw4">
-                                <rect key="frame" x="0.0" y="72" width="320" height="251"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="313"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -39,7 +39,7 @@
                                     <outletCollection property="gestureRecognizers" destination="kVR-gX-ToI" appends="YES" id="MAd-qf-DSg"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS3-wl-C57">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS3-wl-C57">
                                 <rect key="frame" x="20" y="364" width="64" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -51,13 +51,12 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Mkj-Zb-Xhh" secondAttribute="trailing" constant="20" symbolic="YES" id="24Z-lD-NDT"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Mkj-Zb-Xhh" secondAttribute="bottom" constant="9" id="E24-Pp-4LJ"/>
-                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="EHu-V7-fMY"/>
-                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="I5n-xp-FS0"/>
-                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="70" id="PBF-Ob-HEQ"/>
-                            <constraint firstItem="aS3-wl-C57" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="41" id="Pv3-gK-uQe"/>
+                            <constraint firstAttribute="trailing" secondItem="5Yz-B2-tw4" secondAttribute="trailing" id="JKj-h3-VH4"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="KQe-JL-0Vg"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="LAs-9f-XFv"/>
                             <constraint firstItem="aS3-wl-C57" firstAttribute="centerY" secondItem="Mkj-Zb-Xhh" secondAttribute="centerY" id="U5U-Cj-qnh"/>
                             <constraint firstItem="aS3-wl-C57" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="UaI-0f-RRc"/>
-                            <constraint firstAttribute="trailing" secondItem="5Yz-B2-tw4" secondAttribute="trailing" id="rWX-6j-jIJ"/>
+                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="8" symbolic="YES" id="jl6-UG-Q3D"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Card Game" image="2icon" id="Thq-18-BQb"/>
