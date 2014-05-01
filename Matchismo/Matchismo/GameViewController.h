@@ -21,8 +21,8 @@
 @property (strong, nonatomic) Grid * grid;
 @property (weak, nonatomic) IBOutlet UIView *cardBackgroundView;
 @property (strong, nonatomic) UIDynamicAnimator *dynamicDeck;
+@property (nonatomic) int numCards;
 
--(int)initialNumberOfCards;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
@@ -33,3 +33,5 @@
 -(void) initializeCardViews:(Class)viewClass;
 - (void)handleTap:(UITapGestureRecognizer *)sender;
 @end
+
+static const int CARDS_IN_DECK = 19;

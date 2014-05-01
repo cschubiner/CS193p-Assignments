@@ -32,6 +32,8 @@
 
 - (int)match:(NSArray *)otherCards
 {
+    return 1; //TODO DELETE THIS
+    
 	if (otherCards.count != 2) {
 		return false;
 	}

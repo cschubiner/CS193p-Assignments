@@ -199,17 +199,6 @@
 	}
 }
 
-#pragma mark Gestures
-
-- (void)resizeFaceWithPinch:(UIPinchGestureRecognizer *)gesture
-{
-	if ((gesture.state == UIGestureRecognizerStateChanged) ||
-	    (gesture.state == UIGestureRecognizerStateEnded)) {
-		self.faceCardScaleFactor *= gesture.scale;
-		gesture.scale = 1.0;
-	}
-}
-
 #pragma mark Properties
 
 @synthesize faceCardScaleFactor = _faceCardScaleFactor;

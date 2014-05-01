@@ -19,9 +19,15 @@
     [super viewDidLoad];
 }
 
+-(void)updateUI
+{
+	//no implementation. will be handled by subclasses
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+	[super viewWillAppear:animated];
 	[self touchRedealButton:nil];
 }
 
@@ -107,23 +113,25 @@
 
 -(void)initializeCardViews:(Class)viewClass {
 	NSMutableArray* cards = [[NSMutableArray alloc]init];
-	[self.grid setCellAspectRatio:63.0/90.0];
-	[self.grid setMinimumNumberOfCells:[self initialNumberOfCards]];
+	[self.grid setCellAspectRatio:69.0/90.0];
+	[self.grid setMinimumNumberOfCells:self.numCards];
 	[self.grid setSize:self.cardBackgroundView.bounds.size];
+	int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
 		for (int j = 0; j < self.grid.columnCount; j++) {
-			id v = [[viewClass alloc]init];
-			[v setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
-			[v addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
-			[self.cardBackgroundView addSubview:v];
-			[cards addObject:v];
+			if (count >= self.numCards)
+				break;
+            
+			id view = [[viewClass alloc]init];
+			[view setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
+			[view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
+			[self.cardBackgroundView addSubview:view];
+			[cards addObject:view];
+			count++;
 		}
 	}
     
 	self.cardViews = cards;
-}
-
--(void)handleTap:(UITapGestureRecognizer *)sender{
 }
 
 -(NSMutableArray *)cardViews {
@@ -157,19 +165,8 @@
 
 - (Deck *)createDeck
 {
+	//no implementation. will be handled by subclasses
 	return nil;
-}
-
-- (void)updateUI
-{
-	for (CardView *cardView in self.cardViews) {
-		int cardButtonIndex = [self.cardViews indexOfObject:cardView];
-		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
-		[cardView updateWithCard:card];
-		cardView.enabled = !card.isMatched;
-		//[cardView setFaceUp:card.isChosen];
-		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-	}
 }
 
 -(Grid *)grid {
@@ -178,9 +175,6 @@
 	return _grid;
 }
 
--(int)initialNumberOfCards {
-	return 0;
-}
 
 - (IBAction)touchRedealButton:(id)sender
 {
@@ -188,11 +182,26 @@
     self.dynamicDeck = nil;
 	[self.game resetGame];
     
-    [self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	[self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
 	[self initializeCardViews:[self class]];
-	self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardViews count] usingDeck:[self createDeck]];
+	self.game = [[CardMatchingGame alloc]initWithCardCount:CARDS_IN_DECK
+                                                 usingDeck:[self createDeck]];
 	[self updateUI];
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)sender
+{
+	if (sender.state == UIGestureRecognizerStateEnded) {
+		int chosenButtonIndex = [self.cardViews indexOfObject:sender.view];
+		Card *card = (Card *)[self.game cardAtIndex:chosenButtonIndex];
+        
+		if (card.isMatched)
+			return;
+        
+		[self.game chooseCardAtIndex:chosenButtonIndex];
+		[self updateUI];
+	}
 }
 
 @end
