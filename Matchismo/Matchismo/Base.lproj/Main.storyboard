@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Hod-WA-DeD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Hod-WA-DeD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Card Game View Controller - 2 Card Game-->
+        <!--Card Game View Controller - Match 2-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="CardGameViewController" sceneMemberID="viewController">
@@ -17,9 +17,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mkj-Zb-Xhh">
-                                <rect key="frame" x="20" y="397" width="110" height="30"/>
+                                <rect key="frame" x="254" y="393" width="46" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Redeal all cards" backgroundImage="cardfront">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="Zpy-aR-oi6"/>
+                                    <constraint firstAttribute="width" constant="46" id="bN2-Bl-npc"/>
+                                </constraints>
+                                <state key="normal" title="Deal" backgroundImage="cardfront">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -27,16 +31,17 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Yz-B2-tw4">
-                                <rect key="frame" x="0.0" y="72" width="320" height="317"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="251"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ZRO-U8-wSh" appends="YES" id="9DD-fg-VPg"/>
+                                    <outletCollection property="gestureRecognizers" destination="kVR-gX-ToI" appends="YES" id="MAd-qf-DSg"/>
+                                </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS3-wl-C57">
-                                <rect key="frame" x="236" y="401" width="64" height="21"/>
+                                <rect key="frame" x="20" y="364" width="64" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="t1B-Vh-gv1"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,28 +49,38 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Mkj-Zb-Xhh" secondAttribute="bottom" constant="4" id="1Nw-Np-Lme"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="aS3-wl-C57" secondAttribute="bottom" constant="9" id="3lN-Gh-XA8"/>
-                            <constraint firstAttribute="trailing" secondItem="aS3-wl-C57" secondAttribute="trailing" constant="20" symbolic="YES" id="Dgs-US-Bby"/>
-                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="SOr-kH-e5o"/>
-                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="aJb-pm-1OH"/>
-                            <constraint firstAttribute="trailing" secondItem="5Yz-B2-tw4" secondAttribute="trailing" id="equ-MO-TpZ"/>
-                            <constraint firstItem="aS3-wl-C57" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="12" id="o6t-gZ-wD4"/>
-                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="vXb-Ne-jeQ"/>
-                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="8" symbolic="YES" id="y6r-fA-AZs"/>
+                            <constraint firstAttribute="trailing" secondItem="Mkj-Zb-Xhh" secondAttribute="trailing" constant="20" symbolic="YES" id="24Z-lD-NDT"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Mkj-Zb-Xhh" secondAttribute="bottom" constant="9" id="E24-Pp-4LJ"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="EHu-V7-fMY"/>
+                            <constraint firstItem="5Yz-B2-tw4" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="I5n-xp-FS0"/>
+                            <constraint firstItem="Mkj-Zb-Xhh" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="70" id="PBF-Ob-HEQ"/>
+                            <constraint firstItem="aS3-wl-C57" firstAttribute="top" secondItem="5Yz-B2-tw4" secondAttribute="bottom" constant="41" id="Pv3-gK-uQe"/>
+                            <constraint firstItem="aS3-wl-C57" firstAttribute="centerY" secondItem="Mkj-Zb-Xhh" secondAttribute="centerY" id="U5U-Cj-qnh"/>
+                            <constraint firstItem="aS3-wl-C57" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="UaI-0f-RRc"/>
+                            <constraint firstAttribute="trailing" secondItem="5Yz-B2-tw4" secondAttribute="trailing" id="rWX-6j-jIJ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Card Game" image="2icon" id="Thq-18-BQb"/>
-                    <navigationItem key="navigationItem" title="2 Card Game" id="NCL-ah-sPg"/>
+                    <navigationItem key="navigationItem" title="Match 2" id="NCL-ah-sPg"/>
                     <connections>
                         <outlet property="cardBackgroundView" destination="5Yz-B2-tw4" id="RGj-tG-9bT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="ZRO-U8-wSh">
+                    <connections>
+                        <action selector="getPinch:" destination="vXZ-lx-hvc" id="evD-ND-537"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="kVR-gX-ToI">
+                    <connections>
+                        <action selector="getPan:" destination="vXZ-lx-hvc" id="xC7-fO-nl2"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="186" y="782"/>
         </scene>
-        <!--Set Game View Controller - Set Game-->
+        <!--Set Game View Controller - Set-->
         <scene sceneID="h03-gs-ooa">
             <objects>
                 <viewController id="oGe-GJ-5DI" customClass="SetGameViewController" sceneMemberID="viewController">
@@ -78,9 +93,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5L-f9-hoy">
-                                <rect key="frame" x="20" y="396" width="64" height="30"/>
+                                <rect key="frame" x="20" y="395" width="43" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Redeal" backgroundImage="cardfront">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="Sc8-Vl-ETW"/>
+                                    <constraint firstAttribute="width" constant="43" id="sE7-iI-DJm"/>
+                                </constraints>
+                                <state key="normal" title="Deal" backgroundImage="cardfront">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -88,24 +107,25 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fYV-Pg-hzn">
-                                <rect key="frame" x="0.0" y="72" width="320" height="316"/>
+                                <rect key="frame" x="20" y="92" width="280" height="295"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="yLE-HS-d3s" appends="YES" id="C54-qE-dig"/>
+                                    <outletCollection property="gestureRecognizers" destination="G6N-qr-Gbs" appends="YES" id="z62-ya-gBe"/>
+                                </connections>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieD-jW-EZo">
-                                <rect key="frame" x="236" y="400" width="64" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieD-jW-EZo">
+                                <rect key="frame" x="122" y="395" width="71" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="7zP-wV-4Um"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-ig-gb9">
-                                <rect key="frame" x="107" y="396" width="107" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1B-ig-gb9">
+                                <rect key="frame" x="229" y="395" width="71" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Get more cards" backgroundImage="cardfront">
+                                <state key="normal" title="+Cards" backgroundImage="cardfront">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -113,30 +133,42 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="fYV-Pg-hzn" firstAttribute="leading" secondItem="ezL-q0-QBD" secondAttribute="leading" id="DLp-mD-TPp"/>
-                            <constraint firstAttribute="trailing" secondItem="ieD-jW-EZo" secondAttribute="trailing" constant="20" symbolic="YES" id="GxW-ST-mQx"/>
-                            <constraint firstItem="C1B-ig-gb9" firstAttribute="bottom" secondItem="c5L-f9-hoy" secondAttribute="bottom" id="RiS-tr-qoT"/>
-                            <constraint firstItem="C1B-ig-gb9" firstAttribute="centerX" secondItem="fYV-Pg-hzn" secondAttribute="centerX" id="Zt5-nS-waa"/>
-                            <constraint firstItem="2oc-BS-CZm" firstAttribute="top" secondItem="ieD-jW-EZo" secondAttribute="bottom" constant="10" id="fqg-iO-Dbl"/>
-                            <constraint firstItem="ieD-jW-EZo" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="12" id="iVQ-fO-LkW"/>
-                            <constraint firstItem="c5L-f9-hoy" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="juQ-pB-gfF"/>
-                            <constraint firstItem="C1B-ig-gb9" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="kCr-s0-wPk"/>
-                            <constraint firstItem="2oc-BS-CZm" firstAttribute="top" secondItem="c5L-f9-hoy" secondAttribute="bottom" constant="5" id="leK-jd-wN4"/>
-                            <constraint firstItem="c5L-f9-hoy" firstAttribute="leading" secondItem="ezL-q0-QBD" secondAttribute="leading" constant="20" symbolic="YES" id="o9R-Ls-hXl"/>
-                            <constraint firstAttribute="trailing" secondItem="fYV-Pg-hzn" secondAttribute="trailing" id="uJI-sI-egT"/>
-                            <constraint firstItem="fYV-Pg-hzn" firstAttribute="top" secondItem="Can-Me-Ft4" secondAttribute="bottom" constant="8" id="wQI-Sb-EMk"/>
+                            <constraint firstItem="2oc-BS-CZm" firstAttribute="top" secondItem="c5L-f9-hoy" secondAttribute="bottom" constant="5" id="5ui-9u-yQ0"/>
+                            <constraint firstItem="fYV-Pg-hzn" firstAttribute="top" secondItem="Can-Me-Ft4" secondAttribute="bottom" constant="28" id="DwZ-JD-1uu"/>
+                            <constraint firstItem="fYV-Pg-hzn" firstAttribute="trailing" secondItem="C1B-ig-gb9" secondAttribute="trailing" id="GoD-Sq-aQQ"/>
+                            <constraint firstAttribute="trailing" secondItem="fYV-Pg-hzn" secondAttribute="trailing" constant="20" symbolic="YES" id="Mh6-EK-CKA"/>
+                            <constraint firstItem="c5L-f9-hoy" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="Ohu-cs-RIi"/>
+                            <constraint firstItem="c5L-f9-hoy" firstAttribute="bottom" secondItem="ieD-jW-EZo" secondAttribute="bottom" id="T5K-tA-ZXp"/>
+                            <constraint firstItem="c5L-f9-hoy" firstAttribute="leading" secondItem="fYV-Pg-hzn" secondAttribute="leading" id="e1A-4v-J6h"/>
+                            <constraint firstItem="C1B-ig-gb9" firstAttribute="leading" secondItem="ieD-jW-EZo" secondAttribute="trailing" constant="31" id="esH-0T-BlO"/>
+                            <constraint firstItem="ieD-jW-EZo" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="if8-lc-4cq"/>
+                            <constraint firstItem="C1B-ig-gb9" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="kT3-cK-OJ3"/>
+                            <constraint firstItem="fYV-Pg-hzn" firstAttribute="leading" secondItem="ezL-q0-QBD" secondAttribute="leading" constant="20" symbolic="YES" id="oXO-y3-kD8"/>
+                            <constraint firstItem="fYV-Pg-hzn" firstAttribute="centerX" secondItem="ieD-jW-EZo" secondAttribute="centerX" id="sBW-Mz-BYC"/>
+                            <constraint firstItem="C1B-ig-gb9" firstAttribute="bottom" secondItem="ieD-jW-EZo" secondAttribute="bottom" id="whs-Z5-zAZ"/>
+                            <constraint firstItem="ieD-jW-EZo" firstAttribute="leading" secondItem="c5L-f9-hoy" secondAttribute="trailing" constant="59" id="ygk-PZ-pYZ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Set Game" image="seticon" id="DC2-cm-h2D"/>
-                    <navigationItem key="navigationItem" title="Set Game" id="6hr-e9-BOq"/>
+                    <navigationItem key="navigationItem" title="Set" id="6hr-e9-BOq"/>
                     <connections>
                         <outlet property="cardBackgroundView" destination="fYV-Pg-hzn" id="pS8-lm-hxL"/>
                         <outlet property="scoreLabel" destination="ieD-jW-EZo" id="ZuN-Ot-agJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hI-Hb-W00" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="yLE-HS-d3s">
+                    <connections>
+                        <action selector="getPan:" destination="oGe-GJ-5DI" id="2dJ-vY-iyo"/>
+                    </connections>
+                </panGestureRecognizer>
+                <pinchGestureRecognizer id="G6N-qr-Gbs">
+                    <connections>
+                        <action selector="getPinch:" destination="oGe-GJ-5DI" id="zA6-BR-ydr"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="186" y="182"/>
         </scene>
@@ -165,6 +197,7 @@
         <!--Navigation Controller - Set Game-->
         <scene sceneID="qdr-mF-Vq6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6tD-qa-HPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="l9N-xG-VLe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Set Game" id="CiA-LJ-fV9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PJd-YW-ciT">
@@ -174,13 +207,13 @@
                         <segue destination="oGe-GJ-5DI" kind="relationship" relationship="rootViewController" id="Rrx-gR-5sz"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6tD-qa-HPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-340" y="182"/>
         </scene>
         <!--Navigation Controller - 2 Card Game-->
         <scene sceneID="zJz-fK-ojM">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fRl-Eu-ALz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="9qV-vL-RDy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="2 Card Game" id="xGE-1Y-x7f"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOg-eh-BqY">
@@ -190,7 +223,6 @@
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="6OC-sw-Yxv"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fRl-Eu-ALz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-347" y="782"/>
         </scene>

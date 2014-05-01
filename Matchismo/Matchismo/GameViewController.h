@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) Grid * grid;
 @property (weak, nonatomic) IBOutlet UIView *cardBackgroundView;
+@property (strong, nonatomic) UIDynamicAnimator *dynamicDeck;
 
 -(int)initialNumberOfCards;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;

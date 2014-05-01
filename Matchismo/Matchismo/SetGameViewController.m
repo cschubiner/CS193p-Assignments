@@ -52,6 +52,11 @@
 		[self.game chooseCardAtIndex:chosenButtonIndex];
 		[self updateUI];
 	}
+    else if(self.dynamicDeck != nil)
+    {
+        self.dynamicDeck = nil;
+        [self updateUI];
+    }
 }
 
 @end
