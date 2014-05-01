@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Hod-WA-DeD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Hod-WA-DeD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -64,6 +64,7 @@
                     <navigationItem key="navigationItem" title="Match 2" id="NCL-ah-sPg"/>
                     <connections>
                         <outlet property="cardBackgroundView" destination="5Yz-B2-tw4" id="RGj-tG-9bT"/>
+                        <outlet property="scoreLabel" destination="aS3-wl-C57" id="aga-UL-d3R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -197,7 +198,6 @@
         <!--Navigation Controller - Set Game-->
         <scene sceneID="qdr-mF-Vq6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6tD-qa-HPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="l9N-xG-VLe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Set Game" id="CiA-LJ-fV9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PJd-YW-ciT">
@@ -207,13 +207,13 @@
                         <segue destination="oGe-GJ-5DI" kind="relationship" relationship="rootViewController" id="Rrx-gR-5sz"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6tD-qa-HPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-340" y="182"/>
         </scene>
         <!--Navigation Controller - 2 Card Game-->
         <scene sceneID="zJz-fK-ojM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fRl-Eu-ALz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="9qV-vL-RDy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="2 Card Game" id="xGE-1Y-x7f"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOg-eh-BqY">
@@ -223,6 +223,7 @@
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="6OC-sw-Yxv"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fRl-Eu-ALz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-347" y="782"/>
         </scene>

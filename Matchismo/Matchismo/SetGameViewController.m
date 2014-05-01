@@ -21,7 +21,6 @@
 	self.numCards = 12;
 	self.totalCardsShown = self.numCards;
 	[self.grid setMinimumNumberOfCells:self.numCards];
-	[self.game setIsSetMode:true];
 }
 
 -(void)viewDidLoad {
@@ -36,6 +35,7 @@
 -(void)touchRedealButton:(id)sender {
 	[self resetSetGame];
 	[super touchRedealButton:sender];
+	[self.game setIsSetMode:YES];
 }
 
 - (Deck *)createDeck
@@ -106,10 +106,6 @@
 			[view setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
 			count++;
 		}
-	}
-    
-	if(self.dynamicDeck != nil) {
-		self.dynamicDeck = nil;
 	}
     
 	[super updateUI];

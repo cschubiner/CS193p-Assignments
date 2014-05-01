@@ -39,11 +39,7 @@
 		cardView.enabled = !card.isMatched;
 		[(PlayingCardView*)cardView setFaceUp : card.isChosen];
 	}
-    
-	if (self.dynamicDeck != nil) {
-		self.dynamicDeck = nil;
-	}
-    
+   
 	[super updateUI];
 }
 

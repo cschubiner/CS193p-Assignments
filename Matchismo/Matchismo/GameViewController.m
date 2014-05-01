@@ -19,6 +19,10 @@
 }
 
 -(void)updateUI {
+	if (self.dynamicDeck != nil) {
+		self.dynamicDeck = nil;
+	}
+    
 	self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
