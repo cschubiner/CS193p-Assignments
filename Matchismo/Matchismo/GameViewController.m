@@ -24,13 +24,13 @@
 		for (int j = 0; j < self.grid.columnCount; j++) {
 			if (count >= self.numCards)
 				break;
-
-			CardView* view = [self.cardViews objectAtIndex: count];
-            [UIView animateWithDuration:.75
+            
+			CardView* view = [self.cardViews objectAtIndex:count];
+			[UIView animateWithDuration:.75
                                   delay:.02
                                 options:UIViewAnimationOptionCurveEaseInOut
                              animations:^{
-                                 view.frame = [self.grid frameOfCellAtRow: i inColumn: j];
+                                 view.frame = [self.grid frameOfCellAtRow:i inColumn:j];
                              }
                              completion:NULL];
 			count++;
@@ -182,27 +182,40 @@
 }
 
 
-- (IBAction)touchRedealButton:(id)sender
+- (void)handleRedeal
 {
 	self.oldScore = 0;
 	self.dynamicDeck = nil;
 	[self.game resetGame];
+	[self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    for (UIView *card in self.cardViews)
-    {
-        [UIView animateWithDuration:0.75
+	[self.cardViews removeAllObjects];
+	[self initializeCardViews:[self class]];
+	self.game = [[CardMatchingGame alloc]initWithCardCount:CARDS_IN_DECK
+                                                 usingDeck:[self createDeck]];
+	[self updateUI];
+}
+
+- (IBAction)touchRedealButton:(id)sender
+{
+	int i = 0;
+	for (UIView * card in self.cardViews) {
+		[UIView animateWithDuration:0.75
                          animations:^{
                              card.frame = CGRectMake(self.cardBackgroundView.bounds.size.width / 2, -self.cardBackgroundView.bounds.size.height, self.grid.cellSize.width, self.grid.cellSize.height);
-                         } completion:^(BOOL finished)
-                        {
-                            [self.cardViews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-                         }];
-    }
-    //[self.cardViews removeAllObjects];
-	[self initializeCardViews: [self class]];
-	self.game = [[CardMatchingGame alloc]initWithCardCount: CARDS_IN_DECK
-                                                 usingDeck: [self createDeck]];
-	[self updateUI];
+                         } completion:^(BOOL finished) {
+                             if (i == self.cardViews.count - 1) {
+                                 [self handleRedeal];
+                                 return;
+                             }
+                         }
+         ];
+		i++;
+	}
+    
+	if (self.cardViews.count == 0)
+		[self handleRedeal];
+    
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)sender
@@ -220,7 +233,7 @@
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self updateUI];
+	[self updateUI];
 }
 
 @end
