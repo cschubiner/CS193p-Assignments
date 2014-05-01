@@ -15,11 +15,11 @@
 @implementation GameViewController
 
 -(void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+	[super viewWillAppear:animated];
 	[self touchRedealButton:nil];
 }
 
@@ -35,16 +35,20 @@
 
 -(void)initializeCardViews:(Class)viewClass {
 	NSMutableArray* cards = [[NSMutableArray alloc]init];
-	[self.grid setCellAspectRatio:63.0/90.0];
-	[self.grid setMinimumNumberOfCells:[self initialNumberOfCards]];
+	[self.grid setCellAspectRatio:69.0/90.0];
+	[self.grid setMinimumNumberOfCells:self.numCards];
 	[self.grid setSize:self.cardBackgroundView.bounds.size];
+    int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
 		for (int j = 0; j < self.grid.columnCount; j++) {
+            if (count >= self.numCards)
+                break;
 			id v = [[viewClass alloc]init];
 			[v setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
 			[v addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
 			[self.cardBackgroundView addSubview:v];
 			[cards addObject:v];
+            count++;
 		}
 	}
     
@@ -106,16 +110,13 @@
 	return _grid;
 }
 
--(int)initialNumberOfCards {
-	return 0;
-}
 
 - (IBAction)touchRedealButton:(id)sender
 {
 	self.oldScore = 0;
 	[self.game resetGame];
     
-    [self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	[self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
 	[self initializeCardViews:[self class]];
 	self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardViews count] usingDeck:[self createDeck]];

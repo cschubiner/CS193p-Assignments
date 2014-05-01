@@ -18,13 +18,14 @@
 
 @implementation CardGameViewController
 
+-(void)viewDidLoad {
+	self.numCards = 9;
+}
+
 -(void)initializeCardViews:(Class)viewClass {
 	[super initializeCardViews:[PlayingCardView class]];
 }
 
--(int)initialNumberOfCards {
-	return 9;
-}
 
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {

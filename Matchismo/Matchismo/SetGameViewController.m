@@ -17,6 +17,10 @@
 
 @implementation SetGameViewController
 
+-(void)viewDidLoad {
+    self.numCards = 12;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
 	[self.game setIsSetMode:YES];
@@ -34,9 +38,6 @@
 	[super initializeCardViews:[SetCardView class]];
 }
 
--(int)initialNumberOfCards {
-	return 12;
-}
 
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {

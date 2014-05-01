@@ -20,8 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) Grid * grid;
 @property (weak, nonatomic) IBOutlet UIView *cardBackgroundView;
+@property (nonatomic) int numCards;
 
--(int)initialNumberOfCards;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
