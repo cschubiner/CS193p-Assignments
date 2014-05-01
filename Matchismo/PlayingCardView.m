@@ -38,6 +38,9 @@
 	[roundedRect addClip];
     
 	[[UIColor whiteColor] setFill];
+	if (self.isMatched)
+		[[UIColor grayColor] setFill];
+    
 	UIRectFill(self.bounds);
     
 	[[UIColor blackColor] setStroke];
@@ -233,6 +236,7 @@
 -(void)updateWithCard:(Card *)card {
 	[self setSuit:((PlayingCard*)card).suit];
 	[self setRank:((PlayingCard*)card).rank];
+    [self setIsMatched:((PlayingCard*)card).isMatched];
 	[self setNeedsDisplay];
 }
 

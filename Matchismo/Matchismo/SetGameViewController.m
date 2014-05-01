@@ -47,25 +47,11 @@
 	self.totalCardsShown += 3;
 	[self.grid setMinimumNumberOfCells:self.numCards];
     
-	int count = 0;
-	for (int i = 0; i < self.grid.rowCount; i++) {
-		for (int j = 0; j < self.grid.columnCount; j++) {
-			if (count >= self.numCards)
-				break;
-            
-			SetCardView* view;
-			if (count >= self.numCards - 3) {
-				view = [[SetCardView alloc]init];
-				[view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
-				[self.cardBackgroundView addSubview:view];
-				[self.cardViews addObject:view];
-			}
-			else
-				view = [self.cardViews objectAtIndex:count];
-            
-			[view setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
-			count++;
-		}
+	for (int i = 0; i < 3; i++) {
+		SetCardView* view = [[SetCardView alloc]init];
+		[view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
+		[self.cardBackgroundView addSubview:view];
+		[self.cardViews addObject:view];
 	}
     
 	[self updateUI];
@@ -74,24 +60,29 @@
 
 - (void)updateUI
 {
+	NSMutableArray * viewsToRemove = [[NSMutableArray alloc]init];
 	NSMutableArray * cardsToRemove = [[NSMutableArray alloc]init];
 	for (CardView *cardView in self.cardViews) {
 		int cardButtonIndex = [self.cardViews indexOfObject:cardView];
 		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
 		[cardView updateWithCard:card];
 		if (card.isMatched) {
-			[cardsToRemove addObject:cardView];
+			[viewsToRemove addObject:cardView];
+			[cardsToRemove addObject:card];
 		}
         
 		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 	}
     
-	for (CardView * cardView in cardsToRemove) {
+	for (Card * card in cardsToRemove) {
+		[self.game removeCard:card];
+	}
+	for (CardView * cardView in viewsToRemove) {
 		[cardView removeFromSuperview];
 		[self.cardViews removeObject:cardView];
 	}
     
-	self.numCards -= cardsToRemove.count;
+	self.numCards -= viewsToRemove.count;
 	[self.grid setMinimumNumberOfCells:self.numCards];
     
 	int count = 0;

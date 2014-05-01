@@ -183,6 +183,7 @@
 	[self.game resetGame];
     
 	[self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.cardViews removeAllObjects];
     
 	[self initializeCardViews:[self class]];
 	self.game = [[CardMatchingGame alloc]initWithCardCount:CARDS_IN_DECK

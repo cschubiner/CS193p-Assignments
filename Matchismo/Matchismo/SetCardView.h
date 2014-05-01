@@ -10,4 +10,6 @@
 
 @interface SetCardView : CardView
 
+@property (nonatomic) BOOL isChosen;
+
 @end

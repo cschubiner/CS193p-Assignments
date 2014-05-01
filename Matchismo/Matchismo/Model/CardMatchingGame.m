@@ -66,6 +66,10 @@ static const int COST_TO_CHOOSE = 1;
 	return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
+-(void)removeCard:(Card *)card {
+    [self.cards removeObject:card];
+}
+
 -(NSUInteger)cardCount {
 	return self.cards.count;
 }
@@ -121,7 +125,7 @@ static const int COST_TO_CHOOSE = 1;
     
 	if (self.isSetMode == false && card.isMatched == false) {
 		[card setChosen:true];
-        [self.matchedCards addObject:card];
+		[self.matchedCards addObject:card];
 	}
 }
 

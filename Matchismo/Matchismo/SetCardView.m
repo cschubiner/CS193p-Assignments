@@ -29,15 +29,19 @@
 	[roundedRect addClip];
     
 	[[UIColor whiteColor] setFill];
+    
+	if (self.isChosen)
+		[[UIColor grayColor] setFill];
+    
 	UIRectFill(self.bounds);
     
-	if (self.enabled) {
-		[[UIColor blackColor] setStroke];
-	}
-	else
-	{
-		[[UIColor whiteColor] setStroke];
-	}
+	//	if (self.enabled) {
+	[[UIColor blackColor] setStroke];
+	//	}
+	//	else
+	//	{
+	//	[[UIColor whiteColor] setStroke];
+	//	}
     
 	[roundedRect stroke];
     
@@ -196,6 +200,7 @@
 	self.shading = ((SetCard*)card).shading;
 	self.color = ((SetCard*)card).color;
 	self.number = ((SetCard*)card).number;
+	self.isChosen = ((SetCard*)card).isChosen;
 	[self setNeedsDisplay];
 }
 

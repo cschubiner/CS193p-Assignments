@@ -22,5 +22,6 @@
 @property (nonatomic) Boolean isSetMode;
 -(NSUInteger)cardCount;
 - (void)resetGame;
+- (void)removeCard:(Card *)card;
 
 @end
