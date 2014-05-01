@@ -18,8 +18,24 @@
 	[super viewDidLoad];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[self updateUI];
+}
+
+-(void)updateViewConstraints {
+	[super updateViewConstraints];
+	[self updateUI];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[self updateUI];
+}
+
 -(void)updateUI {
 	[self.grid setSize:self.cardBackgroundView.frame.size];
+	[self.grid setMinimumNumberOfCells:self.numCards];
 	int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
 		for (int j = 0; j < self.grid.columnCount; j++) {
@@ -43,11 +59,6 @@
 	}
     
 	self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
 }
 
 - (IBAction)getPinch:(UIPinchGestureRecognizer *)pinch
@@ -192,11 +203,11 @@
 	int cardIndex = 0;
 	bool setMode = self.game.isSetMode;
 	for (UIView * card in self.cardViews) {
-        [UIView animateWithDuration:.75
+		[UIView animateWithDuration:.75
                               delay:.002
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-                              card.frame = CGRectMake(-100, -200, self.grid.cellSize.width, self.grid.cellSize.height);
+                             card.frame = CGRectMake(-100, -200, self.grid.cellSize.width, self.grid.cellSize.height);
                          }
                          completion:^(BOOL finished) {
                              if (cardIndex == self.cardViews.count - 1) {
@@ -205,7 +216,7 @@
                                  return;
                              }
                          }
-                        ];
+         ];
 		cardIndex++;
 	}
     

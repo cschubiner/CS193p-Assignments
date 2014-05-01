@@ -33,6 +33,7 @@ static const int CARDS_GOTTEN_WHEN_REQUESTING_MORE = 3;
 
 - (void)viewDidAppear:(BOOL)animated
 {
+	[super viewDidAppear:animated];
 	[self.game setIsSetMode:YES];
 }
 

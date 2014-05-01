@@ -19,11 +19,11 @@
 @implementation CardGameViewController
 
 -(void)viewDidLoad {
+	[super viewDidLoad];
 	self.numCards = 12;
-	self.numCards = 12;
-	[self updateUI];
 	[self touchRedealButton:nil];
 	[self updateUI];
+	[self touchRedealButton:nil];
 }
 
 -(void)initializeCardViews:(Class)viewClass {
