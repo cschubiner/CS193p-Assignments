@@ -19,6 +19,7 @@
 }
 
 -(void)updateUI {
+    [self.grid setSize:self.cardBackgroundView.frame.size];
 	int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
 		for (int j = 0; j < self.grid.columnCount; j++) {
@@ -26,8 +27,8 @@
 				break;
             
 			CardView* view = [self.cardViews objectAtIndex:count];
-			[UIView animateWithDuration:.75
-                                  delay:.02
+			[UIView animateWithDuration:.45
+                                  delay:.002
                                 options:UIViewAnimationOptionCurveEaseInOut
                              animations:^{
                                  view.frame = [self.grid frameOfCellAtRow:i inColumn:j];

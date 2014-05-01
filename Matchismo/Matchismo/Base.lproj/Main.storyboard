@@ -120,11 +120,11 @@
                                     <outletCollection property="gestureRecognizers" destination="G6N-qr-Gbs" appends="YES" id="z62-ya-gBe"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieD-jW-EZo">
-                                <rect key="frame" x="122" y="395" width="71" height="31"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ieD-jW-EZo">
+                                <rect key="frame" x="107" y="395" width="86" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="6fi-0I-LA4"/>
+                                    <constraint firstAttribute="width" constant="86" id="6fi-0I-LA4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -150,7 +150,7 @@
                             <constraint firstAttribute="trailing" secondItem="fYV-Pg-hzn" secondAttribute="trailing" constant="20" symbolic="YES" id="WVN-uf-nwV"/>
                             <constraint firstItem="fYV-Pg-hzn" firstAttribute="top" secondItem="Can-Me-Ft4" secondAttribute="bottom" constant="28" id="dbx-el-ojW"/>
                             <constraint firstItem="c5L-f9-hoy" firstAttribute="top" secondItem="fYV-Pg-hzn" secondAttribute="bottom" constant="8" symbolic="YES" id="epu-aQ-O1b"/>
-                            <constraint firstItem="ieD-jW-EZo" firstAttribute="leading" secondItem="c5L-f9-hoy" secondAttribute="trailing" constant="59" id="erC-hV-9KC"/>
+                            <constraint firstItem="ieD-jW-EZo" firstAttribute="leading" secondItem="c5L-f9-hoy" secondAttribute="trailing" constant="44" id="erC-hV-9KC"/>
                             <constraint firstItem="2oc-BS-CZm" firstAttribute="top" secondItem="c5L-f9-hoy" secondAttribute="bottom" constant="5" id="pGW-Le-tCM"/>
                             <constraint firstItem="fYV-Pg-hzn" firstAttribute="leading" secondItem="ezL-q0-QBD" secondAttribute="leading" constant="20" symbolic="YES" id="rh3-9K-20m"/>
                             <constraint firstItem="c5L-f9-hoy" firstAttribute="leading" secondItem="fYV-Pg-hzn" secondAttribute="leading" id="sJN-22-Wsi"/>
