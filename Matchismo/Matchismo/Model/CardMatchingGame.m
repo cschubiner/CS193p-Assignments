@@ -118,6 +118,11 @@ static const int COST_TO_CHOOSE = 1;
 			[self.matchedCards removeAllObjects];
 		}
 	}
+    
+	if (self.isSetMode == false && card.isMatched == false) {
+		[card setChosen:true];
+        [self.matchedCards addObject:card];
+	}
 }
 
 @end
