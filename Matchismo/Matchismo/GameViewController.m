@@ -3,7 +3,7 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/21/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
+
 //
 
 #import "CardView.h"
@@ -19,7 +19,7 @@
 }
 
 -(void)updateUI {
-    [self.grid setSize:self.cardBackgroundView.frame.size];
+	[self.grid setSize:self.cardBackgroundView.frame.size];
 	int count = 0;
 	for (int i = 0; i < self.grid.rowCount; i++) {
 		for (int j = 0; j < self.grid.columnCount; j++) {
@@ -114,7 +114,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	return([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]);
+	return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 }
 
 -(void)initializeCardViews:(Class)viewClass {
@@ -140,15 +140,6 @@
 	self.cardViews = cards;
 }
 
--(NSMutableArray *)cardViews {
-	if (_cardViews) return(_cardViews);
-    
-	_cardViews = [[NSMutableArray alloc]init];
-	for (int i = 0; i < self.game.cardCount; i++)
-		[_cardViews addObject:[self.game cardAtIndex:i]];
-    
-	return(_cardViews);
-}
 
 - (Deck *)deck
 {
@@ -156,7 +147,7 @@
 		_deck  = [self createDeck];
 	}
     
-	return(_deck);
+	return _deck;
 }
 
 - (CardMatchingGame *)game
@@ -165,20 +156,20 @@
 		_game = [[CardMatchingGame alloc]init];
 	}
     
-	return(_game);
+	return _game;
 }
 
 
 - (Deck *)createDeck
 {
 	//no implementation. will be handled by subclasses
-	return(nil);
+	return nil;
 }
 
 -(Grid *)grid {
 	if (!_grid) _grid = [[Grid alloc]init];
     
-	return(_grid);
+	return _grid;
 }
 
 
@@ -199,6 +190,7 @@
 - (IBAction)touchRedealButton:(id)sender
 {
 	int cardIndex = 0;
+	bool setMode = self.game.isSetMode;
 	for (UIView * card in self.cardViews) {
         [UIView animateWithDuration:.75
                               delay:.002
@@ -209,6 +201,7 @@
                          completion:^(BOOL finished) {
                              if (cardIndex == self.cardViews.count - 1) {
                                  [self handleRedeal];
+                                 [self.game setIsSetMode:setMode];
                                  return;
                              }
                          }

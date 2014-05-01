@@ -43,7 +43,7 @@
 		flipped = YES;
 		overallHeight = ABS(self.size.width);
 		overallWidth = ABS(self.size.height);
-		aspectRatio = 1.0/aspectRatio;
+		aspectRatio = 1.0 / aspectRatio;
 		minCellWidth = self.minCellHeight;
 		minCellHeight = self.minCellWidth;
 		maxCellWidth = self.maxCellHeight;
@@ -110,7 +110,7 @@
 
 - (CGPoint)centerOfCellAtRow:(NSUInteger)row inColumn:(NSUInteger)column
 {
-	CGPoint center = CGPointMake(self.cellSize.width/2, self.cellSize.height/2);
+	CGPoint center = CGPointMake(self.cellSize.width / 2, self.cellSize.height / 2);
 	center.x += column * self.cellSize.width;
 	center.y += row * self.cellSize.height;
 	return center;
@@ -193,7 +193,7 @@
 
 - (NSString *)description
 {
-	NSString *description = [NSString stringWithFormat:@"[%@] fitting %lu cells with aspect ratio %g into %@ -> ", NSStringFromClass([self class]), (unsigned long)self.minimumNumberOfCells, self.cellAspectRatio, NSStringFromCGSize(self.size)];
+	NSString * description = [NSString stringWithFormat:@"[%@] fitting %lu cells with aspect ratio %g into %@ -> ", NSStringFromClass([self class]), (unsigned long)self.minimumNumberOfCells, self.cellAspectRatio, NSStringFromCGSize(self.size)];
     
 	if (!self.rowCount) {
 		description = [description stringByAppendingString:@"invalid input: "];

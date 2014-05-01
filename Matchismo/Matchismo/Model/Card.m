@@ -3,7 +3,6 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/4/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
 #import "Card.h"
@@ -13,7 +12,7 @@
 {
 	int score = 0;
     
-	for (Card *card in otherCards) {
+	for (Card * card in otherCards) {
 		if ([card.contents isEqualToString:self.contents]) {
 			score = 1;
 		}

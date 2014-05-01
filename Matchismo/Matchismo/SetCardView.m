@@ -3,11 +3,11 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/27/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
+
 //
 
-#import "SetCardView.h"
 #import "SetCard.h"
+#import "SetCardView.h"
 @interface SetCardView ()
 
 @property (nonatomic) NSUInteger shape;
@@ -24,8 +24,8 @@
 
 - (void)drawRect:(CGRect)rect
 {
-	UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds
-                                                           cornerRadius:CORNER_RADIUS];
+	UIBezierPath * roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                                            cornerRadius:CORNER_RADIUS];
 	[roundedRect addClip];
     
 	[[UIColor whiteColor] setFill];
@@ -91,8 +91,8 @@
 {
 	CGFloat width = self.bounds.size.width * .15;
 	CGFloat height = self.bounds.size.height * .5;
-	UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(point.x - (width / 2.0), point.y - (height / 2.0), width, height)
-                                                    cornerRadius:(width / 2.0)];
+	UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(point.x - (width / 2.0), point.y - (height / 2.0), width, height)
+                                                     cornerRadius:(width / 2.0)];
 	path.lineWidth = self.bounds.size.width * .05;
 	[self giveCorrectFillTo:path];
 	[path stroke];
@@ -103,22 +103,22 @@
 	CGFloat width = self.bounds.size.width * .15;
 	CGFloat height = self.bounds.size.height * .5;
     
-	CGFloat curvex = (width/2) * .5;
-	CGFloat curvey = (height/2) * .6;
+	CGFloat curvex = (width / 2) * .5;
+	CGFloat curvey = (height / 2) * .6;
     
-	UIBezierPath *path = [[UIBezierPath alloc] init];
+	UIBezierPath * path = [[UIBezierPath alloc] init];
     
-	[path moveToPoint:CGPointMake(point.x - (width/2.0), point.y - (height/2.0))];
-	[path addQuadCurveToPoint:CGPointMake(point.x - (width/2.0), point.y - (height/2.0))
+	[path moveToPoint:CGPointMake(point.x - (width / 2.0), point.y - (height / 2.0))];
+	[path addQuadCurveToPoint:CGPointMake(point.x - (width / 2.0), point.y - (height / 2.0))
                  controlPoint:CGPointMake(point.x - curvex, point.y - curvey)];
-	[path addCurveToPoint:CGPointMake(point.x + (width/2.0), point.y + (height/2.0))
-            controlPoint1:CGPointMake(point.x + (width/2.0) + curvex, point.y - (height/2.0) + curvey)
-            controlPoint2:CGPointMake(point.x + (width/2.0) - curvex, point.y + (height/2.0) - curvey)];
-	[path addQuadCurveToPoint:CGPointMake(point.x - (width/2.0), point.y + (height/2.0))
-                 controlPoint:CGPointMake(point.x + curvex, point.y + (height/2.0) + curvey)];
-	[path addCurveToPoint:CGPointMake(point.x - (width/2.0), point.y - (height/2.0))
-            controlPoint1:CGPointMake(point.x - (width/2.0) - curvex, point.y + (height/2.0) - curvey)
-            controlPoint2:CGPointMake(point.x - (width/2.0) + curvex, point.y - (height/2.0) + curvey)];
+	[path addCurveToPoint:CGPointMake(point.x + (width / 2.0), point.y + (height / 2.0))
+            controlPoint1:CGPointMake(point.x + (width / 2.0) + curvex, point.y - (height / 2.0) + curvey)
+            controlPoint2:CGPointMake(point.x + (width / 2.0) - curvex, point.y + (height / 2.0) - curvey)];
+	[path addQuadCurveToPoint:CGPointMake(point.x - (width / 2.0), point.y + (height / 2.0))
+                 controlPoint:CGPointMake(point.x + curvex, point.y + (height / 2.0) + curvey)];
+	[path addCurveToPoint:CGPointMake(point.x - (width / 2.0), point.y - (height / 2.0))
+            controlPoint1:CGPointMake(point.x - (width / 2.0) - curvex, point.y + (height / 2.0) - curvey)
+            controlPoint2:CGPointMake(point.x - (width / 2.0) + curvex, point.y - (height / 2.0) + curvey)];
 	path.lineWidth = self.bounds.size.width * .05;
 	[self giveCorrectFillTo:path];
 	[path stroke];
@@ -129,11 +129,11 @@
 	CGFloat width = self.bounds.size.width * .2;
 	CGFloat height = self.bounds.size.height * .5;
     
-	UIBezierPath *path = [[UIBezierPath alloc] init];
-	[path moveToPoint:CGPointMake(point.x, point.y - (height/2.0))];
-	[path addLineToPoint:CGPointMake(point.x + (width/2.0), point.y)];
-	[path addLineToPoint:CGPointMake(point.x, point.y + (height/2.0))];
-	[path addLineToPoint:CGPointMake(point.x - (width/2.0), point.y)];
+	UIBezierPath * path = [[UIBezierPath alloc] init];
+	[path moveToPoint:CGPointMake(point.x, point.y - (height / 2.0))];
+	[path addLineToPoint:CGPointMake(point.x + (width / 2.0), point.y)];
+	[path addLineToPoint:CGPointMake(point.x, point.y + (height / 2.0))];
+	[path addLineToPoint:CGPointMake(point.x - (width / 2.0), point.y)];
 	[path closePath];
 	path.lineWidth = self.bounds.size.width * .05;
 	[self giveCorrectFillTo:path];
@@ -142,7 +142,7 @@
 
 - (void)giveCorrectFillTo:(UIBezierPath*)path
 {
-	UIColor *fillColor = [[UIColor alloc] init];
+	UIColor * fillColor = [[UIColor alloc] init];
 	if(self.color == 1) fillColor = [UIColor greenColor];
     
 	if(self.color == 4) fillColor = [UIColor blueColor];
@@ -163,7 +163,7 @@
 	CGContextSaveGState(context);
 	[path addClip];
     
-	UIBezierPath *stripes = [[UIBezierPath alloc] init];
+	UIBezierPath * stripes = [[UIBezierPath alloc] init];
     
 	CGPoint start = self.bounds.origin;
 	CGPoint end = start;

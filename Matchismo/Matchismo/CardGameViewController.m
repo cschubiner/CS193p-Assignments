@@ -3,15 +3,15 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/3/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
+
 //
 
 #import "CardGameViewController.h"
-#import "PlayingCardDeck.h"
-#import "PlayingCard.h"
-#import "PlayingCardView.h"
 #import "CardMatchingGame.h"
 #import "Grid.h"
+#import "PlayingCard.h"
+#import "PlayingCardDeck.h"
+#import "PlayingCardView.h"
 
 @interface CardGameViewController ()
 @end
@@ -20,7 +20,10 @@
 
 -(void)viewDidLoad {
 	self.numCards = 12;
-    [self touchRedealButton:nil];
+	self.numCards = 12;
+	[self updateUI];
+	[self touchRedealButton:nil];
+	[self updateUI];
 }
 
 -(void)initializeCardViews:(Class)viewClass {
@@ -33,14 +36,14 @@
 
 - (void)updateUI
 {
-	for (PlayingCardView *cardView in self.cardViews) {
+	for (PlayingCardView * cardView in self.cardViews) {
 		int cardButtonIndex = [self.cardViews indexOfObject:cardView];
-		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
+		Card * card = [self.game cardAtIndex:cardButtonIndex];
 		[cardView updateWithCard:card];
 		cardView.enabled = !card.isMatched;
-		[(PlayingCardView*)cardView setFaceUp : card.isChosen];
+		[cardView setFaceUp:card.isChosen];
 	}
-   
+    
 	[super updateUI];
 }
 

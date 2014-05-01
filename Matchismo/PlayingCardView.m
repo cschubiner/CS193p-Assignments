@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Stanford University. All rights reserved.
 //
 
-#import "PlayingCardView.h"
 #import "PlayingCard.h"
+#import "PlayingCardView.h"
 
 @interface PlayingCardView ()
 @property (nonatomic) CGFloat faceCardScaleFactor;
@@ -33,7 +33,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-	UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:[self cornerRadius]];
+	UIBezierPath * roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:[self cornerRadius]];
     
 	[roundedRect addClip];
     
@@ -47,8 +47,8 @@
 	[roundedRect stroke];
     
 	if (self.faceUp) {
-		NSString *faceImageName = [NSString stringWithFormat:@"%@%@", [self rankAsString], self.suit];
-		UIImage *faceImage = [UIImage imageNamed:faceImageName];
+		NSString * faceImageName = [NSString stringWithFormat:@"%@%@", [self rankAsString], self.suit];
+		UIImage * faceImage = [UIImage imageNamed:faceImageName];
 		if (faceImage) {
 			CGRect imageRect = CGRectInset(self.bounds,
 			                               self.bounds.size.width * (1.0 - self.faceCardScaleFactor),
@@ -62,7 +62,7 @@
 		[self drawCorners];
 	}
 	else {
-		UIImage *cardbackImage = [UIImage imageNamed:@"cardback"];
+		UIImage * cardbackImage = [UIImage imageNamed:@"cardback"];
 		[cardbackImage drawInRect:self.bounds];
 	}
 }
@@ -70,7 +70,7 @@
 - (void)setFaceUp:(BOOL)faceUp
 {
 	if (_faceUp != faceUp) {
-		[UIView transitionWithView:self duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction animations:^(){
+		[UIView transitionWithView:self duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction animations:^(){
             _faceUp = faceUp;
         } completion:nil];
 	}
@@ -80,20 +80,20 @@
 
 - (void)drawCorners
 {
-	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+	NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
 	paragraphStyle.alignment = NSTextAlignmentCenter;
     
-	UIFont *cornerFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	UIFont * cornerFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 	cornerFont = [cornerFont fontWithSize:cornerFont.pointSize * [self cornerScaleFactor]];
     
 	paragraphStyle.paragraphSpacingBefore = -cornerFont.pointSize * CORNER_LINE_SPACING_REDUCTION;
     
-	NSString *rank = [self rankAsString];
-	NSString *suit = self.suit;
+	NSString * rank = [self rankAsString];
+	NSString * suit = self.suit;
     
-	NSAttributedString *cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", rank, suit]
-                                                                     attributes:@{ NSParagraphStyleAttributeName : paragraphStyle,
-                                                                                   NSFontAttributeName : cornerFont }];
+	NSAttributedString * cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", rank, suit]
+                                                                      attributes:@{ NSParagraphStyleAttributeName : paragraphStyle,
+                                                                                    NSFontAttributeName : cornerFont }];
 	CGRect textBounds;
 	textBounds.origin = CGPointMake([self cornerOffset], [self cornerOffset]);
 	textBounds.size = [cornerText size];
@@ -119,7 +119,7 @@
 
 - (NSString *)rankAsString
 {
-	return @[@"?",@"A",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"J",@"Q",@"K"][self.rank];
+	return @[@"?", @"A", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K"][self.rank];
 }
 
 #pragma mark - Pips
@@ -170,18 +170,18 @@
 {
 	if (upsideDown) [self pushContextAndRotateUpsideDown];
     
-	CGPoint middle = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-	UIFont *pipFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	CGPoint middle = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+	UIFont * pipFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 	pipFont = [pipFont fontWithSize:[pipFont pointSize] * self.bounds.size.width * PIP_FONT_SCALE_FACTOR];
-	NSAttributedString *attributedSuit = [[NSAttributedString alloc] initWithString:self.suit attributes:@{ NSFontAttributeName : pipFont }];
+	NSAttributedString * attributedSuit = [[NSAttributedString alloc] initWithString:self.suit attributes:@{ NSFontAttributeName : pipFont }];
 	CGSize pipSize = [attributedSuit size];
 	CGPoint pipOrigin = CGPointMake(
-                                    middle.x-pipSize.width/2.0-hoffset*self.bounds.size.width,
-                                    middle.y-pipSize.height/2.0-voffset*self.bounds.size.height
+                                    middle.x - pipSize.width / 2.0 - hoffset * self.bounds.size.width,
+                                    middle.y - pipSize.height / 2.0 - voffset * self.bounds.size.height
                                     );
 	[attributedSuit drawAtPoint:pipOrigin];
 	if (hoffset) {
-		pipOrigin.x += hoffset*2.0*self.bounds.size.width;
+		pipOrigin.x += hoffset * 2.0 * self.bounds.size.width;
 		[attributedSuit drawAtPoint:pipOrigin];
 	}
     
@@ -236,7 +236,7 @@
 -(void)updateWithCard:(Card *)card {
 	[self setSuit:((PlayingCard*)card).suit];
 	[self setRank:((PlayingCard*)card).rank];
-    [self setIsMatched:((PlayingCard*)card).isMatched];
+	[self setIsMatched:((PlayingCard*)card).isMatched];
 	[self setNeedsDisplay];
 }
 

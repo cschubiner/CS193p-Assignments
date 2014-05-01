@@ -3,15 +3,16 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/27/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
+
 //
 
-#import <UIKit/UIKit.h>
 #import "Card.h"
+#import <UIKit/UIKit.h>
 
 @interface CardView : UIView
 
--(void)updateWithCard:(Card*)card;
 @property (nonatomic) BOOL enabled;
+
+-(void)updateWithCard:(Card*)card;
 
 @end

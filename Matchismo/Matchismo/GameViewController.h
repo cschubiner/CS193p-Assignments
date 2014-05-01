@@ -3,7 +3,7 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/21/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
+
 //
 // This is an abstract class implemented by SetGameViewControler and CardGameViewController
 

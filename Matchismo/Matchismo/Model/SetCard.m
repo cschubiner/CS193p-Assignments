@@ -3,7 +3,7 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/18/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
+
 //
 
 #import "SetCard.h"
@@ -32,8 +32,6 @@
 
 - (int)match:(NSArray *)otherCards
 {
-    return 1; //TODO DELETE THIS
-    
 	if (otherCards.count != 2) {
 		return false;
 	}
@@ -41,7 +39,7 @@
 	bool validNum, validShading, validColor, validShape;
     
 	int numSum = self.number, shadeSum = self.shading, colorSum = self.color, shapeSum = self.shape;
-	for (SetCard *card in otherCards) {
+	for (SetCard * card in otherCards) {
 		numSum += card.number;
 		shadeSum += card.shading;
 		shapeSum += card.shape;

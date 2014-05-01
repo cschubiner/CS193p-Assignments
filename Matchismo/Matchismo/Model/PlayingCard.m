@@ -3,7 +3,6 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/4/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
 #import "PlayingCard.h"
@@ -13,7 +12,7 @@
 {
 	int score = 0;
     
-	for (PlayingCard *otherCard in otherCards) {
+	for (PlayingCard * otherCard in otherCards) {
 		if (otherCard.rank == self.rank) {
 			score += 2;
 		}
@@ -27,7 +26,7 @@
 
 - (int)matchSingleCard:(Card *)otherCard
 {
-	PlayingCard *card = (PlayingCard *)otherCard;
+	PlayingCard * card = (PlayingCard*)otherCard;
 	int score = 0;
     
 	if (card.rank == self.rank) {
@@ -42,7 +41,7 @@
 
 - (NSString *)contents
 {
-	NSArray *rankStrings = [PlayingCard rankStrings];
+	NSArray * rankStrings = [PlayingCard rankStrings];
     
 	return [rankStrings[self.rank] stringByAppendingString:self.suit];
 }

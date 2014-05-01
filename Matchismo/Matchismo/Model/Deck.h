@@ -3,11 +3,10 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/4/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "Card.h"
+#import <Foundation/Foundation.h>
 
 @interface Deck : NSObject
 

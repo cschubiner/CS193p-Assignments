@@ -3,13 +3,12 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/4/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
 #import "Deck.h"
 
 @interface Deck ()
-@property (strong, nonatomic) NSMutableArray *cards;
+@property (strong, nonatomic) NSMutableArray * cards;
 @end
 
 @implementation Deck
@@ -41,7 +40,7 @@
 
 - (Card *)drawRandomCard
 {
-	Card *randomCard = nil;
+	Card * randomCard = nil;
     
 	if ([self.cards count]) {
 		unsigned index = arc4random() % [self.cards count];

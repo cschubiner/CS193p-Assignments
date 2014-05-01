@@ -3,15 +3,15 @@
 //  Matchismo
 //
 //  Created by Clay Schubiner on 4/14/14.
-//  Copyright (c) 2014 CS193p. All rights reserved.
+
 //
 
 #import "CardMatchingGame.h"
 
 @interface CardMatchingGame ()
 @property (nonatomic, readwrite) NSInteger score;
-@property (nonatomic, strong) NSMutableArray *cards;
-@property (nonatomic, strong) NSMutableArray *matchedCards;
+@property (nonatomic, strong) NSMutableArray * cards;
+@property (nonatomic, strong) NSMutableArray * matchedCards;
 @end
 
 @implementation CardMatchingGame
@@ -40,7 +40,7 @@ static const int COST_TO_CHOOSE = 1;
 	self = [super init];
 	if (self) {
 		for (int i = 0; i < count; i++) {
-			Card *card = [deck drawRandomCard];
+			Card * card = [deck drawRandomCard];
 			if (card) {
 				[self.cards addObject:card];
 			}
@@ -67,7 +67,7 @@ static const int COST_TO_CHOOSE = 1;
 }
 
 -(void)removeCard:(Card *)card {
-    [self.cards removeObject:card];
+	[self.cards removeObject:card];
 }
 
 -(NSUInteger)cardCount {
@@ -76,13 +76,15 @@ static const int COST_TO_CHOOSE = 1;
 
 - (void)chooseCardAtIndex:(NSUInteger)index
 {
-	Card *card = [self cardAtIndex:index];
+	Card * card = [self cardAtIndex:index];
 	int maxMatchedCards = self.isSetMode ? 3 : 2;
+	bool changeChosen = false;
     
 	if (card.isMatched == false) {
 		if (card.isChosen) {
 			card.chosen = NO;
-			for (Card *otherCard in self.matchedCards) {
+			changeChosen = true;
+			for (Card * otherCard in self.matchedCards) {
 				[otherCard setChosen:false];
 			}
             
@@ -107,7 +109,7 @@ static const int COST_TO_CHOOSE = 1;
 			}
             
 			[self.matchedCards addObject:card];
-			for (Card *otherCard in self.matchedCards) {
+			for (Card * otherCard in self.matchedCards) {
 				if (scoreChange > 0) {
 					[otherCard setMatched:true];
 				}
@@ -123,7 +125,7 @@ static const int COST_TO_CHOOSE = 1;
 		}
 	}
     
-	if (self.isSetMode == false && card.isMatched == false) {
+	if (self.isSetMode == false && card.isMatched == false && card.chosen == false && changeChosen == false) {
 		[card setChosen:true];
 		[self.matchedCards addObject:card];
 	}
