@@ -10,5 +10,5 @@
 #import "GameViewController.h"
 
 @interface SetGameViewController : GameViewController
-
+@property (nonatomic) int totalCardsShown;
 @end

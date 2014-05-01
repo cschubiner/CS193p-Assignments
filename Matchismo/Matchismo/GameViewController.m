@@ -8,12 +8,15 @@
 
 #import "GameViewController.h"
 #import "CardView.h"
-#import "PlayingCardView.h"
 
 @interface GameViewController ()
 @end
 
 @implementation GameViewController
+
+-(void)updateUI {
+	//no implementation. will be handled by subclasses
+}
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
@@ -45,19 +48,16 @@
 			if (count >= self.numCards)
 				break;
             
-			id v = [[viewClass alloc]init];
-			[v setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
-			[v addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
-			[self.cardBackgroundView addSubview:v];
-			[cards addObject:v];
+			id view = [[viewClass alloc]init];
+			[view setFrame:[self.grid frameOfCellAtRow:i inColumn:j]];
+			[view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)]];
+			[self.cardBackgroundView addSubview:view];
+			[cards addObject:view];
 			count++;
 		}
 	}
     
 	self.cardViews = cards;
-}
-
--(void)handleTap:(UITapGestureRecognizer *)sender {
 }
 
 -(NSMutableArray *)cardViews {
@@ -91,21 +91,8 @@
 
 - (Deck *)createDeck
 {
+	//no implementation. will be handled by subclasses
 	return nil;
-}
-
-- (void)updateUI
-{
-	for (CardView *cardView in self.cardViews) {
-		int cardButtonIndex = [self.cardViews indexOfObject:cardView];
-		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
-		[cardView updateWithCard:card];
-		cardView.enabled = !card.isMatched;
-		if ([cardView isKindOfClass:[PlayingCardView class]])
-			[(PlayingCardView*)cardView setFaceUp : card.isChosen];
-        
-		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-	}
 }
 
 -(Grid *)grid {
@@ -123,8 +110,23 @@
 	[self.cardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
 	[self initializeCardViews:[self class]];
-	self.game = [[CardMatchingGame alloc]initWithCardCount:[self.cardViews count] usingDeck:[self createDeck]];
+	self.game = [[CardMatchingGame alloc]initWithCardCount:CARDS_IN_DECK
+                                                 usingDeck:[self createDeck]];
 	[self updateUI];
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)sender
+{
+	if (sender.state == UIGestureRecognizerStateEnded) {
+		int chosenButtonIndex = [self.cardViews indexOfObject:sender.view];
+		Card *card = (Card *)[self.game cardAtIndex:chosenButtonIndex];
+        
+		if (card.isMatched)
+			return;
+        
+		[self.game chooseCardAtIndex:chosenButtonIndex];
+		[self updateUI];
+	}
 }
 
 @end

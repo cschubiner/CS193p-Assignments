@@ -19,31 +19,28 @@
 @implementation CardGameViewController
 
 -(void)viewDidLoad {
-	self.numCards = 9;
+	self.numCards = 12;
 }
 
 -(void)initializeCardViews:(Class)viewClass {
 	[super initializeCardViews:[PlayingCardView class]];
 }
 
-
-- (void)handleTap:(UITapGestureRecognizer *)sender
-{
-	if (sender.state == UIGestureRecognizerStateEnded) {
-		int chosenButtonIndex = [self.cardViews indexOfObject:sender.view];
-		Card *card = (Card *)[self.game cardAtIndex:chosenButtonIndex];
-        
-		if (card.isMatched)
-			return;
-        
-		[self.game chooseCardAtIndex:chosenButtonIndex];
-		[self updateUI];
-	}
-}
-
-
 - (Deck *)createDeck {
 	return [[PlayingCardDeck alloc]init];
+}
+
+- (void)updateUI
+{
+	for (PlayingCardView *cardView in self.cardViews) {
+		int cardButtonIndex = [self.cardViews indexOfObject:cardView];
+		Card *card = (Card *)[self.game cardAtIndex:cardButtonIndex];
+		[cardView updateWithCard:card];
+		cardView.enabled = !card.isMatched;
+		[(PlayingCardView*)cardView setFaceUp : card.isChosen];
+        
+		self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+	}
 }
 
 @end

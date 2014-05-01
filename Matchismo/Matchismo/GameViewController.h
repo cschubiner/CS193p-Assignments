@@ -32,3 +32,5 @@
 -(void) initializeCardViews:(Class)viewClass;
 - (void)handleTap:(UITapGestureRecognizer *)sender;
 @end
+
+static const int CARDS_IN_DECK = 19;
