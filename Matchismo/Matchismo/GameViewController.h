@@ -30,7 +30,7 @@
 - (CardMatchingGame *)game;
 - (Deck *)createDeck;
 - (void)updateUI;
-- (void) initializeCardViews:(Class)viewClass;
+- (void)initializeCardViews:(Class)viewClass;
 - (void)handleTap:(UITapGestureRecognizer *)sender;
 - (IBAction)touchRedealButton:(id)sender;
 @end
