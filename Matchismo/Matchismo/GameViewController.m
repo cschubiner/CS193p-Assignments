@@ -198,24 +198,23 @@
 
 - (IBAction)touchRedealButton:(id)sender
 {
-	int i = 0;
+	int cardIndex = 0;
 	for (UIView * card in self.cardViews) {
 		[UIView animateWithDuration:0.75
                          animations:^{
                              card.frame = CGRectMake(self.cardBackgroundView.bounds.size.width / 2, -self.cardBackgroundView.bounds.size.height, self.grid.cellSize.width, self.grid.cellSize.height);
                          } completion:^(BOOL finished) {
-                             if (i == self.cardViews.count - 1) {
+                             if (cardIndex == self.cardViews.count - 1) {
                                  [self handleRedeal];
                                  return;
                              }
                          }
          ];
-		i++;
+		cardIndex++;
 	}
     
 	if (self.cardViews.count == 0)
 		[self handleRedeal];
-    
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)sender
