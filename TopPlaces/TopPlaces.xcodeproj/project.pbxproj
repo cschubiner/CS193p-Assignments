@@ -24,6 +24,8 @@
 		0CAF3DE7191EE71000C3880A /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DE6191EE71000C3880A /* FlickrFetcher.m */; };
 		0CAF3DEA191EE8F200C3880A /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DE9191EE8F200C3880A /* TopPlacesTableViewController.m */; };
 		0CAF3DED191EE8FC00C3880A /* RecentPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DEC191EE8FC00C3880A /* RecentPlacesTableViewController.m */; };
+		0CAF3DF1191EF7F000C3880A /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DF0191EF7F000C3880A /* ImageViewController.m */; };
+		0CAF3DF4191EF97D00C3880A /* PhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DF3191EF97D00C3880A /* PhotosTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,10 @@
 		0CAF3DE9191EE8F200C3880A /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		0CAF3DEB191EE8FC00C3880A /* RecentPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPlacesTableViewController.h; sourceTree = "<group>"; };
 		0CAF3DEC191EE8FC00C3880A /* RecentPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPlacesTableViewController.m; sourceTree = "<group>"; };
+		0CAF3DEF191EF7F000C3880A /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		0CAF3DF0191EF7F000C3880A /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		0CAF3DF2191EF97D00C3880A /* PhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosTableViewController.h; sourceTree = "<group>"; };
+		0CAF3DF3191EF97D00C3880A /* PhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,11 +130,15 @@
 				0C1EA78A191EE6B7003FF4F7 /* TopPlacesAppDelegate.h */,
 				0C1EA78B191EE6B7003FF4F7 /* TopPlacesAppDelegate.m */,
 				0C1EA78D191EE6B7003FF4F7 /* Main_iPhone.storyboard */,
+				0CAF3DF2191EF97D00C3880A /* PhotosTableViewController.h */,
+				0CAF3DF3191EF97D00C3880A /* PhotosTableViewController.m */,
 				0C1EA790191EE6B7003FF4F7 /* Main_iPad.storyboard */,
 				0CAF3DEB191EE8FC00C3880A /* RecentPlacesTableViewController.h */,
 				0CAF3DEC191EE8FC00C3880A /* RecentPlacesTableViewController.m */,
 				0CAF3DE8191EE8F200C3880A /* TopPlacesTableViewController.h */,
 				0CAF3DE9191EE8F200C3880A /* TopPlacesTableViewController.m */,
+				0CAF3DEF191EF7F000C3880A /* ImageViewController.h */,
+				0CAF3DF0191EF7F000C3880A /* ImageViewController.m */,
 				0CAF3DEE191EEA1F00C3880A /* Flickr Fetcher */,
 				0C1EA796191EE6B7003FF4F7 /* Images.xcassets */,
 				0C1EA782191EE6B7003FF4F7 /* Supporting Files */,
@@ -274,6 +284,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CAF3DF4191EF97D00C3880A /* PhotosTableViewController.m in Sources */,
+				0CAF3DF1191EF7F000C3880A /* ImageViewController.m in Sources */,
 				0CAF3DED191EE8FC00C3880A /* RecentPlacesTableViewController.m in Sources */,
 				0C1EA78C191EE6B7003FF4F7 /* TopPlacesAppDelegate.m in Sources */,
 				0CAF3DE7191EE71000C3880A /* FlickrFetcher.m in Sources */,

@@ -7,6 +7,8 @@
 //
 
 #import "FlickrFetcher.h"
+#import "ImageViewController.h"
+#import "PhotosTableViewController.h"
 #import "TopPlacesTableViewController.h"
 
 @interface TopPlacesTableViewController ()
@@ -21,7 +23,6 @@
 {
 	self = [super initWithStyle:style];
 	if (self) {
-        
 	}
     
 	return self;
@@ -40,7 +41,6 @@
                                                      completionHandler:^(NSURL * localfile, NSURLResponse * response, NSError * error) {
                                                          if (!error) {
                                                              if ([request.URL isEqual:url]) {
-                                                                 //                                                                 UIImage * image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
                                                                  NSDictionary * results = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:localfile] options:0 error:nil];
                                                                  [self createPlacesDictionary:[results valueForKeyPath:FLICKR_RESULTS_PLACES]];
                                                                  dispatch_async(dispatch_get_main_queue(), ^{
@@ -122,14 +122,20 @@
 	return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSDictionary * place = [((NSArray*)self.placesDict[[self.countryArray objectAtIndex:indexPath.section]])objectAtIndex : indexPath.row];
+	[self performSegueWithIdentifier:@"topPlacesToPhotos" sender:place];
+}
+
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	// Get the new view controller using [segue destinationViewController].
-	// Pass the selected object to the new view controller.
+	PhotosTableViewController * dest = [segue destinationViewController];
+	[dest setPlace:sender];
+    
 }
 
 
