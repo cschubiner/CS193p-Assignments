@@ -146,26 +146,36 @@
             <objects>
                 <viewController id="ahs-p3-VZb" customClass="ImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="i44-r7-rwO"/>
-                        <viewControllerLayoutGuide type="bottom" id="uLz-Fg-INx"/>
+                        <viewControllerLayoutGuide type="top" id="bVU-Hv-lAH"/>
+                        <viewControllerLayoutGuide type="bottom" id="Edc-3D-fRj"/>
                     </layoutGuides>
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="yDB-uc-WfU">
+                    <view key="view" contentMode="scaleToFill" id="t3N-Yn-wLO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </scrollView>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fU-Le-Ipm">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8od-PS-qyc">
+                                        <rect key="frame" x="150" y="274" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                     <navigationItem key="navigationItem" id="KDk-z2-9lF"/>
                     <connections>
-                        <outlet property="scrollView" destination="yDB-uc-WfU" id="24a-qE-prk"/>
-                        <outlet property="spinner" destination="8od-PS-qyc" id="WTp-bu-rQ8"/>
+                        <outlet property="scrollView" destination="8fU-Le-Ipm" id="x8Y-cm-mCl"/>
+                        <outlet property="spinner" destination="8od-PS-qyc" id="V3N-rx-ldm"/>
+                        <outlet property="view" destination="t3N-Yn-wLO" id="hRh-Ue-bth"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sHY-Nw-B0F" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="8od-PS-qyc">
-                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </activityIndicatorView>
             </objects>
-            <point key="canvasLocation" x="2117" y="-76"/>
+            <point key="canvasLocation" x="2118" y="-57"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="Bov-Jw-RWT">
