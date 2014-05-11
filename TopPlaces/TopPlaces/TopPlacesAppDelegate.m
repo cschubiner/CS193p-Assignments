@@ -6,15 +6,13 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
-#import "FlickrFetcher.h"
 #import "TopPlacesAppDelegate.h"
 
 @implementation TopPlacesAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	NSArray * topPlacesArray = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[FlickrFetcher URLforTopPlaces]] options:0 error:nil];
-	NSLog(@"%@", topPlacesArray);
+
 	return YES;
 }
 

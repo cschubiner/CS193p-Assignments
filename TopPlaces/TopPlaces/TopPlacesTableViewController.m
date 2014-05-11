@@ -6,114 +6,123 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
+#import "FlickrFetcher.h"
 #import "TopPlacesTableViewController.h"
 
 @interface TopPlacesTableViewController ()
-
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView * spinner;
+@property (nonatomic, strong) NSArray * countryArray; //contains an array of countries (keys into placesDict)
+@property (nonatomic, strong) NSDictionary * placesDict; //maps from key (country) to sorted array of places in the country
 @end
 
 @implementation TopPlacesTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+	self = [super initWithStyle:style];
+	if (self) {
+        
+	}
+    
+	return self;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
+	NSURL * url = [FlickrFetcher URLforTopPlaces];
+	[self.spinner startAnimating];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+	NSURLRequest * request = [NSURLRequest requestWithURL:url];
+	NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+	NSURLSession * session = [NSURLSession sessionWithConfiguration:configuration];
+	NSURLSessionDownloadTask * task = [session downloadTaskWithRequest:request
+                                                     completionHandler:^(NSURL * localfile, NSURLResponse * response, NSError * error) {
+                                                         if (!error) {
+                                                             if ([request.URL isEqual:url]) {
+                                                                 //                                                                 UIImage * image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
+                                                                 NSDictionary * results = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:localfile] options:0 error:nil];
+                                                                 [self createPlacesDictionary:[results valueForKeyPath:FLICKR_RESULTS_PLACES]];
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     [self.tableView reloadData];
+                                                                     [self.spinner stopAnimating];
+                                                                 });
+                                                             }
+                                                         }
+                                                     }];
+	[task resume];
+}
+
+-(void)createPlacesDictionary:(NSArray*)places {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+	for (NSDictionary * place in places) {
+		NSArray * splitArr = [place[FLICKR_PLACE_NAME] componentsSeparatedByString:@", "];
+		NSString * key = splitArr.lastObject;
+		if (dict[key] == nil)
+			dict[key] = [[NSMutableArray alloc]init];
+        
+		[dict[key] addObject:place];
+	}
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	NSMutableArray * arr = [[NSMutableArray alloc]init];
+	for (NSString* key in dict)
+		[arr addObject:key];
+    
+	self.countryArray = [arr sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@""
+                                                                                         ascending:YES
+                                                                                          selector:@selector(localizedStandardCompare:)]]];
+	//sort the arrays in placesDict
+	NSMutableDictionary * sortedDict = [[NSMutableDictionary alloc]init];
+	for (NSString* key in dict) {
+		sortedDict[key] = [dict[key] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"_content"
+                                                                                                      ascending:YES
+                                                                                                       selector:@selector(localizedStandardCompare:)]]];
+	}
+    self.placesDict = sortedDict;
 }
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+	return self.countryArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+	return ((NSArray*)self.placesDict[[self.countryArray objectAtIndex:section]]).count;
 }
 
-/*
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [self.countryArray objectAtIndex:section];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PlaceCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+	NSDictionary * place = [((NSArray*)self.placesDict[[self.countryArray objectAtIndex:indexPath.section]])objectAtIndex : indexPath.row];
+	cell.textLabel.text = [place valueForKeyPath:FLICKR_PLACE_NAME];
+//    cell.detailTextLabel.text = [pl]
     
-    return cell;
+	return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+	// Get the new view controller using [segue destinationViewController].
+	// Pass the selected object to the new view controller.
 }
-*/
+
 
 @end
