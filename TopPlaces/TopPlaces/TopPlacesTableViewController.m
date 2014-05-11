@@ -75,10 +75,11 @@
 	NSMutableDictionary * sortedDict = [[NSMutableDictionary alloc]init];
 	for (NSString* key in dict) {
 		sortedDict[key] = [dict[key] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"_content"
-                                                                                                      ascending:YES
-                                                                                                       selector:@selector(localizedStandardCompare:)]]];
+                                                                                                 ascending:YES
+                                                                                                  selector:@selector(localizedStandardCompare:)]]];
 	}
-    self.placesDict = sortedDict;
+    
+	self.placesDict = sortedDict;
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,7 +101,7 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [self.countryArray objectAtIndex:section];
+	return [self.countryArray objectAtIndex:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -108,9 +109,16 @@
 	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PlaceCell" forIndexPath:indexPath];
     
 	NSDictionary * place = [((NSArray*)self.placesDict[[self.countryArray objectAtIndex:indexPath.section]])objectAtIndex : indexPath.row];
-	cell.textLabel.text = [place valueForKeyPath:FLICKR_PLACE_NAME];
-//    cell.detailTextLabel.text = [pl]
+	NSArray * splitArr = [place[FLICKR_PLACE_NAME] componentsSeparatedByString:@", "];
+	cell.textLabel.text = [splitArr firstObject];
+	NSMutableString * subtitle = [[NSMutableString alloc]init];
+	for (int i = 1; i < splitArr.count - 1; i++) {
+		[subtitle appendString:splitArr[i]];
+		if (i != splitArr.count - 2)
+			[subtitle appendString:@", "];
+	}
     
+	cell.detailTextLabel.text = subtitle;
 	return cell;
 }
 
