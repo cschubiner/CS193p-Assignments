@@ -8,7 +8,7 @@
         <scene sceneID="uZc-PH-gNo">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="gan-EJ-nb0" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="k2W-pC-fGv">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -139,7 +139,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
             </objects>
-            <point key="canvasLocation" x="1565" y="-76"/>
+            <point key="canvasLocation" x="1645" y="-50"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="YS3-lp-3KV">
@@ -153,18 +153,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fU-Le-Ipm">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fU-Le-Ipm">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8od-PS-qyc">
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8od-PS-qyc">
                                         <rect key="frame" x="150" y="274" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="8od-PS-qyc" secondAttribute="trailing" constant="150" id="1U2-wy-yJ5"/>
+                                    <constraint firstAttribute="bottom" secondItem="8od-PS-qyc" secondAttribute="bottom" constant="274" id="E9v-mS-3jt"/>
+                                    <constraint firstItem="8od-PS-qyc" firstAttribute="centerY" secondItem="8fU-Le-Ipm" secondAttribute="centerY" id="HaT-SH-nvy"/>
+                                    <constraint firstItem="8od-PS-qyc" firstAttribute="centerX" secondItem="8fU-Le-Ipm" secondAttribute="centerX" id="wru-Bn-drH"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8fU-Le-Ipm" firstAttribute="leading" secondItem="t3N-Yn-wLO" secondAttribute="leading" id="4sC-m9-tGj"/>
+                            <constraint firstAttribute="bottom" secondItem="8fU-Le-Ipm" secondAttribute="bottom" id="CZe-MM-5TU"/>
+                            <constraint firstItem="8fU-Le-Ipm" firstAttribute="top" secondItem="t3N-Yn-wLO" secondAttribute="top" id="Cfr-4w-4oQ"/>
+                            <constraint firstAttribute="trailing" secondItem="8fU-Le-Ipm" secondAttribute="trailing" id="Nxt-eV-Mit"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="KDk-z2-9lF"/>
                     <connections>
@@ -248,6 +260,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1F1-Fa-tQe"/>
+        <segue reference="yGo-4q-01I"/>
     </inferredMetricsTieBreakers>
 </document>
