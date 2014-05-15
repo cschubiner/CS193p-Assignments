@@ -52,9 +52,21 @@
 {
 	[self.spinner stopAnimating];
 	self.imageView.image = image;
+	if (!image) return;
+    
+	[self.scrollView setZoomScale:1.0 animated:NO];
 	[self.imageView sizeToFit];
     
-	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		CGRect zoomRect = self.imageView.frame;
+		if (self.imageView.bounds.size.width > self.imageView.bounds.size.height)
+			zoomRect.size.width = MIN(self.scrollView.bounds.size.width, self.imageView.frame.size.width);
+		else
+			zoomRect.size.height = MIN(self.scrollView.bounds.size.height, self.imageView.frame.size.height);
+        
+		[self.scrollView zoomToRect:zoomRect animated:NO];
+	}
+	else {
 		self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
         
 		double widthZoom = self.scrollView.bounds.size.width / self.imageView.image.size.width;
@@ -109,7 +121,7 @@
 	self.scrollView.delegate = self;
 	self.scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 	self.scrollView.minimumZoomScale = 0.05;
-	self.scrollView.maximumZoomScale = 5.0;
+	self.scrollView.maximumZoomScale = 15.0;
 	self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
 }
 
