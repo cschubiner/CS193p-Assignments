@@ -34,6 +34,7 @@
 	[super viewDidLoad];
 	NSURL * url = [FlickrFetcher URLforPhotosInPlace:self.place[FLICKR_PLACE_ID] maxResults:50];
 	[self.spinner startAnimating];
+	[self.refreshControl beginRefreshing];
     
 	NSURLRequest * request = [NSURLRequest requestWithURL:url];
 	NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
@@ -47,6 +48,7 @@
                                                                  dispatch_async(dispatch_get_main_queue(), ^{
                                                                      [self.tableView reloadData];
                                                                      [self.spinner stopAnimating];
+                                                                     [self.refreshControl endRefreshing];
                                                                      [self.navigationItem setTitle:self.place[FLICKR_PLACE_NAME]];
                                                                  });
                                                              }
@@ -73,7 +75,13 @@
 {
 	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
-	NSDictionary * photo = [self.photos objectAtIndex:indexPath.row];
+	NSDictionary * photo;
+	//display photos in reverse order if you're viewing recent photos
+	if ([self isKindOfClass:[RecentPhotosTableViewController class]])
+		photo = [self.photos objectAtIndex:self.photos.count - indexPath.row - 1];
+	else
+		photo = [self.photos objectAtIndex:indexPath.row];
+    
 	bool hasTitle = photo[FLICKR_PHOTO_TITLE] && ((NSString*)photo[FLICKR_PHOTO_TITLE]).length > 0;
 	bool hasDescription = photo[FLICKR_PHOTO_DESCRIPTION] && ((NSString*)photo[FLICKR_PHOTO_DESCRIPTION]).length > 0;
 	if (hasTitle) {
@@ -88,7 +96,12 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary * photo = [self.photos objectAtIndex:indexPath.row];
+	NSDictionary * photo;
+	if ([self isKindOfClass:[RecentPhotosTableViewController class]])
+		photo = [self.photos objectAtIndex:self.photos.count - indexPath.row - 1];
+	else
+		photo = [self.photos objectAtIndex:indexPath.row];
+    
 	[self performSegueWithIdentifier:@"photosToImage" sender:photo];
 }
 
@@ -113,7 +126,7 @@
 	}
     
 	[dest setPhotoTitle:photoTitle];
-    [RecentPhotosTableViewController addRecentPhoto:photo];
+	[RecentPhotosTableViewController addRecentPhoto:photo];
 }
 
 @end

@@ -33,6 +33,7 @@
 	[super viewDidLoad];
 	NSURL * url = [FlickrFetcher URLforTopPlaces];
 	[self.spinner startAnimating];
+	[self.refreshControl beginRefreshing];
     
 	NSURLRequest * request = [NSURLRequest requestWithURL:url];
 	NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
@@ -46,6 +47,7 @@
                                                                  dispatch_async(dispatch_get_main_queue(), ^{
                                                                      [self.tableView reloadData];
                                                                      [self.spinner stopAnimating];
+                                                                     [self.refreshControl endRefreshing];
                                                                  });
                                                              }
                                                          }
