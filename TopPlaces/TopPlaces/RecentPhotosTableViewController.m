@@ -32,13 +32,14 @@ const static int MAX_PHOTOS = 20;
 +(void)addRecentPhoto:(NSDictionary *)photo {
 	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
 	NSMutableArray * photos = [defaults objectForKey:PHOTO_DEFAULT_KEY];
-    photos = [[NSMutableArray alloc]initWithArray:photos];
+	photos = [[NSMutableArray alloc]initWithArray:photos];
 	[photos removeObject:photo];
 	[photos addObject:photo];
-    if (photos.count > MAX_PHOTOS)
-        [photos removeObjectAtIndex:0];
+	if (photos.count > MAX_PHOTOS)
+		[photos removeObjectAtIndex:0];
+    
 	[defaults setObject:photos forKey:PHOTO_DEFAULT_KEY];
-    [defaults synchronize];
+	[defaults synchronize];
 }
 
 - (void)viewDidLoad
@@ -47,9 +48,9 @@ const static int MAX_PHOTOS = 20;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+	[super viewWillAppear:animated];
 	self.photos = [[NSUserDefaults standardUserDefaults] objectForKey:PHOTO_DEFAULT_KEY];
-    [self.tableView reloadData];
+	[self.tableView reloadData];
 }
 
 @end

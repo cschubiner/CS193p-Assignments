@@ -27,15 +27,20 @@
 }
 
 -(void)awakeFromNib {
-    self.splitViewController.delegate = self;
+	self.splitViewController.delegate = self;
 }
 
 -(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
-    return UIInterfaceOrientationIsPortrait(orientation);
+	return UIInterfaceOrientationIsPortrait(orientation);
 }
 
 -(void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
-    
+	barButtonItem.title = @"Show Photos";
+	self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+-(void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+	self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (UIImage *)image
@@ -49,17 +54,18 @@
 	self.imageView.image = image;
 	[self.imageView sizeToFit];
     
-	self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-    
-	double widthZoom = self.scrollView.bounds.size.width / self.imageView.image.size.width;
-    
-	double boundaryHeight = self.navigationController.navigationController.navigationBar.bounds.size.height + self.tabBarController.tabBar.bounds.size.height + UIApplication.sharedApplication.statusBarFrame.size.height;
-	double heightZoom = (self.scrollView.bounds.size.height - boundaryHeight) / self.imageView.image.size.height;
-    
-	if(widthZoom > heightZoom)
-		self.scrollView.zoomScale = widthZoom;
-	else
-		self.scrollView.zoomScale = heightZoom;
+	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+		self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
+        
+		double widthZoom = self.scrollView.bounds.size.width / self.imageView.image.size.width;
+		double boundaryHeight = self.navigationController.navigationController.navigationBar.bounds.size.height + self.tabBarController.tabBar.bounds.size.height + UIApplication.sharedApplication.statusBarFrame.size.height;
+		double heightZoom = (self.scrollView.bounds.size.height - boundaryHeight) / self.imageView.image.size.height;
+        
+		if(widthZoom > heightZoom)
+			self.scrollView.zoomScale = widthZoom;
+		else
+			self.scrollView.zoomScale = heightZoom;
+	}
 }
 
 #pragma mark Public API

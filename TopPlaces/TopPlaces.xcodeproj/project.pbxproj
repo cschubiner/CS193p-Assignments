@@ -127,12 +127,12 @@
 		0C1EA781191EE6B7003FF4F7 /* TopPlaces */ = {
 			isa = PBXGroup;
 			children = (
+				0C1EA78D191EE6B7003FF4F7 /* Main_iPhone.storyboard */,
+				0C1EA790191EE6B7003FF4F7 /* Main_iPad.storyboard */,
 				0C1EA78A191EE6B7003FF4F7 /* TopPlacesAppDelegate.h */,
 				0C1EA78B191EE6B7003FF4F7 /* TopPlacesAppDelegate.m */,
-				0C1EA78D191EE6B7003FF4F7 /* Main_iPhone.storyboard */,
 				0CAF3DF2191EF97D00C3880A /* PhotosTableViewController.h */,
 				0CAF3DF3191EF97D00C3880A /* PhotosTableViewController.m */,
-				0C1EA790191EE6B7003FF4F7 /* Main_iPad.storyboard */,
 				0CAF3DEB191EE8FC00C3880A /* RecentPhotosTableViewController.h */,
 				0CAF3DEC191EE8FC00C3880A /* RecentPhotosTableViewController.m */,
 				0CAF3DE8191EE8F200C3880A /* TopPlacesTableViewController.h */,

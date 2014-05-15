@@ -100,8 +100,9 @@
 
 - (NSURL *)getPhotoURL:(NSDictionary *)photo {
 	NSURL * url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatOriginal];
-	//        if (url == nil)
-	url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+	if (url == nil)
+		url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+    
 	return url;
 }
 
@@ -121,8 +122,7 @@
 		NSURL * url;
 		url = [self getPhotoURL:photo];
         
-        NSString * photoTitle = [self getPhotoTitle:photo];
-        [detailController setTitle:photoTitle];
+		[detailController setTitle:[self getPhotoTitle:photo]];
 		[detailController setImageURL:url];
 	}
 	else
@@ -154,8 +154,8 @@
 	[dest setImageURL:[self getPhotoURL:photo]];
 	[dest setPhotoTitle:[self getPhotoTitle:photo]];
 	[RecentPhotosTableViewController addRecentPhoto:photo];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && [self isKindOfClass:[RecentPhotosTableViewController class]])
-        [self.tableView reloadData];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && [self isKindOfClass:[RecentPhotosTableViewController class]])
+		[self.tableView reloadData];
 }
 
 @end
