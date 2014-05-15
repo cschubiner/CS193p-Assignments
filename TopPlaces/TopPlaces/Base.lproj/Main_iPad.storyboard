@@ -11,7 +11,7 @@
                     <toolbarItems/>
                     <connections>
                         <segue destination="Ds4-1d-LQ1" kind="relationship" relationship="masterViewController" id="BOL-TX-HNI"/>
-                        <segue destination="jh0-uL-2Yn" kind="relationship" relationship="detailViewController" id="hvI-pF-AO3"/>
+                        <segue destination="VdN-rV-Nph" kind="relationship" relationship="detailViewController" id="hvI-pF-AO3"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wNR-3r-Nab" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -51,7 +51,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZf-8L-ZOl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1537" y="1575"/>
+            <point key="canvasLocation" x="2511" y="1575"/>
         </scene>
         <!--Recent Photos Table View Controller - Recent Photos-->
         <scene sceneID="96P-u3-sPm">
@@ -97,7 +97,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xjP-4Q-aIP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3528" y="1607"/>
+            <point key="canvasLocation" x="4502" y="1607"/>
         </scene>
         <!--Photos Table View Controller-->
         <scene sceneID="a0y-Fd-LYn">
@@ -190,14 +190,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="MS8-BU-JA3"/>
                     <connections>
-                        <outlet property="scrollView" destination="ZOj-ua-SDd" id="4HC-tN-JPX"/>
-                        <outlet property="spinner" destination="cPX-Xb-skb" id="NVz-QK-YHR"/>
+                        <outlet property="scrollView" destination="ZOj-ua-SDd" id="EPT-ka-dNy"/>
+                        <outlet property="spinner" destination="cPX-Xb-skb" id="1bl-Ae-8M8"/>
                         <outlet property="view" destination="5Uh-nY-5HV" id="Yc3-fE-0DJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BIK-mj-HyC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="461" y="2347"/>
+            <point key="canvasLocation" x="1435" y="2347"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="LlW-Jl-j0Q">
@@ -262,6 +262,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Re-Eq-z0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2501" y="272"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QLE-fi-EYD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VdN-rV-Nph" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1jK-CW-MwQ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jh0-uL-2Yn" kind="relationship" relationship="rootViewController" id="rNm-1B-RKY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sbs-wo-Q5G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="461" y="2347"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

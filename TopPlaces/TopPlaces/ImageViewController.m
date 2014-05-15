@@ -8,7 +8,7 @@
 
 #import "ImageViewController.h"
 
-@interface ImageViewController () <UIScrollViewDelegate>
+@interface ImageViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 @property (nonatomic, strong) UIImageView * imageView;
 @property (nonatomic) UIImage * image;
 @property (weak, nonatomic) IBOutlet UIScrollView * scrollView;
@@ -26,6 +26,18 @@
 	return _imageView;
 }
 
+-(void)awakeFromNib {
+    self.splitViewController.delegate = self;
+}
+
+-(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
+    return UIInterfaceOrientationIsPortrait(orientation);
+}
+
+-(void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
+    
+}
+
 - (UIImage *)image
 {
 	return self.imageView.image;
@@ -36,6 +48,7 @@
 	[self.spinner stopAnimating];
 	self.imageView.image = image;
 	[self.imageView sizeToFit];
+    
 	self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
     
 	double widthZoom = self.scrollView.bounds.size.width / self.imageView.image.size.width;

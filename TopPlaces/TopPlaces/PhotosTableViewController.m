@@ -84,15 +84,25 @@
     
 	bool hasTitle = photo[FLICKR_PHOTO_TITLE] && ((NSString*)photo[FLICKR_PHOTO_TITLE]).length > 0;
 	bool hasDescription = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION] && ((NSString*)[photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION]).length > 0;
+	cell.detailTextLabel.text = @"";
 	if (hasTitle) {
 		cell.textLabel.text = photo[FLICKR_PHOTO_TITLE];
-        cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+		cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
 	}
 	else if (hasDescription)
 		cell.textLabel.text = photo[FLICKR_PHOTO_DESCRIPTION];
-	else cell.textLabel.text = @"Unknown";
+	else
+		cell.textLabel.text = @"Unknown";
+    
     
 	return cell;
+}
+
+- (NSURL *)getPhotoURL:(NSDictionary *)photo {
+	NSURL * url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatOriginal];
+	//        if (url == nil)
+	url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+	return url;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -108,10 +118,11 @@
 	}
     
 	if (detailController) {
-        NSURL * url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatOriginal];
-        if (url == nil)
-            url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+		NSURL * url;
+		url = [self getPhotoURL:photo];
         
+        NSString * photoTitle = [self getPhotoTitle:photo];
+        [detailController setTitle:photoTitle];
 		[detailController setImageURL:url];
 	}
 	else
@@ -119,17 +130,11 @@
 }
 
 
+
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (NSString *)getPhotoTitle:(NSDictionary *)photo
 {
-	ImageViewController * dest = [segue destinationViewController];
-	NSDictionary * photo = sender;
-	[dest setImageURL:[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatOriginal]];
-	if (dest.imageURL == nil)
-		[dest setImageURL:[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]];
-    
-    
 	NSString * photoTitle = photo[FLICKR_PHOTO_TITLE];
 	bool hasTitle = photo[FLICKR_PHOTO_TITLE] && ((NSString*)photo[FLICKR_PHOTO_TITLE]).length > 0;
 	bool hasDescription = photo[FLICKR_PHOTO_DESCRIPTION] && ((NSString*)photo[FLICKR_PHOTO_DESCRIPTION]).length > 0;
@@ -139,8 +144,18 @@
 		else photoTitle = @"Unknown";
 	}
     
-	[dest setPhotoTitle:photoTitle];
+	return photoTitle;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	ImageViewController * dest = [segue destinationViewController];
+	NSDictionary * photo = sender;
+	[dest setImageURL:[self getPhotoURL:photo]];
+	[dest setPhotoTitle:[self getPhotoTitle:photo]];
 	[RecentPhotosTableViewController addRecentPhoto:photo];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && [self isKindOfClass:[RecentPhotosTableViewController class]])
+        [self.tableView reloadData];
 }
 
 @end
