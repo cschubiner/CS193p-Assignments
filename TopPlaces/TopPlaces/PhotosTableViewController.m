@@ -83,10 +83,10 @@
 		photo = [self.photos objectAtIndex:indexPath.row];
     
 	bool hasTitle = photo[FLICKR_PHOTO_TITLE] && ((NSString*)photo[FLICKR_PHOTO_TITLE]).length > 0;
-	bool hasDescription = photo[FLICKR_PHOTO_DESCRIPTION] && ((NSString*)photo[FLICKR_PHOTO_DESCRIPTION]).length > 0;
+	bool hasDescription = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION] && ((NSString*)[photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION]).length > 0;
 	if (hasTitle) {
 		cell.textLabel.text = photo[FLICKR_PHOTO_TITLE];
-		cell.detailTextLabel.text = photo[FLICKR_PHOTO_DESCRIPTION];
+        cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
 	}
 	else if (hasDescription)
 		cell.textLabel.text = photo[FLICKR_PHOTO_DESCRIPTION];
@@ -102,7 +102,20 @@
 	else
 		photo = [self.photos objectAtIndex:indexPath.row];
     
-	[self performSegueWithIdentifier:@"photosToImage" sender:photo];
+	ImageViewController * detailController = self.splitViewController.viewControllers[1];
+	if ([detailController isKindOfClass:[UINavigationController class]]) {
+		detailController = ((UINavigationController*)detailController).viewControllers[0];
+	}
+    
+	if (detailController) {
+        NSURL * url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatOriginal];
+        if (url == nil)
+            url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+        
+		[detailController setImageURL:url];
+	}
+	else
+		[self performSegueWithIdentifier:@"photosToImage" sender:photo];
 }
 
 
@@ -115,6 +128,7 @@
 	[dest setImageURL:[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatOriginal]];
 	if (dest.imageURL == nil)
 		[dest setImageURL:[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]];
+    
     
 	NSString * photoTitle = photo[FLICKR_PHOTO_TITLE];
 	bool hasTitle = photo[FLICKR_PHOTO_TITLE] && ((NSString*)photo[FLICKR_PHOTO_TITLE]).length > 0;
