@@ -33,12 +33,20 @@
 
 - (void)setImage:(UIImage *)image
 {
+	[self.spinner stopAnimating];
 	self.imageView.image = image;
 	[self.imageView sizeToFit];
 	self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-	[self.scrollView zoomToRect:self.imageView.frame animated:NO];
     
-	[self.spinner stopAnimating];
+	double widthZoom = self.scrollView.bounds.size.width / self.imageView.image.size.width;
+    
+	double boundaryHeight = self.navigationController.navigationController.navigationBar.bounds.size.height + self.tabBarController.tabBar.bounds.size.height + UIApplication.sharedApplication.statusBarFrame.size.height;
+	double heightZoom = (self.scrollView.bounds.size.height - boundaryHeight) / self.imageView.image.size.height;
+    
+	if(widthZoom > heightZoom)
+		self.scrollView.zoomScale = widthZoom;
+	else
+		self.scrollView.zoomScale = heightZoom;
 }
 
 #pragma mark Public API
@@ -66,7 +74,6 @@
                                                                      UIImage * image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
                                                                      dispatch_async(dispatch_get_main_queue(), ^{
                                                                          self.image = image;
-                                                                         //                                                                         [self.spinner stopAnimating];
                                                                      });
                                                                  }
                                                              }
@@ -81,13 +88,8 @@
 {
 	_scrollView = scrollView;
 	self.scrollView.delegate = self;
-    
-	//	self.scrollView.contentMode = (UIViewContentModeScaleAspectFit);
-	//	self.scrollView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 	self.scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    
-    
-	self.scrollView.minimumZoomScale = 0.01;
+	self.scrollView.minimumZoomScale = 0.05;
 	self.scrollView.maximumZoomScale = 5.0;
 	self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
 }
