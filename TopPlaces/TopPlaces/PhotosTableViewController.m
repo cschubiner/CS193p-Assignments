@@ -9,6 +9,7 @@
 #import "FlickrFetcher.h"
 #import "ImageViewController.h"
 #import "PhotosTableViewController.h"
+#import "RecentPhotosTableViewController.h"
 
 @interface PhotosTableViewController ()
 
@@ -112,6 +113,7 @@
 	}
     
 	[dest setPhotoTitle:photoTitle];
+    [RecentPhotosTableViewController addRecentPhoto:photo];
 }
 
 @end

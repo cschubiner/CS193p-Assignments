@@ -37,18 +37,18 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r11-Rg-RpC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="586" y="283"/>
+            <point key="canvasLocation" x="578" y="351"/>
         </scene>
-        <!--Recent Places Table View Controller - Recent Places-->
+        <!--Recent Photos Table View Controller - Recent Photos-->
         <scene sceneID="G5U-LX-pMc">
             <objects>
-                <tableViewController id="OBQ-83-6C9" customClass="RecentPlacesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="OBQ-83-6C9" customClass="RecentPhotosTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jbd-lw-FIX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCell" textLabel="Ey2-dT-g0L" detailTextLabel="wBK-zt-AaJ" style="IBUITableViewCellStyleSubtitle" id="hHl-8X-S4s">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoCell" textLabel="Ey2-dT-g0L" detailTextLabel="wBK-zt-AaJ" style="IBUITableViewCellStyleSubtitle" id="hHl-8X-S4s">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hHl-8X-S4s" id="Owu-Pi-hF1">
@@ -79,14 +79,14 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="Z7Z-vs-dL1"/>
-                    <navigationItem key="navigationItem" title="Recent Places" id="m5b-46-Xs7"/>
+                    <navigationItem key="navigationItem" title="Recent Photos" id="m5b-46-Xs7"/>
                     <connections>
-                        <segue destination="gsJ-id-ppH" kind="push" id="yGo-4q-01I"/>
+                        <segue destination="ahs-p3-VZb" kind="push" identifier="photosToImage" id="GQZ-8k-9FR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JCh-Ry-LZN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1034" y="283"/>
+            <point key="canvasLocation" x="1609" y="351"/>
         </scene>
         <!--Photos Table View Controller-->
         <scene sceneID="rdw-dd-JFk">
@@ -139,7 +139,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
             </objects>
-            <point key="canvasLocation" x="1645" y="-50"/>
+            <point key="canvasLocation" x="1609" y="-320"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="YS3-lp-3KV">
@@ -187,7 +187,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sHY-Nw-B0F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2118" y="-57"/>
+            <point key="canvasLocation" x="2142" y="11"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="Bov-Jw-RWT">
@@ -203,7 +203,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aGK-Ce-XCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="586" y="-413"/>
+            <point key="canvasLocation" x="578" y="-320"/>
         </scene>
         <!--Top Places Table View Controller - Top Places-->
         <scene sceneID="Tb8-3F-1EE">
@@ -251,7 +251,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2U-uA-e3m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1034" y="-413"/>
+            <point key="canvasLocation" x="1102" y="-320"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -260,6 +260,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yGo-4q-01I"/>
+        <segue reference="GQZ-8k-9FR"/>
     </inferredMetricsTieBreakers>
 </document>

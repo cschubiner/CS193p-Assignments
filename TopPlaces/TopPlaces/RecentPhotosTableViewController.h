@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
+#import "PhotosTableViewController.h"
 #import <UIKit/UIKit.h>
 
-@interface RecentPlacesTableViewController : UITableViewController
+@interface RecentPhotosTableViewController : PhotosTableViewController
 
++(void)addRecentPhoto:(NSDictionary*)photo;
 @end
