@@ -68,11 +68,9 @@
 	}
 	else {
 		self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-        
 		double widthZoom = self.scrollView.bounds.size.width / self.imageView.image.size.width;
 		double boundaryHeight = self.navigationController.navigationController.navigationBar.bounds.size.height + self.tabBarController.tabBar.bounds.size.height + UIApplication.sharedApplication.statusBarFrame.size.height;
 		double heightZoom = (self.scrollView.bounds.size.height - boundaryHeight) / self.imageView.image.size.height;
-        
 		if(widthZoom > heightZoom)
 			self.scrollView.zoomScale = widthZoom;
 		else

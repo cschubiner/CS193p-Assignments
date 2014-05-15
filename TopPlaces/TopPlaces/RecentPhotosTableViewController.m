@@ -22,10 +22,6 @@ const static int MAX_PHOTOS = 20;
 - (id)initWithStyle:(UITableViewStyle)style
 {
 	self = [super initWithStyle:style];
-	if (self) {
-		// Custom initialization
-	}
-    
 	return self;
 }
 
