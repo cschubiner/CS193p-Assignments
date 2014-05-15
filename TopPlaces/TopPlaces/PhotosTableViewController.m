@@ -14,7 +14,7 @@
 @interface PhotosTableViewController ()
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView * spinner;
-@property (strong, nonatomic) NSArray * photos;
+@property (strong, nonatomic) NSMutableArray * photos;
 
 @end
 
@@ -44,7 +44,7 @@
                                                          if (!error) {
                                                              if ([request.URL isEqual:url]) {
                                                                  NSDictionary * results = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:localfile] options:0 error:nil];
-                                                                 self.photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+                                                                 self.photos = [[NSMutableArray alloc]initWithArray:[results valueForKeyPath:FLICKR_RESULTS_PHOTOS]];
                                                                  dispatch_async(dispatch_get_main_queue(), ^{
                                                                      [self.tableView reloadData];
                                                                      [self.spinner stopAnimating];
@@ -76,7 +76,7 @@
 	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
 	NSDictionary * photo;
-	//display photos in reverse order if you're viewing recent photos
+	//display photos in reverse order if we're viewing recent photos
 	if ([self isKindOfClass:[RecentPhotosTableViewController class]])
 		photo = [self.photos objectAtIndex:self.photos.count - indexPath.row - 1];
 	else
@@ -113,25 +113,31 @@
 	else
 		photo = [self.photos objectAtIndex:indexPath.row];
     
+	[RecentPhotosTableViewController addRecentPhoto:photo];
+    
 	ImageViewController * detailController = self.splitViewController.viewControllers[1];
 	if ([detailController isKindOfClass:[UINavigationController class]]) {
 		detailController = ((UINavigationController*)detailController).viewControllers[0];
 	}
     
 	if (detailController) {
-		NSURL * url;
-		url = [self getPhotoURL:photo];
-        
 		[detailController setTitle:[self getPhotoTitle:photo]];
-		[detailController setImageURL:url];
+		[detailController setImageURL:[self getPhotoURL:photo]];
+		if ([self isKindOfClass:[RecentPhotosTableViewController class]]) {
+			[self.tableView moveRowAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+			[self.photos removeObject:photo];
+			[self.photos addObject:photo];
+		}
 	}
 	else
 		[self performSegueWithIdentifier:@"photosToImage" sender:photo];
 }
 
 
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;
+}
 
-#pragma mark - Navigation
 
 - (NSString *)getPhotoTitle:(NSDictionary *)photo
 {
@@ -147,15 +153,14 @@
 	return photoTitle;
 }
 
+#pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	ImageViewController * dest = [segue destinationViewController];
 	NSDictionary * photo = sender;
 	[dest setImageURL:[self getPhotoURL:photo]];
 	[dest setPhotoTitle:[self getPhotoTitle:photo]];
-	[RecentPhotosTableViewController addRecentPhoto:photo];
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && [self isKindOfClass:[RecentPhotosTableViewController class]])
-		[self.tableView reloadData];
 }
 
 @end

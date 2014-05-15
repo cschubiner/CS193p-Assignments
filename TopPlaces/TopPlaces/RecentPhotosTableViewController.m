@@ -49,7 +49,7 @@ const static int MAX_PHOTOS = 20;
 
 -(void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.photos = [[NSUserDefaults standardUserDefaults] objectForKey:PHOTO_DEFAULT_KEY];
+	self.photos = [[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:PHOTO_DEFAULT_KEY]];
 	[self.tableView reloadData];
 }
 
