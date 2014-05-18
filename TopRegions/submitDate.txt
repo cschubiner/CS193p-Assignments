@@ -1,0 +1,24 @@
+Welcome to the CS193p submit script.
+
+Submit current directory /afs/ir.stanford.edu/users/c/l/claytons/cs193p/a6/TopRegions [y]/n:y
+
+Which assignment...
+1 - Matchismo
+2 - Matchismo2
+3 - Set
+4 - AnimatedSet
+5 - TopPlaces
+6 - TopRegions
+7 - FinalProject
+8 - FinalProjectSlides
+9 - Cancel
+Choice [1-9]:6
+
+README...
+user:claytons
+
+Checking files...
+
+Copying files...
+
+Sun May 18 05:36:49 2014
