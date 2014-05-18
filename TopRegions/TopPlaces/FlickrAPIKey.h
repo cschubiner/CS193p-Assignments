@@ -9,4 +9,5 @@
 //
 
 #define FlickrAPIKey @"a4c1bac109f50afc4e484d216849484c"
-//secret = ce496e61914bbe44
+
+#define FLICKR_DEBUG YES
