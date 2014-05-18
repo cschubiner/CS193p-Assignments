@@ -124,6 +124,12 @@
                                 else failure = YES;
                             }
                             
+                            [self.managedObjectContext performBlockAndWait:^{
+                                NSError * error;
+                                [self.managedObjectContext save:&error];
+                                if (error)
+                                    NSLog(@"error: %@", error);
+                            }];
                             
                             if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
                                 application.networkActivityIndicatorVisible = NO;

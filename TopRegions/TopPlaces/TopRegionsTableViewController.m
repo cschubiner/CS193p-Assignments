@@ -9,9 +9,10 @@
 #import "FlickrDatabase.h"
 #import "FlickrFetcher.h"
 #import "ImageViewController.h"
-#import "PhotosTableViewController.h"
-#import "TopRegionsTableViewController.h"
 #import "Photographer.h"
+#import "PhotosTableViewController.h"
+#import "Region.h"
+#import "TopRegionsTableViewController.h"
 
 @interface TopRegionsTableViewController ()
 @end
@@ -36,8 +37,8 @@
 - (void)setupFetchedResultsController
 {
 	if (self.managedObjectContext) {
-		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Photographer"];
-		request.predicate = nil; // this means ALL Photographers
+		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+		request.predicate = nil; // this means ALL Regions
 		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                   ascending:YES
                                                                    selector:@selector(localizedStandardCompare:)]];
@@ -79,15 +80,20 @@
 	}
 }
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return MIN(50, [super tableView:tableView numberOfRowsInSection:section]);
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"RegionCell"];
+	UITableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:@"RegionCell"];
     
-    Photographer *photographer = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = photographer.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu photos", (unsigned long)[photographer.photos count]];
+	Region * region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+	cell.textLabel.text = region.name;
+	unsigned long photographersCount = [region.photographers count];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu photographer%@", photographersCount, photographersCount == 1 ? @"" :@"s"];
     
-    return cell;
+	return cell;
 }
 
 
@@ -115,7 +121,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//	PhotosTableViewController * dest = [segue destinationViewController];
+	//	PhotosTableViewController * dest = [segue destinationViewController];
     
 }
 

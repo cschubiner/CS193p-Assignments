@@ -15,8 +15,9 @@
 	Region * region = nil;
     
 	if ([placeID length]) {
+		NSString * regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:regionInfo];
 		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
-//		request.predicate = [NSPredicate predicateWithFormat:@"unique = %@", placeID];
+		request.predicate = [NSPredicate predicateWithFormat:@"name = %@", regionName];
         
 		NSError * error;
 		NSArray * matches = [context executeFetchRequest:request error:&error];
@@ -28,13 +29,14 @@
 			region = [NSEntityDescription insertNewObjectForEntityForName:@"Region"
                                                    inManagedObjectContext:context];
 			region.unique = placeID;
-			region.name = [FlickrFetcher extractRegionNameFromPlaceInformation:regionInfo];
+			region.name = regionName;
 		}
 		else {
 			region = [matches lastObject];
 		}
 	}
     
+	NSLog(@"name: %@", region.name);
 	return region;
 }
 @end
