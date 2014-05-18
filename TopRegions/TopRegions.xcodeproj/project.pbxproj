@@ -141,19 +141,19 @@
 		0C00DEFB19282D7600FE1D7A /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				0C2A30A71928320C007C1D72 /* Photo+Flickr.h */,
-				0C2A30A81928320C007C1D72 /* Photo+Flickr.m */,
-				0C2A30A91928320C007C1D72 /* Photographer+Create.h */,
-				0C2A30AA1928320C007C1D72 /* Photographer+Create.m */,
 				0C7D0BB31928C972005E1E0B /* Photo.h */,
 				0C7D0BB41928C972005E1E0B /* Photo.m */,
-				0C2A30921928302F007C1D72 /* TopRegions.xcdatamodeld */,
+				0C2A30A71928320C007C1D72 /* Photo+Flickr.h */,
+				0C2A30A81928320C007C1D72 /* Photo+Flickr.m */,
 				0C2A30B719283BBF007C1D72 /* Photographer.h */,
 				0C2A30B819283BBF007C1D72 /* Photographer.m */,
+				0C2A30A91928320C007C1D72 /* Photographer+Create.h */,
+				0C2A30AA1928320C007C1D72 /* Photographer+Create.m */,
 				0C2A30BA19283BBF007C1D72 /* Region.h */,
 				0C2A30BB19283BBF007C1D72 /* Region.m */,
 				0C78418F192848E200C0D1D5 /* Region+Create.h */,
 				0C784190192848E200C0D1D5 /* Region+Create.m */,
+				0C2A30921928302F007C1D72 /* TopRegions.xcdatamodeld */,
 				0C00DEF01928297D00FE1D7A /* CoreDataTableViewController */,
 			);
 			name = "Core Data";

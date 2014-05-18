@@ -36,7 +36,6 @@
 		}
 	}
     
-	NSLog(@"name: %@", region.name);
 	return region;
 }
 @end

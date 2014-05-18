@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <Foundation/Foundation.h>
 
 @class Photo, Photographer;
 
@@ -16,8 +16,8 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * numPhotographers;
 @property (nonatomic, retain) NSString * unique;
-@property (nonatomic, retain) NSSet *photographers;
-@property (nonatomic, retain) NSSet *photos;
+@property (nonatomic, retain) NSSet * photographers;
+@property (nonatomic, retain) NSSet * photos;
 @end
 
 @interface Region (CoreDataGeneratedAccessors)

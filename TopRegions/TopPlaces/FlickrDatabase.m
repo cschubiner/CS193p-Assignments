@@ -117,7 +117,6 @@
                         NSArray * photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
                         if (photos) {
                             failure = NO;
-                            // load up the Core Data database
                             
                             for (NSDictionary * photoDictionary in photos) {
                                 NSURL * url = [FlickrFetcher URLforInformationAboutPlace:photoDictionary[FLICKR_PHOTO_PLACE_ID]];
@@ -134,13 +133,6 @@
                                 }
                                 else failure = YES;
                             }
-                            
-                            //                            [self.managedObjectContext performBlockAndWait:^{
-                            //                                NSError * error;
-                            //                                [self.managedObjectContext save:&error];
-                            //                                if (error)
-                            //                                    NSLog(@"error: %@", error);
-                            //                            }];
                             
                             if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
                                 application.networkActivityIndicatorVisible = NO;

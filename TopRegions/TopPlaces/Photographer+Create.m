@@ -13,27 +13,29 @@
 + (Photographer *)photographerWithName:(NSString *)name
                 inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    Photographer *photographer = nil;
+	Photographer * photographer = nil;
     
-    if ([name length]) {
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photographer"];
-        request.predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
+	if ([name length]) {
+		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Photographer"];
+		request.predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
         
-        NSError *error;
-        NSArray *matches = [context executeFetchRequest:request error:&error];
+		NSError * error;
+		NSArray * matches = [context executeFetchRequest:request error:&error];
         
-        if (error || !matches || ([matches count] > 1)) {
-            // handle error
-        } else if (![matches count]) {
-            photographer = [NSEntityDescription insertNewObjectForEntityForName:@"Photographer"
+		if (error || !matches || ([matches count] > 1)) {
+			// handle error
+		}
+		else if (![matches count]) {
+			photographer = [NSEntityDescription insertNewObjectForEntityForName:@"Photographer"
                                                          inManagedObjectContext:context];
-            photographer.name = name;
-        } else {
-            photographer = [matches lastObject];
-        }
-    }
+			photographer.name = name;
+		}
+		else {
+			photographer = [matches lastObject];
+		}
+	}
     
-    return photographer;
+	return photographer;
 }
 
 @end

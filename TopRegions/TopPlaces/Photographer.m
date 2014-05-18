@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
-#import "Photographer.h"
 #import "Photo.h"
+#import "Photographer.h"
 #import "Region.h"
 
 

@@ -11,6 +11,6 @@
 
 @interface TopRegionsTableViewController : CoreDataTableViewController
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext * managedObjectContext;
 
 @end

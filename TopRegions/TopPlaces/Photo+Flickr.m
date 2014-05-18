@@ -29,7 +29,7 @@
     
 	if (error || !matches || ([matches count] > 1)) {
 		// handle error
-        NSLog(@"Error: %@", error);
+		NSLog(@"Error: %@", error);
 	}
 	else if (![matches count]) {
 		photo = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
@@ -39,16 +39,16 @@
 		photo.subtitle = [photoDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
 		photo.imageURL = [[FlickrFetcher URLforPhoto:photoDictionary
                                               format:FlickrPhotoFormatLarge] absoluteString];
-        photo.thumbnailURL = [[FlickrFetcher URLforPhoto:photoDictionary
-                                                 format:FlickrPhotoFormatSquare] absoluteString];
+		photo.thumbnailURL = [[FlickrFetcher URLforPhoto:photoDictionary
+                                                  format:FlickrPhotoFormatSquare] absoluteString];
 		photo.placeID = [photoDictionary valueForKeyPath:FLICKR_PLACE_ID];
         
 		NSString * photographerName = [photoDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
 		photo.whoTook = [Photographer photographerWithName:photographerName
                                     inManagedObjectContext:context];
 		photo.region =  [Region regionWithPlaceID:photo.placeID andRegionInformation:regionInfo inManagedObjectContext:context];
-        [photo.region addPhotographersObject:photo.whoTook];
-        [photo.region setNumPhotographers:[NSNumber numberWithInteger:photo.region.photographers.count]];
+		[photo.region addPhotographersObject:photo.whoTook];
+		[photo.region setNumPhotographers:[NSNumber numberWithInteger:photo.region.photographers.count]];
 	}
 	else {
 		photo = [matches firstObject];

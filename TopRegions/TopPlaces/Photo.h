@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <Foundation/Foundation.h>
 
 @class Photographer, Region;
 
@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * unique;
 @property (nonatomic, retain) NSString * thumbnailURL;
-@property (nonatomic, retain) Region *region;
-@property (nonatomic, retain) Photographer *whoTook;
+@property (nonatomic, retain) Region * region;
+@property (nonatomic, retain) Photographer * whoTook;
 
 @end

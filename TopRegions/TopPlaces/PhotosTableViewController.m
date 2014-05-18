@@ -64,17 +64,21 @@
 		cell.textLabel.text = @"Unknown";
     
 	cell.imageView.image = [UIImage imageWithData:photo.thumbnail];
-	[self.managedObjectContext performBlock:^{
+	dispatch_queue_t fetchQueue = dispatch_queue_create("FlickrDatabase thumbnail fetch", NULL);
+	dispatch_async(fetchQueue, ^{
         if (!photo.thumbnail) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             });
-            photo.thumbnail = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo.thumbnailURL]];
+            NSData * thumbnailData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo.thumbnailURL]];
+            [self.managedObjectContext performBlock:^{
+                photo.thumbnail = thumbnailData;
+            }];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             });
         }
-    }];
+    });
     
 	return cell;
 }
@@ -84,8 +88,8 @@
     
 	[self.managedObjectContext performBlock:^{
         photo.dateAccessed = [NSDate date];
+        [self.managedObjectContext save:nil];
     }];
-    
     
 	ImageViewController * detailController = self.splitViewController.viewControllers[1];
 	if ([detailController isKindOfClass:[UINavigationController class]]) {
@@ -115,7 +119,7 @@
 }
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [super controllerDidChangeContent:controller];
+	[super controllerDidChangeContent:controller];
 	static int contentChangeCount = 0;
 	contentChangeCount++;
 	if (contentChangeCount % 3 == 0) { //updates the coredatatable "occasionally"

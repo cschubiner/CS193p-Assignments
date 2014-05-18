@@ -12,7 +12,7 @@
 @implementation TopRegionsAppDelegate
 
 #define FETCH_DEBUG NO
-#define FOREGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (15 * 60))
+#define FOREGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (5 * 60))
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

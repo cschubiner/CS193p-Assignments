@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
-#import "Region.h"
 #import "Photo.h"
 #import "Photographer.h"
+#import "Region.h"
 
 
 @implementation Region

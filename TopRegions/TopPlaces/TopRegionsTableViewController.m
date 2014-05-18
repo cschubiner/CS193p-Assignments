@@ -88,7 +88,7 @@ static const int NUM_DISPLAY_REGIONS = 50;
 }
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [super controllerDidChangeContent:controller];
+	[super controllerDidChangeContent:controller];
 	static int contentChangeCount = 0;
 	contentChangeCount++;
 	if (contentChangeCount % 3 == 0) { //updates the coredatatable "occasionally"

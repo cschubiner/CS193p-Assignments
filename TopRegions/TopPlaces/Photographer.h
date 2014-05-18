@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <Foundation/Foundation.h>
 
 @class Photo, Region;
 
 @interface Photographer : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *photos;
-@property (nonatomic, retain) NSSet *regions;
+@property (nonatomic, retain) NSSet * photos;
+@property (nonatomic, retain) NSSet * regions;
 @end
 
 @interface Photographer (CoreDataGeneratedAccessors)
