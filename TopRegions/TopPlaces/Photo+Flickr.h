@@ -11,6 +11,7 @@
 @interface Photo (Flickr)
 
 + (Photo *)photoWithFlickrInfo:(NSDictionary *)photoDictionary
+                 andRegionInfo:(NSDictionary *)regionInfo
         inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

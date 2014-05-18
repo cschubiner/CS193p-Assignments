@@ -10,50 +10,53 @@
 #import "FlickrFetcher.h"
 #import "Photo+Flickr.h"
 
-@interface FlickrDatabase()
-@property (nonatomic, readwrite, strong) NSManagedObjectContext *managedObjectContext;
+@interface FlickrDatabase ()
+@property (nonatomic, readwrite, strong) NSManagedObjectContext * managedObjectContext;
 @end
 
 @implementation FlickrDatabase
 
 + (FlickrDatabase *)sharedDefaultFlickrDatabase
 {
-    return [self sharedFlickrDatabaseWithName:@"FlickrDatabase_DEFAULT"];
+	return [self sharedFlickrDatabaseWithName:@"FlickrDatabase_TOPREGIONS_Schubiner"];
 }
 
 + (FlickrDatabase *)sharedFlickrDatabaseWithName:(NSString *)name
 {
-    static NSMutableDictionary *databases = nil;
-    if (!databases) databases = [[NSMutableDictionary alloc] init];
+	static NSMutableDictionary * databases = nil;
+	if (!databases) databases = [[NSMutableDictionary alloc] init];
     
-    FlickrDatabase *database = nil;
+	FlickrDatabase * database = nil;
     
-    if ([name length]) {
-        database = databases[name];
-        if (!database) {
-            database = [[self alloc] initWithName:name];
-            databases[name] = database;
-        }
-    }
+	if ([name length]) {
+		database = databases[name];
+		if (!database) {
+			database = [[self alloc] initWithName:name];
+			databases[name] = database;
+		}
+	}
     
-    return database;
+	return database;
 }
 
 - (instancetype)initWithName:(NSString *)name
 {
-    self = [super init];
-    if (self) {
-        if ([name length]) {
-            NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
-                                                                 inDomains:NSUserDomainMask] firstObject];
-            url = [url URLByAppendingPathComponent:name];
-            UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
-                [document openWithCompletionHandler:^(BOOL success) {
-                    if (success) self.managedObjectContext = document.managedObjectContext;
+	self = [super init];
+	if (self) {
+		if ([name length]) {
+			NSURL * url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                                  inDomains:NSUserDomainMask] firstObject];
+			url = [url URLByAppendingPathComponent:name];
+			UIManagedDocument * document = [[UIManagedDocument alloc] initWithFileURL:url];
+			if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
+				[document openWithCompletionHandler:^(BOOL success) {
+                    if (success) {
+                        self.managedObjectContext = document.managedObjectContext;
+                    }
                 }];
-            } else {
-                [document saveToURL:url
+			}
+			else {
+				[document saveToURL:url
                    forSaveOperation:UIDocumentSaveForCreating
                   completionHandler:^(BOOL success) {
                       if (success) {
@@ -62,70 +65,93 @@
                       }
                       
                   }];
-            }
-        } else {
-            self = nil;
-        }
-    }
-    return self;
+			}
+		}
+		else {
+			self = nil;
+		}
+	}
+    
+	return self;
 }
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
-    _managedObjectContext = managedObjectContext;
-    [[NSNotificationCenter defaultCenter] postNotificationName:FlickrDatabaseAvailable
+	_managedObjectContext = managedObjectContext;
+	[[NSNotificationCenter defaultCenter] postNotificationName:FlickrDatabaseAvailable
                                                         object:self];
 }
 
 - (void)fetch
 {
-    [self fetchWithCompletionHandler:nil];
+	[self fetchWithCompletionHandler:nil];
 }
 
 - (void)fetchWithCompletionHandler:(void (^)(BOOL success))completionHandler
 {
-    if (self.managedObjectContext) {
-        dispatch_queue_t fetchQueue = dispatch_queue_create("FlickrDatabase fetch", NULL);
-        dispatch_async(fetchQueue, ^{
+	if (self.managedObjectContext) {
+		dispatch_queue_t fetchQueue = dispatch_queue_create("FlickrDatabase fetch", NULL);
+		dispatch_async(fetchQueue, ^{
             BOOL failure = YES;
-            NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
+            NSURL * url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
             if (url) {
-                UIApplication *application = [UIApplication sharedApplication];
+                UIApplication * application = [UIApplication sharedApplication];
                 application.networkActivityIndicatorVisible = YES;
-                NSData *jsonResults = [NSData dataWithContentsOfURL:url];
+                NSData * jsonResults = [NSData dataWithContentsOfURL:url];
                 application.networkActivityIndicatorVisible = NO;
                 if (jsonResults) {
-                    NSError *error;
-                    NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                                        options:0
-                                                                                          error:&error];
+                    NSError * error;
+                    NSDictionary * propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
+                                                                                         options:0
+                                                                                           error:&error];
                     if (!error) {
-                        NSArray *photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+                        NSArray * photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
                         if (photos) {
                             failure = NO;
-                            [self.managedObjectContext performBlock:^{
                                 // load up the Core Data database
-                                for (NSDictionary *photoDictionary in photos) {
-                                    [Photo photoWithFlickrInfo:photoDictionary
-                                        inManagedObjectContext:self.managedObjectContext];
+                                
+                                for (NSDictionary * photoDictionary in photos) {
+                                    NSURL * url = [FlickrFetcher URLforInformationAboutPlace:photoDictionary[FLICKR_PHOTO_PLACE_ID]];
+                                    application.networkActivityIndicatorVisible = YES;
+                                    NSURLRequest * request = [NSURLRequest requestWithURL:url];
+                                    NSURLSessionDownloadTask * task = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]] downloadTaskWithRequest:request
+                                     completionHandler:^(NSURL * localfile, NSURLResponse * response, NSError * error) {
+                                         if (!error) {
+                                             if ([request.URL isEqual:url]) {
+                                                 NSError * error;
+                                                 NSData * data = [NSData dataWithContentsOfURL:localfile];
+                                                 if (data) {
+                                                     NSDictionary * results = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                                                     if (results && !error) {
+                                                             [Photo photoWithFlickrInfo:photoDictionary andRegionInfo:results inManagedObjectContext:self.managedObjectContext];
+                                                     }
+                                                 }
+                                             }
+                                         }
+                                     }];
+                                    [task resume];
                                 }
+                                 application.networkActivityIndicatorVisible = NO;
+                                
+                                
                                 if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
                                     completionHandler(YES);
                                 });
-                            }];
                         }
                     }
                 }
             }
+            
             if (failure && completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
                 completionHandler(NO);
             });
         });
-    } else {
-        if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
+	}
+	else {
+		if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
             completionHandler(NO);
         });
-    }
+	}
 }
 
 @end

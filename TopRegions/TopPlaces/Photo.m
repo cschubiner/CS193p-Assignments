@@ -8,6 +8,7 @@
 
 #import "Photo.h"
 #import "Photographer.h"
+#import "Region.h"
 
 
 @implementation Photo
@@ -17,6 +18,8 @@
 @dynamic unique;
 @dynamic imageURL;
 @dynamic dateAccessed;
+@dynamic placeID;
 @dynamic whoTook;
+@dynamic region;
 
 @end
