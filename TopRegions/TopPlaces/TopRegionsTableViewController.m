@@ -19,6 +19,8 @@
 
 @implementation TopRegionsTableViewController
 
+static const int NUM_DISPLAY_REGIONS = 50;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
 	self = [super initWithStyle:style];
@@ -39,9 +41,8 @@
 	if (self.managedObjectContext) {
 		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
 		request.predicate = nil; // this means ALL Regions
-		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                  ascending:YES
-                                                                   selector:@selector(localizedStandardCompare:)]];
+		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"numPhotographers" ascending:NO],
+                                    [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
         
 		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                             managedObjectContext:self.managedObjectContext
@@ -81,7 +82,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return MIN(50, [super tableView:tableView numberOfRowsInSection:section]);
+	return MIN(NUM_DISPLAY_REGIONS, [super tableView:tableView numberOfRowsInSection:section]);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

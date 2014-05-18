@@ -117,19 +117,21 @@
                                 if (data) {
                                     NSDictionary * results = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                                     if (results && !error) {
-                                        [Photo photoWithFlickrInfo:photoDictionary andRegionInfo:results inManagedObjectContext:self.managedObjectContext];
+                                        [self.managedObjectContext performBlock:^{
+                                            [Photo photoWithFlickrInfo:photoDictionary andRegionInfo:results inManagedObjectContext:self.managedObjectContext];
+                                        }];
                                     }
                                     else failure = YES;
                                 }
                                 else failure = YES;
                             }
                             
-                            [self.managedObjectContext performBlockAndWait:^{
-                                NSError * error;
-                                [self.managedObjectContext save:&error];
-                                if (error)
-                                    NSLog(@"error: %@", error);
-                            }];
+//                            [self.managedObjectContext performBlockAndWait:^{
+//                                NSError * error;
+//                                [self.managedObjectContext save:&error];
+//                                if (error)
+//                                    NSLog(@"error: %@", error);
+//                            }];
                             
                             if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
                                 application.networkActivityIndicatorVisible = NO;
