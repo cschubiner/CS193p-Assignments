@@ -69,8 +69,6 @@
 	return cell;
 }
 
-
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Photo * photo;
 	if ([self isKindOfClass:[RecentPhotosTableViewController class]])

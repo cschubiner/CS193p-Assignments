@@ -2,7 +2,7 @@
 //  Photo.m
 //  TopRegions
 //
-//  Created by Clay Schubiner on 5/17/14.
+//  Created by Clay Schubiner on 5/18/14.
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
@@ -13,13 +13,14 @@
 
 @implementation Photo
 
-@dynamic title;
-@dynamic subtitle;
-@dynamic unique;
-@dynamic imageURL;
 @dynamic dateAccessed;
+@dynamic imageURL;
 @dynamic placeID;
-@dynamic whoTook;
+@dynamic subtitle;
+@dynamic title;
+@dynamic unique;
+@dynamic thumbnail;
 @dynamic region;
+@dynamic whoTook;
 
 @end

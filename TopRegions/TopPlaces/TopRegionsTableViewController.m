@@ -42,7 +42,7 @@ static const int NUM_DISPLAY_REGIONS = 50;
 		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
 		request.predicate = nil; // this means ALL Regions
 		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"numPhotographers" ascending:NO],
-                                    [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
+		                            [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
         
 		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                             managedObjectContext:self.managedObjectContext
@@ -70,15 +70,6 @@ static const int NUM_DISPLAY_REGIONS = 50;
 	if (flickrdb.managedObjectContext) {
 		self.managedObjectContext = flickrdb.managedObjectContext;
 	}
-	else {
-		id observer = [[NSNotificationCenter defaultCenter] addObserverForName:FlickrDatabaseAvailable
-                                                                        object:flickrdb
-                                                                         queue:[NSOperationQueue mainQueue]
-                                                                    usingBlock:^(NSNotification * note) {
-                                                                        self.managedObjectContext = flickrdb.managedObjectContext;
-                                                                        [[NSNotificationCenter defaultCenter] removeObserver:observer];
-                                                                    }];
-	}
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -98,23 +89,10 @@ static const int NUM_DISPLAY_REGIONS = 50;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #pragma mark - Table view data source
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"topRegionsToPhotos" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+	[self performSegueWithIdentifier:@"topRegionsToPhotos" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 #pragma mark - Navigation
@@ -122,8 +100,8 @@ static const int NUM_DISPLAY_REGIONS = 50;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    PhotosTableViewController * dest = [segue destinationViewController];
-    [dest setPhotos:[NSMutableArray arrayWithArray:((Region*)sender).photos.allObjects]];
+	PhotosTableViewController * dest = [segue destinationViewController];
+	[dest setPhotos:[NSMutableArray arrayWithArray:((Region*)sender).photos.allObjects]];
 }
 
 
