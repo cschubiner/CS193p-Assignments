@@ -97,11 +97,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoCell" textLabel="f8t-ol-v4c" detailTextLabel="ePV-oI-8sW" style="IBUITableViewCellStyleSubtitle" id="As6-ff-S0Y">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoCell" textLabel="f8t-ol-v4c" detailTextLabel="ePV-oI-8sW" style="IBUITableViewCellStyleSubtitle" id="As6-ff-S0Y">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="As6-ff-S0Y" id="XqT-79-W4p">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f8t-ol-v4c">
@@ -130,7 +130,7 @@
                     <navigationItem key="navigationItem" id="ril-A2-wFt"/>
                     <connections>
                         <outlet property="spinner" destination="3dc-nT-HYp" id="TyL-2j-OnP"/>
-                        <segue destination="ahs-p3-VZb" kind="push" identifier="photosToImage" id="usy-My-uHT"/>
+                        <segue destination="ahs-p3-VZb" kind="push" identifier="photosToImage" id="XfH-a0-24H"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ltd-G1-hQy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -252,7 +252,7 @@
                         </connections>
                     </refreshControl>
                     <connections>
-                        <segue destination="gsJ-id-ppH" kind="push" identifier="topPlacesToPhotos" id="1F1-Fa-tQe"/>
+                        <segue destination="gsJ-id-ppH" kind="push" identifier="topRegionsToPhotos" id="1F1-Fa-tQe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2U-uA-e3m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -266,6 +266,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="usy-My-uHT"/>
+        <segue reference="XfH-a0-24H"/>
     </inferredMetricsTieBreakers>
 </document>

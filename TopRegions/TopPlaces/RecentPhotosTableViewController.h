@@ -11,5 +11,5 @@
 
 @interface RecentPhotosTableViewController : PhotosTableViewController
 
-+(void)addRecentPhoto:(NSDictionary*)photo;
++(void)addRecentPhoto:(Photo*)photo;
 @end

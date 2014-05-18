@@ -8,13 +8,13 @@
 
 #import "FlickrFetcher.h"
 #import "ImageViewController.h"
+#import "Photo.h"
 #import "PhotosTableViewController.h"
 #import "RecentPhotosTableViewController.h"
 
 @interface PhotosTableViewController ()
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView * spinner;
-@property (strong, nonatomic) NSMutableArray * photos;
 
 @end
 
@@ -27,35 +27,6 @@
 	}
     
 	return self;
-}
-
-- (void)viewDidLoad
-{
-	[super viewDidLoad];
-	NSURL * url = [FlickrFetcher URLforPhotosInPlace:self.place[FLICKR_PLACE_ID] maxResults:50];
-	[self.spinner startAnimating];
-	[self.refreshControl beginRefreshing];
-    
-	NSURLRequest * request = [NSURLRequest requestWithURL:url];
-	NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-	NSURLSession * session = [NSURLSession sessionWithConfiguration:configuration];
-	NSURLSessionDownloadTask * task = [session downloadTaskWithRequest:request
-                                                     completionHandler:^(NSURL * localfile, NSURLResponse * response, NSError * error) {
-                                                         if (!error) {
-                                                             if ([request.URL isEqual:url]) {
-                                                                 NSDictionary * results = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:localfile] options:0 error:nil];
-                                                                 self.photos = [[NSMutableArray alloc]initWithArray:[results valueForKeyPath:FLICKR_RESULTS_PHOTOS]];
-                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                     [self.tableView reloadData];
-                                                                     [self.spinner stopAnimating];
-                                                                     [self.refreshControl endRefreshing];
-                                                                     [self.navigationItem setTitle:self.place[FLICKR_PLACE_NAME]];
-                                                                 });
-                                                             }
-                                                         }
-                                                     }];
-	[task resume];
-    
 }
 
 
@@ -75,22 +46,22 @@
 {
 	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
-	NSDictionary * photo;
+	Photo * photo;
 	//display photos in reverse order if we're viewing recent photos
 	if ([self isKindOfClass:[RecentPhotosTableViewController class]])
 		photo = [self.photos objectAtIndex:self.photos.count - indexPath.row - 1];
 	else
 		photo = [self.photos objectAtIndex:indexPath.row];
     
-	bool hasTitle = photo[FLICKR_PHOTO_TITLE] && ((NSString*)photo[FLICKR_PHOTO_TITLE]).length > 0;
-	bool hasDescription = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION] && ((NSString*)[photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION]).length > 0;
+	bool hasTitle = photo.title && photo.title.length > 0;
+	bool hasDescription = photo.subtitle && photo.subtitle.length > 0;
 	cell.detailTextLabel.text = @"";
 	if (hasTitle) {
-		cell.textLabel.text = photo[FLICKR_PHOTO_TITLE];
-		cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+		cell.textLabel.text = photo.title;
+		cell.detailTextLabel.text = photo.subtitle;
 	}
 	else if (hasDescription)
-		cell.textLabel.text = photo[FLICKR_PHOTO_DESCRIPTION];
+		cell.textLabel.text = photo.subtitle;
 	else
 		cell.textLabel.text = @"Unknown";
     
@@ -98,16 +69,10 @@
 	return cell;
 }
 
-- (NSURL *)getPhotoURL:(NSDictionary *)photo {
-	NSURL * url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatOriginal];
-	if (url == nil)
-		url = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
-    
-	return url;
-}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary * photo;
+	Photo * photo;
 	if ([self isKindOfClass:[RecentPhotosTableViewController class]])
 		photo = [self.photos objectAtIndex:self.photos.count - indexPath.row - 1];
 	else
@@ -122,7 +87,7 @@
     
 	if (detailController) {
 		[detailController setTitle:[self getPhotoTitle:photo]];
-		[detailController setImageURL:[self getPhotoURL:photo]];
+		[detailController setImageURL:[NSURL URLWithString:photo.imageURL]];
 		if ([self isKindOfClass:[RecentPhotosTableViewController class]]) {
 			[self.tableView moveRowAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 			[self.photos removeObject:photo];
@@ -138,15 +103,13 @@
 	return YES;
 }
 
-
-- (NSString *)getPhotoTitle:(NSDictionary *)photo
+- (NSString *)getPhotoTitle:(Photo *)photo
 {
-	NSString * photoTitle = photo[FLICKR_PHOTO_TITLE];
-	bool hasTitle = photo[FLICKR_PHOTO_TITLE] && ((NSString*)photo[FLICKR_PHOTO_TITLE]).length > 0;
-	bool hasDescription = photo[FLICKR_PHOTO_DESCRIPTION] && ((NSString*)photo[FLICKR_PHOTO_DESCRIPTION]).length > 0;
+	NSString * photoTitle = photo.title;
+	bool hasTitle = photo.title && photo.title.length > 0;
 	if (hasTitle == false) {
-		if (hasDescription)
-			photoTitle = photo[FLICKR_PHOTO_DESCRIPTION];
+		if (photo.subtitle && photo.subtitle.length > 0)
+			photoTitle = photo.subtitle;
 		else photoTitle = @"Unknown";
 	}
     
@@ -158,8 +121,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	ImageViewController * dest = [segue destinationViewController];
-	NSDictionary * photo = sender;
-	[dest setImageURL:[self getPhotoURL:photo]];
+	Photo * photo = sender;
+	[dest setImageURL:[NSURL URLWithString:photo.imageURL]];
 	[dest setPhotoTitle:[self getPhotoTitle:photo]];
 }
 

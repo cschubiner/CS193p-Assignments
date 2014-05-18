@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
+#import "Region.h"
 #import <UIKit/UIKit.h>
 
 @interface PhotosTableViewController : UITableViewController
 
-@property (nonatomic, strong) NSDictionary * place;
+@property (nonatomic, strong) NSMutableArray * photos;
 
 @end

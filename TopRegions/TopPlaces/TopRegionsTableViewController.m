@@ -113,17 +113,17 @@ static const int NUM_DISPLAY_REGIONS = 50;
 
 #pragma mark - Table view data source
 
-
-
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"topRegionsToPhotos" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+}
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	//	PhotosTableViewController * dest = [segue destinationViewController];
-    
+    PhotosTableViewController * dest = [segue destinationViewController];
+    [dest setPhotos:[NSMutableArray arrayWithArray:((Region*)sender).photos.allObjects]];
 }
 
 

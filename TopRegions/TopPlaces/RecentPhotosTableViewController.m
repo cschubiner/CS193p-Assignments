@@ -25,17 +25,8 @@ const static int MAX_PHOTOS = 20;
 	return self;
 }
 
-+(void)addRecentPhoto:(NSDictionary *)photo {
-	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-	NSMutableArray * photos = [defaults objectForKey:PHOTO_DEFAULT_KEY];
-	photos = [[NSMutableArray alloc]initWithArray:photos];
-	[photos removeObject:photo];
-	[photos addObject:photo];
-	if (photos.count > MAX_PHOTOS)
-		[photos removeObjectAtIndex:0];
++(void)addRecentPhoto:(Photo *)photo {
     
-	[defaults setObject:photos forKey:PHOTO_DEFAULT_KEY];
-	[defaults synchronize];
 }
 
 - (void)viewDidLoad

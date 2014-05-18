@@ -23,7 +23,7 @@
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="region" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-279" positionY="351" width="128" height="163"/>
+        <element name="Photo" positionX="-279" positionY="351" width="128" height="165"/>
         <element name="Photographer" positionX="-459" positionY="128" width="128" height="88"/>
         <element name="Region" positionX="-117" positionY="171" width="128" height="118"/>
     </elements>
