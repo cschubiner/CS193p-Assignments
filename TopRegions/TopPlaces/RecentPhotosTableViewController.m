@@ -29,7 +29,8 @@ const static int MAX_PHOTOS = 20;
 		                            [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)],
 		                            [NSSortDescriptor sortDescriptorWithKey:@"subtitle" ascending:YES selector:@selector(localizedStandardCompare:)]];
         
-		[request setFetchLimit:MAX_PHOTOS + 5];
+		[request setFetchLimit:MAX_PHOTOS];
+        
 		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                             managedObjectContext:self.managedObjectContext
                                                                               sectionNameKeyPath:nil
@@ -44,10 +45,6 @@ const static int MAX_PHOTOS = 20;
 {
 	[super viewDidLoad];
 	self.navigationItem.title = @"Recent Photos";
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return MIN(MAX_PHOTOS, [super tableView:tableView numberOfRowsInSection:section]);
 }
 
 - (void)viewDidAppear:(BOOL)animated

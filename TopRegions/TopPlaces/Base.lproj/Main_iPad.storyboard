@@ -224,7 +224,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCell" textLabel="fe5-9d-P1p" detailTextLabel="JJf-e1-Rfw" style="IBUITableViewCellStyleSubtitle" id="Pcy-y1-eZw">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RegionCell" textLabel="fe5-9d-P1p" detailTextLabel="JJf-e1-Rfw" style="IBUITableViewCellStyleSubtitle" id="Pcy-y1-eZw">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pcy-y1-eZw" id="w6X-yU-Ue2">
@@ -256,7 +256,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Places" id="g4A-G0-4bb"/>
                     <connections>
-                        <segue destination="lF8-rJ-nfU" kind="push" identifier="topPlacesToPhotos" id="bxT-ts-VqS"/>
+                        <segue destination="lF8-rJ-nfU" kind="push" identifier="topRegionsToPhotos" id="bxT-ts-VqS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Re-Eq-z0K" userLabel="First Responder" sceneMemberID="firstResponder"/>

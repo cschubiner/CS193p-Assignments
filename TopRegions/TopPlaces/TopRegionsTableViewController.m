@@ -43,8 +43,8 @@ static const int NUM_DISPLAY_REGIONS = 50;
 		request.predicate = nil; // this means ALL Regions
 		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"numPhotographers" ascending:NO],
 		                            [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
-
-        request.fetchLimit = NUM_DISPLAY_REGIONS + 10;
+        
+		request.fetchLimit = NUM_DISPLAY_REGIONS;
 		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                             managedObjectContext:self.managedObjectContext
                                                                               sectionNameKeyPath:nil
@@ -82,9 +82,6 @@ static const int NUM_DISPLAY_REGIONS = 50;
 	}
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return MIN(NUM_DISPLAY_REGIONS, [super tableView:tableView numberOfRowsInSection:section]);
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -103,7 +100,7 @@ static const int NUM_DISPLAY_REGIONS = 50;
 #pragma mark - Table view data source
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"topRegionsToPhotos" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+	[self performSegueWithIdentifier:@"topRegionsToPhotos" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 #pragma mark - Navigation
@@ -112,8 +109,8 @@ static const int NUM_DISPLAY_REGIONS = 50;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	PhotosTableViewController * dest = [segue destinationViewController];
-    [dest setRegion:sender];
-    [dest setManagedObjectContext:self.managedObjectContext];
+	[dest setRegion:sender];
+	[dest setManagedObjectContext:self.managedObjectContext];
 }
 
 
