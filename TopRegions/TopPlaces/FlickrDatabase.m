@@ -39,6 +39,19 @@
 	return database;
 }
 
+- (void)saveDocumentToURL:(UIManagedDocument *)document url:(NSURL *)url
+{
+	[document saveToURL:url
+       forSaveOperation:UIDocumentSaveForCreating
+      completionHandler:^(BOOL success) {
+          if (success) {
+              self.managedObjectContext = document.managedObjectContext;
+              [self fetch];
+          }
+          
+      }];
+}
+
 - (instancetype)initWithName:(NSString *)name
 {
 	self = [super init];
@@ -53,18 +66,14 @@
                     if (success) {
                         self.managedObjectContext = document.managedObjectContext;
                     }
+                    else {
+                        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+                        [self saveDocumentToURL:document url:url];
+                    }
                 }];
 			}
 			else {
-				[document saveToURL:url
-                   forSaveOperation:UIDocumentSaveForCreating
-                  completionHandler:^(BOOL success) {
-                      if (success) {
-                          self.managedObjectContext = document.managedObjectContext;
-                          [self fetch];
-                      }
-                      
-                  }];
+				[self saveDocumentToURL:document url:url];
 			}
 		}
 		else {
@@ -126,12 +135,12 @@
                                 else failure = YES;
                             }
                             
-//                            [self.managedObjectContext performBlockAndWait:^{
-//                                NSError * error;
-//                                [self.managedObjectContext save:&error];
-//                                if (error)
-//                                    NSLog(@"error: %@", error);
-//                            }];
+                            //                            [self.managedObjectContext performBlockAndWait:^{
+                            //                                NSError * error;
+                            //                                [self.managedObjectContext save:&error];
+                            //                                if (error)
+                            //                                    NSLog(@"error: %@", error);
+                            //                            }];
                             
                             if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
                                 application.networkActivityIndicatorVisible = NO;

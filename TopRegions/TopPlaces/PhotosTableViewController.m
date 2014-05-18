@@ -31,8 +31,8 @@
 	if (self.managedObjectContext) {
 		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
 		request.predicate = [NSPredicate predicateWithFormat:@"region.name = %@", self.region.name];
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)],
-                                    [NSSortDescriptor sortDescriptorWithKey:@"subtitle" ascending:YES selector:@selector(localizedStandardCompare:)]];
+		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)],
+		                            [NSSortDescriptor sortDescriptorWithKey:@"subtitle" ascending:YES selector:@selector(localizedStandardCompare:)]];
         
 		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                             managedObjectContext:self.managedObjectContext
@@ -49,7 +49,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell" forIndexPath:indexPath];
-    
 	Photo * photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
 	bool hasTitle = photo.title && photo.title.length > 0;
@@ -64,6 +63,18 @@
 	else
 		cell.textLabel.text = @"Unknown";
     
+	cell.imageView.image = [UIImage imageWithData:photo.thumbnail];
+	[self.managedObjectContext performBlock:^{
+        if (!photo.thumbnail) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            });
+            photo.thumbnail = [NSData dataWithContentsOfURL:[NSURL URLWithString:photo.thumbnailURL]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            });
+        }
+    }];
     
 	return cell;
 }
@@ -89,10 +100,6 @@
 		[self performSegueWithIdentifier:@"photosToImage" sender:photo];
 }
 
-
--(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
 
 - (NSString *)getPhotoTitle:(Photo *)photo
 {

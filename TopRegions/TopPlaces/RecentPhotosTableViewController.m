@@ -26,4 +26,7 @@ const static int MAX_PHOTOS = 20;
 	self.navigationItem.title = @"Recent Photos";
 }
 
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;
+}
 @end

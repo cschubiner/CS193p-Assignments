@@ -30,7 +30,7 @@
 		0C2A30B919283BBF007C1D72 /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A30B819283BBF007C1D72 /* Photographer.m */; };
 		0C2A30BC19283BBF007C1D72 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A30BB19283BBF007C1D72 /* Region.m */; };
 		0C784191192848E200C0D1D5 /* Region+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C784190192848E200C0D1D5 /* Region+Create.m */; };
-		0C7F91771928BC7700429475 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7F91761928BC7700429475 /* Photo.m */; };
+		0C7D0BB51928C972005E1E0B /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7D0BB41928C972005E1E0B /* Photo.m */; };
 		0CAF3DEA191EE8F200C3880A /* TopRegionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DE9191EE8F200C3880A /* TopRegionsTableViewController.m */; };
 		0CAF3DED191EE8FC00C3880A /* RecentPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DEC191EE8FC00C3880A /* RecentPhotosTableViewController.m */; };
 		0CAF3DF1191EF7F000C3880A /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF3DF0191EF7F000C3880A /* ImageViewController.m */; };
@@ -84,8 +84,8 @@
 		0C2A30BB19283BBF007C1D72 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		0C78418F192848E200C0D1D5 /* Region+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+Create.h"; sourceTree = "<group>"; };
 		0C784190192848E200C0D1D5 /* Region+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+Create.m"; sourceTree = "<group>"; };
-		0C7F91751928BC7700429475 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		0C7F91761928BC7700429475 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		0C7D0BB31928C972005E1E0B /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		0C7D0BB41928C972005E1E0B /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		0CAF3DE8191EE8F200C3880A /* TopRegionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopRegionsTableViewController.h; sourceTree = "<group>"; };
 		0CAF3DE9191EE8F200C3880A /* TopRegionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopRegionsTableViewController.m; sourceTree = "<group>"; };
 		0CAF3DEB191EE8FC00C3880A /* RecentPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosTableViewController.h; sourceTree = "<group>"; };
@@ -145,9 +145,9 @@
 				0C2A30A81928320C007C1D72 /* Photo+Flickr.m */,
 				0C2A30A91928320C007C1D72 /* Photographer+Create.h */,
 				0C2A30AA1928320C007C1D72 /* Photographer+Create.m */,
+				0C7D0BB31928C972005E1E0B /* Photo.h */,
+				0C7D0BB41928C972005E1E0B /* Photo.m */,
 				0C2A30921928302F007C1D72 /* TopRegions.xcdatamodeld */,
-				0C7F91751928BC7700429475 /* Photo.h */,
-				0C7F91761928BC7700429475 /* Photo.m */,
 				0C2A30B719283BBF007C1D72 /* Photographer.h */,
 				0C2A30B819283BBF007C1D72 /* Photographer.m */,
 				0C2A30BA19283BBF007C1D72 /* Region.h */,
@@ -372,7 +372,7 @@
 				0C1EA78C191EE6B7003FF4F7 /* TopRegionsAppDelegate.m in Sources */,
 				0C1EA788191EE6B7003FF4F7 /* main.m in Sources */,
 				0C2A30BC19283BBF007C1D72 /* Region.m in Sources */,
-				0C7F91771928BC7700429475 /* Photo.m in Sources */,
+				0C7D0BB51928C972005E1E0B /* Photo.m in Sources */,
 				0C784191192848E200C0D1D5 /* Region+Create.m in Sources */,
 				0CAF3DEA191EE8F200C3880A /* TopRegionsTableViewController.m in Sources */,
 				0C2A30941928302F007C1D72 /* TopRegions.xcdatamodeld in Sources */,

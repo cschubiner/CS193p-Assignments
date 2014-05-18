@@ -17,9 +17,10 @@
 @dynamic imageURL;
 @dynamic placeID;
 @dynamic subtitle;
+@dynamic thumbnail;
 @dynamic title;
 @dynamic unique;
-@dynamic thumbnail;
+@dynamic thumbnailURL;
 @dynamic region;
 @dynamic whoTook;
 
