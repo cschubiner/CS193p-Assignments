@@ -9,7 +9,7 @@
 #import "PhotosTableViewController.h"
 #import <UIKit/UIKit.h>
 
-@interface RecentPhotosTableViewController : CoreDataTableViewController
+@interface RecentPhotosTableViewController : PhotosTableViewController
 
 @property (nonatomic, strong) NSManagedObjectContext * managedObjectContext;
 

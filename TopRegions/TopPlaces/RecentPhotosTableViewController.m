@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
+#import "FlickrDatabase.h"
 #import "RecentPhotosTableViewController.h"
 
 @interface RecentPhotosTableViewController ()
@@ -19,14 +20,53 @@
 static NSString * PHOTO_DEFAULT_KEY = @"photos";
 const static int MAX_PHOTOS = 20;
 
-
+- (void)setupFetchedResultsController
+{
+	if (self.managedObjectContext) {
+		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
+		request.predicate = nil;
+		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dateAccessed" ascending:NO],
+		                            [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)],
+		                            [NSSortDescriptor sortDescriptorWithKey:@"subtitle" ascending:YES selector:@selector(localizedStandardCompare:)]];
+        
+		[request setFetchLimit:MAX_PHOTOS + 5];
+		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                            managedObjectContext:self.managedObjectContext
+                                                                              sectionNameKeyPath:nil
+                                                                                       cacheName:nil];
+	}
+	else {
+		self.fetchedResultsController = nil;
+	}
+}
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
 	self.navigationItem.title = @"Recent Photos";
 }
 
--(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return MIN(MAX_PHOTOS, [super tableView:tableView numberOfRowsInSection:section]);
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+    
+	FlickrDatabase * flickrdb = [FlickrDatabase sharedDefaultFlickrDatabase];
+	if (flickrdb.managedObjectContext) {
+		self.managedObjectContext = flickrdb.managedObjectContext;
+	}
+	else {
+		id observer = [[NSNotificationCenter defaultCenter] addObserverForName:FlickrDatabaseAvailable
+                                                                        object:flickrdb
+                                                                         queue:[NSOperationQueue mainQueue]
+                                                                    usingBlock:^(NSNotification * note) {
+                                                                        self.managedObjectContext = flickrdb.managedObjectContext;
+                                                                        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+                                                                    }];
+	}
+}
+
 @end

@@ -43,7 +43,8 @@ static const int NUM_DISPLAY_REGIONS = 50;
 		request.predicate = nil; // this means ALL Regions
 		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"numPhotographers" ascending:NO],
 		                            [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
-        
+
+        request.fetchLimit = NUM_DISPLAY_REGIONS + 10;
 		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                             managedObjectContext:self.managedObjectContext
                                                                               sectionNameKeyPath:nil
