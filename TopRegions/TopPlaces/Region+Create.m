@@ -16,7 +16,7 @@
     
 	if ([placeID length]) {
 		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
-		request.predicate = [NSPredicate predicateWithFormat:@"unique = %@", placeID];
+//		request.predicate = [NSPredicate predicateWithFormat:@"unique = %@", placeID];
         
 		NSError * error;
 		NSArray * matches = [context executeFetchRequest:request error:&error];

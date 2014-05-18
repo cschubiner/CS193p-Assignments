@@ -92,59 +92,48 @@
 	if (self.managedObjectContext) {
 		dispatch_queue_t fetchQueue = dispatch_queue_create("FlickrDatabase fetch", NULL);
 		dispatch_async(fetchQueue, ^{
-            BOOL failure = YES;
             NSURL * url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
             if (url) {
                 UIApplication * application = [UIApplication sharedApplication];
                 application.networkActivityIndicatorVisible = YES;
-                NSData * jsonResults = [NSData dataWithContentsOfURL:url];
-                application.networkActivityIndicatorVisible = NO;
-                if (jsonResults) {
-                    NSError * error;
-                    NSDictionary * propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                                         options:0
-                                                                                           error:&error];
-                    if (!error) {
-                        NSArray * photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
-                        if (photos) {
-                            failure = NO;
+                [self.managedObjectContext performBlock:^{
+                    BOOL failure = YES;
+                    NSData * jsonResults = [NSData dataWithContentsOfURL:url];
+                    if (jsonResults) {
+                        NSError * error;
+                        NSDictionary * propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
+                                                                                             options:0
+                                                                                               error:&error];
+                        if (!error) {
+                            NSArray * photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+                            if (photos) {
+                                failure = NO;
                                 // load up the Core Data database
                                 
                                 for (NSDictionary * photoDictionary in photos) {
                                     NSURL * url = [FlickrFetcher URLforInformationAboutPlace:photoDictionary[FLICKR_PHOTO_PLACE_ID]];
                                     application.networkActivityIndicatorVisible = YES;
-                                    NSURLRequest * request = [NSURLRequest requestWithURL:url];
-                                    NSURLSessionDownloadTask * task = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]] downloadTaskWithRequest:request
-                                     completionHandler:^(NSURL * localfile, NSURLResponse * response, NSError * error) {
-                                         if (!error) {
-                                             if ([request.URL isEqual:url]) {
-                                                 NSError * error;
-                                                 NSData * data = [NSData dataWithContentsOfURL:localfile];
-                                                 if (data) {
-                                                     NSDictionary * results = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                                                     if (results && !error) {
-                                                             [Photo photoWithFlickrInfo:photoDictionary andRegionInfo:results inManagedObjectContext:self.managedObjectContext];
-                                                     }
-                                                 }
-                                             }
-                                         }
-                                     }];
-                                    [task resume];
+                                    NSData * data = [NSData dataWithContentsOfURL:url];
+                                    if (data) {
+                                        NSDictionary * results = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                                        if (results && !error) {
+                                            [Photo photoWithFlickrInfo:photoDictionary andRegionInfo:results inManagedObjectContext:self.managedObjectContext];
+                                        }
+                                        else failure = YES;
+                                    }
+                                    else failure = YES;
                                 }
-                                 application.networkActivityIndicatorVisible = NO;
                                 
                                 
                                 if (completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
-                                    completionHandler(YES);
+                                    application.networkActivityIndicatorVisible = NO;
+                                    completionHandler(failure);
                                 });
+                            }
                         }
                     }
-                }
+                }];
             }
-            
-            if (failure && completionHandler) dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(NO);
-            });
         });
 	}
 	else {

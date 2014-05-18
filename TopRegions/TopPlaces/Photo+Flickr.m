@@ -29,6 +29,7 @@
     
 	if (error || !matches || ([matches count] > 1)) {
 		// handle error
+        NSLog(@"Error: %@", error);
 	}
 	else if (![matches count]) {
 		photo = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
@@ -43,7 +44,9 @@
 		NSString * photographerName = [photoDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
 		photo.whoTook = [Photographer photographerWithName:photographerName
                                     inManagedObjectContext:context];
-//		photo.region =  [Region regionWithPlaceID:photo.placeID andRegionInformation:regionInfo inManagedObjectContext:context];
+		photo.region =  [Region regionWithPlaceID:photo.placeID andRegionInformation:regionInfo inManagedObjectContext:context];
+        [photo.region addPhotographersObject:photo.whoTook];
+        [photo.region setNumPhotographers:[NSNumber numberWithInteger:photo.region.photographers.count]];
 	}
 	else {
 		photo = [matches firstObject];
