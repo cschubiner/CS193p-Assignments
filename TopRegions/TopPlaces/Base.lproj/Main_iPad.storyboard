@@ -255,6 +255,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Places" id="g4A-G0-4bb"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="1ZJ-S0-pEc">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh" destination="IMv-a4-NiS" eventType="valueChanged" id="oFQ-Cu-eMr"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <segue destination="lF8-rJ-nfU" kind="push" identifier="topRegionsToPhotos" id="bxT-ts-VqS"/>
                     </connections>

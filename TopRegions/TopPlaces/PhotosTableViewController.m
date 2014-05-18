@@ -114,6 +114,16 @@
 	return photoTitle;
 }
 
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [super controllerDidChangeContent:controller];
+	static int contentChangeCount = 0;
+	contentChangeCount++;
+	if (contentChangeCount % 3 == 0) { //updates the coredatatable "occasionally"
+		contentChangeCount = 0;
+		[self performFetch];
+	}
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
