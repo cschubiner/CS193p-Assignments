@@ -70,6 +70,15 @@ static const int NUM_DISPLAY_REGIONS = 50;
 	if (flickrdb.managedObjectContext) {
 		self.managedObjectContext = flickrdb.managedObjectContext;
 	}
+	else {
+		id observer = [[NSNotificationCenter defaultCenter] addObserverForName:FlickrDatabaseAvailable
+                                                                        object:flickrdb
+                                                                         queue:[NSOperationQueue mainQueue]
+                                                                    usingBlock:^(NSNotification * note) {
+                                                                        self.managedObjectContext = flickrdb.managedObjectContext;
+                                                                        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+                                                                    }];
+	}
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -89,10 +98,11 @@ static const int NUM_DISPLAY_REGIONS = 50;
 }
 
 
+
 #pragma mark - Table view data source
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self performSegueWithIdentifier:@"topRegionsToPhotos" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    [self performSegueWithIdentifier:@"topRegionsToPhotos" sender:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 #pragma mark - Navigation
@@ -101,7 +111,8 @@ static const int NUM_DISPLAY_REGIONS = 50;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	PhotosTableViewController * dest = [segue destinationViewController];
-	[dest setPhotos:[NSMutableArray arrayWithArray:((Region*)sender).photos.allObjects]];
+    [dest setRegion:sender];
+    [dest setManagedObjectContext:self.managedObjectContext];
 }
 
 

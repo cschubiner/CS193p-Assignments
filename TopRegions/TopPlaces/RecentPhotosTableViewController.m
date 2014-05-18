@@ -19,25 +19,11 @@
 static NSString * PHOTO_DEFAULT_KEY = @"photos";
 const static int MAX_PHOTOS = 20;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-	self = [super initWithStyle:style];
-	return self;
-}
 
-+(void)addRecentPhoto:(Photo *)photo {
-    
-}
 
 - (void)viewDidLoad
 {
 	self.navigationItem.title = @"Recent Photos";
-}
-
--(void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	self.photos = [[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:PHOTO_DEFAULT_KEY]];
-	[self.tableView reloadData];
 }
 
 @end

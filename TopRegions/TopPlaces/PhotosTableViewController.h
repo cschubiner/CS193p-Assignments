@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 CS193p. All rights reserved.
 //
 
+#import "CoreDataTableViewController.h"
 #import "Region.h"
 #import <UIKit/UIKit.h>
 
-@interface PhotosTableViewController : UITableViewController
+@interface PhotosTableViewController : CoreDataTableViewController
 
-@property (nonatomic, strong) NSMutableArray * photos;
+@property (nonatomic, strong) NSManagedObjectContext * managedObjectContext;
+@property (nonatomic, strong) Region * region;
 
 @end

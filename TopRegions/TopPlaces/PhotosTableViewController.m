@@ -20,38 +20,37 @@
 
 @implementation PhotosTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
-	self = [super initWithStyle:style];
-	if (self) {
-	}
-    
-	return self;
+	_managedObjectContext = managedObjectContext;
+	[self setupFetchedResultsController];
 }
 
+- (void)setupFetchedResultsController
+{
+	if (self.managedObjectContext) {
+		NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
+		request.predicate = [NSPredicate predicateWithFormat:@"region.name = %@", self.region.name];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)],
+                                    [NSSortDescriptor sortDescriptorWithKey:@"subtitle" ascending:YES selector:@selector(localizedStandardCompare:)]];
+        
+		self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                            managedObjectContext:self.managedObjectContext
+                                                                              sectionNameKeyPath:nil
+                                                                                       cacheName:nil];
+	}
+	else {
+		self.fetchedResultsController = nil;
+	}
+}
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-	return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return self.photos.count;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
-	Photo * photo;
-	//display photos in reverse order if we're viewing recent photos
-	if ([self isKindOfClass:[RecentPhotosTableViewController class]])
-		photo = [self.photos objectAtIndex:self.photos.count - indexPath.row - 1];
-	else
-		photo = [self.photos objectAtIndex:indexPath.row];
+	Photo * photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
 	bool hasTitle = photo.title && photo.title.length > 0;
 	bool hasDescription = photo.subtitle && photo.subtitle.length > 0;
@@ -70,13 +69,12 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	Photo * photo;
-	if ([self isKindOfClass:[RecentPhotosTableViewController class]])
-		photo = [self.photos objectAtIndex:self.photos.count - indexPath.row - 1];
-	else
-		photo = [self.photos objectAtIndex:indexPath.row];
+	Photo * photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-	[RecentPhotosTableViewController addRecentPhoto:photo];
+	[self.managedObjectContext performBlock:^{
+        photo.dateAccessed = [NSDate date];
+    }];
+    
     
 	ImageViewController * detailController = self.splitViewController.viewControllers[1];
 	if ([detailController isKindOfClass:[UINavigationController class]]) {
@@ -86,11 +84,6 @@
 	if (detailController) {
 		[detailController setTitle:[self getPhotoTitle:photo]];
 		[detailController setImageURL:[NSURL URLWithString:photo.imageURL]];
-		if ([self isKindOfClass:[RecentPhotosTableViewController class]]) {
-			[self.tableView moveRowAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-			[self.photos removeObject:photo];
-			[self.photos addObject:photo];
-		}
 	}
 	else
 		[self performSegueWithIdentifier:@"photosToImage" sender:photo];

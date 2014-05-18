@@ -9,7 +9,8 @@
 #import "PhotosTableViewController.h"
 #import <UIKit/UIKit.h>
 
-@interface RecentPhotosTableViewController : PhotosTableViewController
+@interface RecentPhotosTableViewController : CoreDataTableViewController
 
-+(void)addRecentPhoto:(Photo*)photo;
+@property (nonatomic, strong) NSManagedObjectContext * managedObjectContext;
+
 @end
